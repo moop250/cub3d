@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/27 14:56:22 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/07 18:13:42 by hlibine          ###   ########.fr       */
+/*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
+/*   Updated: 2024/10/07 18:15:08 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "extended_ft.h"
+#ifndef CUB3D_H
+# define CUB3D_H
 
-void	ft_lstadd_back(t_list **lst, t_list *new_lst)
-{
-	if (!*lst)
-		*lst = new_lst;
-	else
-		ft_lstlast(*lst)->next = new_lst;
-	return ;
-}
+# include "../libs/extended_ft/srcs/extended_ft.h"
+
+#endif
