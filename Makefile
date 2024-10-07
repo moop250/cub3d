@@ -6,7 +6,7 @@
 #    By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 16:51:54 by hlibine           #+#    #+#              #
-#    Updated: 2024/10/07 16:57:46 by hlibine          ###   ########.fr        #
+#    Updated: 2024/10/07 17:42:38 by hlibine          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ FLAGS		= -Wall -Wextra -Werror
 RM			= rm -rf
 
 OBJDIR		= .obj
+SRCDIR		= srcs
 
 # Minilibx stuff
 MINILIBX_LINUX_PATH = libs/minilibx-linux/
@@ -49,23 +50,23 @@ RESETNL		= \033[0m\n
 
 FILES		= main \
 
-SRCS		= $(addprefix srcs/, $(FILES:=.c))
+SRCS		= $(addprefix $(SRCDIR)/, $(FILES:=.c))
 OBJS		= $(addprefix $(OBJDIR)/, $(FILES:=.o))
 
 # External libs
 MINILIBX := $(MINILIBX_PATH)$(MINILIBX)
 
 EXTENDED_FT = libs/extended_ft/
-EXFT_LIB = $(EXTENDED_FT:%=%libft.a)
+EXFT_LIB = $(EXTENDED_FT:%=%extended_ft.a)
 
 # Compilation
-$(NAME): $(SRCS) $(HEADER) $(OBJS) $(EXFT_LIB) $(MINILIBX)
+$(NAME): $(SRCS) $(OBJS) $(EXFT_LIB) $(MINILIBX)
 	@printf "$(ORANGE)Compiling $(NAME)$(RESET)"
 	@ $(CC) $(OBJS) $(EXFT_LIB) $(MINILIBX) -o $(NAME)
 	@printf "\r\033[K"
 	@printf "$(GREEN)$(NAME) compiled$(RESETNL)"
 
-$(OBJDIR)/%.o: srcs/%.c $(HEADER)
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(dir $@)
 	@printf "$(ORANGE)Compiling $@...$(RESET)"
 	@$(CC) $(FLAGS) -c $< -o $@

@@ -1,99 +1,104 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hlibine <hlibine@student.42.fr>            +#+  +:+       +#+         #
+#    By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/18 15:13:08 by hlibine           #+#    #+#              #
-#    Updated: 2024/07/17 17:12:37 by hlibine          ###   ########.fr        #
+#    Updated: 2024/10/07 17:42:45 by hlibine          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS = -D GARBAGE_COLLECTER=0
 
-NAME = libft.a
+NAME = extended_ft.a
+
+OBJDIR		= .obj
+SRCDIR		= srcs
 
 CC = gcc
 CFLAGS += -Wall -Wextra -Werror
 AR = ar rcs
-RM = rm -f
+RM = rm -rf
 
-FILES = srcs/ft_atoi \
-			srcs/ft_bzero \
-			srcs/ft_calloc \
-			srcs/ft_isalnum \
-			srcs/ft_isalpha \
-			srcs/ft_isascii \
-			srcs/ft_isdigit \
-			srcs/ft_isprint \
-			srcs/ft_itoa \
-			srcs/ft_memchr \
-			srcs/ft_memcmp \
-			srcs/ft_memcpy \
-			srcs/ft_memmove \
-			srcs/ft_memset \
-			srcs/ft_putchar_fd \
-			srcs/ft_putendl_fd \
-			srcs/ft_putnbr_fd \
-			srcs/ft_putstr_fd \
-			srcs/ft_split \
-			srcs/ft_strchr \
-			srcs/ft_strcmp \
-			srcs/ft_strdup \
-			srcs/ft_striteri \
-			srcs/ft_strjoin \
-			srcs/ft_strlcat \
-			srcs/ft_strlcpy \
-			srcs/ft_strlen \
-			srcs/ft_strmapi \
-			srcs/ft_strncmp \
-			srcs/ft_strnstr \
-			srcs/ft_strrchr \
-			srcs/ft_strtrim \
-			srcs/ft_substr \
-			srcs/ft_tolower \
-			srcs/ft_toupper \
-			srcs/ft_realloc \
-			srcs/ft_3dfree \
-			srcs/ft_2dfree \
-			srcs/garbage_collecter \
-			srcs/garbage_collector_utils \
-			srcs/ft_lstnew \
-			srcs/ft_lstadd_front \
-			srcs/ft_lstsize \
-			srcs/ft_lstlast \
-			srcs/ft_lstadd_back \
-			srcs/ft_lstdelone \
-			srcs/ft_lstclear \
-			srcs/ft_lstiter \
-			srcs/get_next_line/get_next_line \
-			srcs/ft_printf/ft_printf_utils \
-			srcs/ft_printf/ft_printf \
-			srcs/ft_isnumeric \
+FILES = ft_atoi \
+			ft_bzero \
+			ft_calloc \
+			ft_isalnum \
+			ft_isalpha \
+			ft_isascii \
+			ft_isdigit \
+			ft_isprint \
+			ft_itoa \
+			ft_memchr \
+			ft_memcmp \
+			ft_memcpy \
+			ft_memmove \
+			ft_memset \
+			ft_putchar_fd \
+			ft_putendl_fd \
+			ft_putnbr_fd \
+			ft_putstr_fd \
+			ft_split \
+			ft_strchr \
+			ft_strcmp \
+			ft_strdup \
+			ft_striteri \
+			ft_strjoin \
+			ft_strlcat \
+			ft_strlcpy \
+			ft_strlen \
+			ft_strmapi \
+			ft_strncmp \
+			ft_strnstr \
+			ft_strrchr \
+			ft_strtrim \
+			ft_substr \
+			ft_tolower \
+			ft_toupper \
+			ft_realloc \
+			ft_3dfree \
+			ft_2dfree \
+			garbage_collecter \
+			garbage_collector_utils \
+			ft_lstnew \
+			ft_lstadd_front \
+			ft_lstsize \
+			ft_lstlast \
+			ft_lstadd_back \
+			ft_lstdelone \
+			ft_lstclear \
+			ft_lstiter \
+			get_next_line/get_next_line \
+			ft_printf/ft_printf_utils \
+			ft_printf/ft_printf \
+			ft_isnumeric \
 
-SRCS_DIR = ./
-SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))
 
-OBJS_DIR = ./
-OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
+SRCS = $(addprefix $(SRCDIR)/, $(FILES:=.c))
+OBJS = $(addprefix $(OBJDIR)/, $(FILES:=.o))
 
-.c.o:
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	@mkdir -p $(dir $@)
 	@printf "\033[0;32mCompiling $<...\033[0m\r"
 	@$(CC) $(CFLAGS) -c -o $@ $<
 	@printf "\033[K"
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(SRCS)
 	@$(AR) $@ $^
 	@echo "\033[0;32mextended_ft compiled\033[0m"
 
 all: $(NAME)
 
 clean:
-	@$(RM) $(OBJS)
+	@$(RM) $(OBJDIR)
 	@echo "\033[0;32mextended_ft cleaned\033[0m"
 
-fclean: clean
+s_clean:
+	@$(RM) $(OBJDIR)
+
+fclean: s_clean
 	@$(RM) $(NAME)
 	@echo "\033[0;32mextended_ft fully cleaned\033[0m"
 
