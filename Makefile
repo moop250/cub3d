@@ -6,7 +6,7 @@
 #    By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 16:51:54 by hlibine           #+#    #+#              #
-#    Updated: 2024/10/07 16:44:52 by hlibine          ###   ########.fr        #
+#    Updated: 2024/10/07 16:57:46 by hlibine          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ RESETNL		= \033[0m\n
 
 FILES		= main \
 
-SRCS		= $(FILES:=.c)
+SRCS		= $(addprefix srcs/, $(FILES:=.c))
 OBJS		= $(addprefix $(OBJDIR)/, $(FILES:=.o))
 
 # External libs
@@ -65,7 +65,7 @@ $(NAME): $(SRCS) $(HEADER) $(OBJS) $(EXFT_LIB) $(MINILIBX)
 	@printf "\r\033[K"
 	@printf "$(GREEN)$(NAME) compiled$(RESETNL)"
 
-$(OBJDIR)/%.o: %.cpp $(HEADER)
+$(OBJDIR)/%.o: srcs/%.c $(HEADER)
 	@mkdir -p $(dir $@)
 	@printf "$(ORANGE)Compiling $@...$(RESET)"
 	@$(CC) $(FLAGS) -c $< -o $@
