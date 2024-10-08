@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/08 15:15:30 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:44:25 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,17 @@
 # ifndef __APPLE__
 #  include "../libs/minilibx-linux/mlx.h"
 # endif
+
+typedef struct s_vector
+{
+	double	x;
+	double	y;
+}	t_vector;
+
+typedef struct s_player
+{
+	t_vector	pos;
+	t_vector	dir;
+}	t_player;
 
 #endif
