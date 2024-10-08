@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 16:51:54 by hlibine           #+#    #+#              #
-#    Updated: 2024/10/07 17:42:38 by hlibine          ###   ########.fr        #
+#    Updated: 2024/10/08 14:50:52 by dcaro-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,8 +56,8 @@ OBJS		= $(addprefix $(OBJDIR)/, $(FILES:=.o))
 # External libs
 MINILIBX := $(MINILIBX_PATH)$(MINILIBX)
 
-EXTENDED_FT = libs/extended_ft/
-EXFT_LIB = $(EXTENDED_FT:%=%extended_ft.a)
+LIBFT_DIR = libs/libft/
+EXFT_LIB = $(LIBFT_DIR:%=%libft.a)
 
 # Compilation
 $(NAME): $(SRCS) $(OBJS) $(EXFT_LIB) $(MINILIBX)
@@ -73,11 +73,11 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@printf "\r\033[K"
 	@printf "\033[0;32m$(GREEN)$@ compiled!$(RESETNL)"
 
-$(EXFT_LIB): $(EXTENDED_FT)Makefile
-	@make -C $(EXTENDED_FT)
+$(EXFT_LIB): $(LIBFT_DIR)Makefile
+	@make -C $(LIBFT_DIR)
 
 $(MINILIBX): $(MINILIBX_PATH)Makefile
-	@make -s all -C $(MINILIBX_PATH) 
+	@make -s all -C $(MINILIBX_PATH)
 
 # Rules
 all: $(NAME)
@@ -85,14 +85,14 @@ all: $(NAME)
 clean:
 	@printf "$(ORANGE)Cleaning up...$(RESET)"
 	@$(RM) $(OBJDIR) $(OBJS)
-	@make -s fclean -C $(EXTENDED_FT)
+	@make -s fclean -C $(LIBFT_DIR)
 	@make -s clean -C $(MINILIBX_PATH)
 	@printf "\r\033[K"
 	@printf "$(GREEN)Clean up successful$(RESETNL)"
 
 s_clean:
 	@$(RM) $(NAME) $(OBJDIR) $(OBJS)
-	@make -s fclean -C $(EXTENDED_FT)
+	@make -s fclean -C $(LIBFT_DIR)
 	@make -s clean -C $(MINILIBX_PATH)
 
 fclean: s_clean
