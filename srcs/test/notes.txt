@@ -1,0 +1,47 @@
+Allowed functions
+
+open, close, read, write, printf, malloc, free, perror, strerror, exit, gettimeofday
+
+• All functions of the math library (-lm man man 3 math)
+
+sin(X)
+cos(X)
+tan(X)
+asin(X)
+acos(X)
+atan(X)
+atan2(Y, X)
+sinh(X)
+cosh(X)
+tanh(X)
+asinh(X)
+acosh(X)
+atanh(X)
+exp(X)
+log(X)
+log10(X)
+pow(X, Y)
+sqrt(X)
+
+Types:
+X = Y = number()
+
+A collection of math functions which return floats. Arguments are numbers.
+
+erf(X) -> float()
+
+Types:
+X = number()
+
+Returns the error function of X, where
+
+erf(X) = 2/sqrt(pi)*integral from 0 to X of exp(-t*t) dt.
+erfc(X) -> float()
+
+Types:
+X = number()
+
+erfc(X) returns 1.0 - erf(X), computed by methods that avoid cancellation for large X.
+
+
+• All functions of the MinilibX
