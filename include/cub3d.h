@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/08 16:44:25 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:51:20 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../libs/libft/include/libft.h"
 # include <math.h>
 # include <stdbool.h>
+# include <stdio.h>
 
 # ifdef __APPLE__
 #  include "../libs/minilibx_opengl/mlx.h"
@@ -36,5 +37,22 @@ typedef struct s_player
 	t_vector	pos;
 	t_vector	dir;
 }	t_player;
+
+typedef struct s_mapdata
+{
+	char		**map;
+	t_player	player;
+}	t_mapdata;
+
+typedef struct s_textures
+{
+
+}	t_textures;
+
+typedef struct s_game
+{
+	t_mapdata	mapdata;
+	t_textures	textures;
+}	t_game;
 
 #endif
