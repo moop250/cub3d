@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcaro-ro <dcaro-ro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:45:34 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/06/10 13:27:06 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/08 17:15:17 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-/* Adds the node 'new' at the beginning of the list.
+/* Adds the node 'new_lst' at the beginning of the list.
 
 lst: The address of a pointer to the first link of a list.
-new: The address of a pointer to the node to be added to the list.
+new_lst: The address of a pointer to the node to be added to the list.
 */
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+void	ft_lstadd_front(t_list **lst, t_list *new_lst)
 {
-	new->next = *lst;
-	*lst = new;
+	new_lst->next = *lst;
+	*lst = new_lst;
 }
