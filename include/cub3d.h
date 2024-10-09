@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/08 17:51:20 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/09 14:37:48 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <math.h>
 # include <stdbool.h>
 # include <stdio.h>
+# include <stdlib.h>
 
 # ifdef __APPLE__
 #  include "../libs/minilibx_opengl/mlx.h"
@@ -51,8 +52,11 @@ typedef struct s_textures
 
 typedef struct s_game
 {
-	t_mapdata	mapdata;
+	t_mapdata	*mapdata;
 	t_textures	textures;
 }	t_game;
+
+
+void	*parsing(t_game *game, char *lvl_path);
 
 #endif
