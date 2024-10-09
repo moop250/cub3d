@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:45:59 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/10 00:28:35 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/10 00:45:12 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static int	base_map_check(const char *map_path)
 	if (file_len < suffix_len || ft_strncmp(map_path
 			+ (file_len - suffix_len), FILE_SUFFIX, suffix_len))
 		return (ft_printf("Error: Invalid file extension\n"), fd);
-	else if (fd = open(map_path, O_RDONLY), fd < 0)
+	fd = open(map_path, O_RDONLY);
+	if (fd < 0)
 		ft_printf("Error: Could not open map file\n");
 	return (fd);
 }
@@ -39,8 +40,8 @@ static char	**parser_loop(int fd, char *line, char **map, int i)
 
 	while (line)
 	{
-		tmp = NULL;
-		if (tmp = ft_strtrim(line, " "), !tmp)
+		tmp = ft_strtrim(line, " ");
+		if (!tmp)
 			ft_error("malloc failed");
 		else if (tmp[0] != '1')
 		{
@@ -49,14 +50,14 @@ static char	**parser_loop(int fd, char *line, char **map, int i)
 			continue ;
 		}
 		ft_safe_free(1, tmp);
-		if (map = ft_realloc(map, (i + 1) * sizeof(char *),
-				i * sizeof(char *)), !map)
+		map = ft_memresize(map, i * sizeof(char *), (i + 1) * sizeof(char *));
+		if (!map)
 			ft_error("realloc failed");
 		map[i++] = line;
 		line = get_next_line(fd);
 	}
-	if (map = ft_realloc(map, (i + 1) * sizeof(char *),
-			i * sizeof(char *)), !map)
+	map = ft_memresize(map, i * sizeof(char *), (i + 1) * sizeof(char *));
+	if (!map)
 		ft_error("realloc failed");
 	map[i] = NULL;
 	return (map);
@@ -73,7 +74,8 @@ void	parse_map(t_game *game, const char *map_path)
 	char		**map;
 
 	i = 0;
-	if (fd = base_map_check(map_path), fd < 0)
+	fd = base_map_check(map_path);
+	if (fd < 0)
 		exit(1);
 	game->mapdata = malloc(sizeof(t_mapdata));
 	map = NULL;
