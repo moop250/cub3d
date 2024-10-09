@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:45:59 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/09 20:24:03 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/10 00:28:35 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,18 @@ static int	base_map_check(const char *map_path)
 	fd = 0;
 	file_len = ft_strlen(map_path);
 	suffix_len = ft_strlen(FILE_SUFFIX);
-	if (file_len < suffix_len || ft_strncmp(map_path + (file_len - suffix_len), FILE_SUFFIX, suffix_len))
+	if (file_len < suffix_len || ft_strncmp(map_path
+			+ (file_len - suffix_len), FILE_SUFFIX, suffix_len))
 		return (ft_printf("Error: Invalid file extension\n"), fd);
 	else if (fd = open(map_path, O_RDONLY), fd < 0)
 		ft_printf("Error: Could not open map file\n");
 	return (fd);
 }
 
-void	parseMap(t_game *game, const char *map_path)
+static char	**parser_loop(int fd, char *line, char **map, int i)
 {
-	int			fd;
-	int			i;
-	char		*line;
-	char 		**map;
-	char		*tmp;
+	char	*tmp;
 
-	i = 0;
-	if (fd = base_map_check(map_path), fd < 0)
-		exit(1);
-	game->mapdata = malloc(sizeof(t_mapdata));
-	map = NULL;
-	line = get_next_line(fd);
 	while (line)
 	{
 		tmp = NULL;
@@ -55,17 +46,39 @@ void	parseMap(t_game *game, const char *map_path)
 		{
 			ft_safe_free(2, tmp, line);
 			line = get_next_line(fd);
-			continue;
+			continue ;
 		}
 		ft_safe_free(1, tmp);
-		if (map = ft_realloc(map, (i + 1) * sizeof(char *), i * sizeof(char *)), !map)
+		if (map = ft_realloc(map, (i + 1) * sizeof(char *),
+				i * sizeof(char *)), !map)
 			ft_error("realloc failed");
 		map[i++] = line;
 		line = get_next_line(fd);
 	}
-	if (map = ft_realloc(map, (i + 1) * sizeof(char *), i * sizeof(char *)), !map)
+	if (map = ft_realloc(map, (i + 1) * sizeof(char *),
+			i * sizeof(char *)), !map)
 		ft_error("realloc failed");
 	map[i] = NULL;
+	return (map);
+}
+
+/*
+	Parse the map file and store it in the game structure
+*/
+void	parse_map(t_game *game, const char *map_path)
+{
+	int			fd;
+	int			i;
+	char		*line;
+	char		**map;
+
+	i = 0;
+	if (fd = base_map_check(map_path), fd < 0)
+		exit(1);
+	game->mapdata = malloc(sizeof(t_mapdata));
+	map = NULL;
+	line = get_next_line(fd);
+	map = parser_loop(fd, line, map, i);
 	close(fd);
 	game->mapdata->map = map;
 }
