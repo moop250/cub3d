@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:38:56 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/09 18:14:32 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/09 20:16:33 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,7 @@
 
 static void	freeall(t_game *game)
 {
-	char	**temp;
-
-	temp = game->mapdata->map;
-	while (*temp)
-		ft_safe_free(1, *temp++);
+	ft_free_split(game->mapdata->map);
 	ft_safe_free(1, game->mapdata);
 	ft_safe_free(1, game);
 }

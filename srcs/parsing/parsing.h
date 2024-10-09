@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:44:03 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/09 18:32:43 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/09 19:00:25 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #  define FILE_SUFFIX ".cub"
 # endif
 
-void	parse_map(t_game *game, const char *lvlPath);
+void	parseMap(t_game *game, const char *lvlPath);
 void	parse_textures(t_game *game);
 
 #endif

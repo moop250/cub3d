@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:45:59 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/09 18:53:33 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/09 20:24:03 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,23 @@
 	Check if the file extension is correct and if the file can be opened
 	Returns the file descriptor if everything is correct, otherwise returns -1
 */
-static int	baseMapCheck(const char *lvlPath)
+static int	base_map_check(const char *map_path)
 {
 	size_t	file_len;	
 	size_t	suffix_len;
 	int		fd;
 
 	fd = 0;
-	file_len = ft_strlen(lvlPath);
+	file_len = ft_strlen(map_path);
 	suffix_len = ft_strlen(FILE_SUFFIX);
-	if (file_len < suffix_len || ft_strncmp(lvlPath + (file_len - suffix_len), FILE_SUFFIX, suffix_len))
+	if (file_len < suffix_len || ft_strncmp(map_path + (file_len - suffix_len), FILE_SUFFIX, suffix_len))
 		return (ft_printf("Error: Invalid file extension\n"), fd);
-	else if (fd = open(lvlPath, O_RDONLY), fd < 0)
+	else if (fd = open(map_path, O_RDONLY), fd < 0)
 		ft_printf("Error: Could not open map file\n");
 	return (fd);
 }
 
-void	parse_map(t_game *game, const char *lvlPath)
+void	parseMap(t_game *game, const char *map_path)
 {
 	int			fd;
 	int			i;
@@ -41,7 +41,7 @@ void	parse_map(t_game *game, const char *lvlPath)
 	char		*tmp;
 
 	i = 0;
-	if (fd = baseMapCheck(lvlPath), fd < 0)
+	if (fd = base_map_check(map_path), fd < 0)
 		exit(1);
 	game->mapdata = malloc(sizeof(t_mapdata));
 	map = NULL;
@@ -53,7 +53,7 @@ void	parse_map(t_game *game, const char *lvlPath)
 			ft_error("malloc failed");
 		else if (tmp[0] != '1')
 		{
-			ft_safe_free(1, tmp, line);
+			ft_safe_free(2, tmp, line);
 			line = get_next_line(fd);
 			continue;
 		}
