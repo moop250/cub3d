@@ -6,16 +6,35 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:38:56 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/09 20:16:33 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/10 16:07:12 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static void	freeall(t_game *game)
+static t_game	*get_game(void)
 {
-	ft_free_split(game->mapdata->map);
-	ft_safe_free(1, game->mapdata);
+	static t_game	*game;
+
+	if (game)
+		return (game);
+	game = malloc(sizeof(t_game));
+	if (!game)
+		exit(1);
+	game->mapdata = NULL;
+	return (game);
+}
+
+void	freeall(t_game *game)
+{
+	if (!game)
+		game = get_game();
+	if (game->mapdata)
+	{
+		if (game->mapdata->map)
+			ft_free_split(game->mapdata->map);
+		ft_safe_free(1, game->mapdata);
+	}
 	ft_safe_free(1, game);
 }
 
@@ -28,9 +47,7 @@ int	main(int ac, char **av)
 		ft_printf("Error: Invalid number of arguments\n");
 		exit(1);
 	}
-	if (game = malloc(sizeof(t_game)), !game)
-		exit(1);
-	ft_printf("hello world\n");
+	game = get_game();
 	parsing(game, av[1]);
 	freeall(game);
 	return (0);
