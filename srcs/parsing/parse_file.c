@@ -6,13 +6,35 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:06:00 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/10 15:54:46 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/10 18:29:43 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-static bool	check_map_line(char *line)
+/*
+	Check if the file extension is correct and if the file can be opened
+	Returns the file descriptor if everything is correct, otherwise returns -1
+*/
+static int	base_file_check(const char *file_path)
+{
+	size_t	file_len;	
+	size_t	suffix_len;
+	int		fd;
+
+	fd = 0;
+	file_len = ft_strlen(file_path);
+	suffix_len = ft_strlen(FILE_SUFFIX);
+	if (file_len <= suffix_len || ft_strncmp(file_path
+			+ (file_len - suffix_len), FILE_SUFFIX, suffix_len))
+		ft_error("Invalid file extension");
+	fd = open(file_path, O_RDONLY);
+	if (fd < 0)
+		ft_error("Could not open map file");
+	return (fd);
+}
+
+bool	check_map_line(char *line)
 {
 	char	*tmp;
 
@@ -21,10 +43,10 @@ static bool	check_map_line(char *line)
 		ft_error("malloc failed");
 	if (tmp[0] != '1' && tmp[ft_strlen(tmp) - 1] != '1')
 	{
-		ft_safe_free(1, tmp);
+		ft_free(tmp);
 		return (false);
 	}
-	ft_safe_free(1, tmp);
+	ft_free(tmp);
 	return (true);
 }
 
@@ -79,6 +101,7 @@ static char	**file_parser_loop(int fd, char *line, char **file, int i)
 		line = get_next_line(fd);
 	}
 	file[i] = NULL;
+	close(fd);
 	return (file);
 }
 
@@ -90,7 +113,7 @@ char	**file_parser(t_game *game, char *file_path)
 	int		i;
 
 	i = 0;
-	fd = open(file_path, O_RDONLY);
+	fd = base_file_check(file_path);
 	file = NULL;
 	line = get_next_line(fd);
 	file = file_parser_loop(fd, line, file, i);
@@ -99,6 +122,6 @@ char	**file_parser(t_game *game, char *file_path)
 		ft_free_split(file);
 		ft_error("Invalid file content");
 	}
-	parse_map(game, file_path);
+	parse_map(game, file);
 	return (file);
 }

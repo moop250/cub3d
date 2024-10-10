@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:03:09 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/10 15:32:36 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/10 18:34:26 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ void	*parsing(t_game *game, char *lvl_path)
 	i = 0;
 	while (file_content[i])
 		ft_printf("%s", file_content[i++]);
+	ft_printf("\n");
+	ft_printf("Map \"%s\" loaded\n", lvl_path);
+	i = 0;
+	while (game->mapdata->map[i])
+		ft_printf("%s", game->mapdata->map[i++]);
 	ft_printf("\n");
 	ft_free_split(file_content);
 	return (game);

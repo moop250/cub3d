@@ -6,79 +6,47 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:45:59 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/10 14:43:27 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/10 18:33:25 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-/*
-	Check if the file extension is correct and if the file can be opened
-	Returns the file descriptor if everything is correct, otherwise returns -1
-*/
-static int	base_map_check(const char *map_path)
+static char	**import_map(char **file)
 {
-	size_t	file_len;	
-	size_t	suffix_len;
-	int		fd;
+	char	**map;
+	int		i;
+	int		j;
+	int		k;
 
-	fd = 0;
-	file_len = ft_strlen(map_path);
-	suffix_len = ft_strlen(FILE_SUFFIX);
-	if (file_len < suffix_len || ft_strncmp(map_path
-			+ (file_len - suffix_len), FILE_SUFFIX, suffix_len))
-		return (ft_printf("Error: Invalid file extension\n"), fd);
-	fd = open(map_path, O_RDONLY);
-	if (fd < 0)
-		ft_printf("Error: Could not open map file\n");
-	return (fd);
-}
-
-static char	**parser_loop(int fd, char *line, char **map, int i)
-{
-	char	*tmp;
-
-	while (line)
+	i = 0;
+	while (file[i] && !check_map_line(file[i]))
+		++i;
+	j = i;
+	while (file[j] && check_map_line(file[j]))
+		++j;
+	map = malloc((j - i + 1) * sizeof(char *));
+	if (!map)
+		ft_error("malloc failed");
+	k = i;
+	while (i < j)
 	{
-		tmp = ft_strtrim(line, " ");
-		if (!tmp)
-			ft_error("malloc failed");
-		else if (tmp[0] != '1')
-		{
-			ft_safe_free(2, tmp, line);
-			line = get_next_line(fd);
-			continue ;
-		}
-		ft_safe_free(1, tmp);
-		map = ft_memresize(map, (i + 1) * sizeof(char *),
-				(i + 2) * sizeof(char *));
-		if (!map)
-			ft_error("realloc failed");
-		map[i++] = line;
-		line = get_next_line(fd);
+		map[i - k] = ft_strdup(file[i]);
+		++i;
 	}
-	map[i] = NULL;
+	map[i - k] = NULL;
 	return (map);
 }
 
 /*
 	Parse the map file and store it in the game structure
 */
-void	parse_map(t_game *game, const char *map_path)
+void	parse_map(t_game *game, char **file)
 {
-	int			fd;
-	int			i;
-	char		*line;
 	char		**map;
 
-	i = 0;
-	fd = base_map_check(map_path);
-	if (fd < 0)
-		exit(1);
 	game->mapdata = malloc(sizeof(t_mapdata));
 	map = NULL;
-	line = get_next_line(fd);
-	map = parser_loop(fd, line, map, i);
-	close(fd);
+	map = import_map(file);
 	game->mapdata->map = map;
 }
