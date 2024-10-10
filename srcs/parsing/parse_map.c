@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:45:59 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/10 00:45:12 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/10 14:43:27 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,13 @@ static char	**parser_loop(int fd, char *line, char **map, int i)
 			continue ;
 		}
 		ft_safe_free(1, tmp);
-		map = ft_memresize(map, i * sizeof(char *), (i + 1) * sizeof(char *));
+		map = ft_memresize(map, (i + 1) * sizeof(char *),
+				(i + 2) * sizeof(char *));
 		if (!map)
 			ft_error("realloc failed");
 		map[i++] = line;
 		line = get_next_line(fd);
 	}
-	map = ft_memresize(map, i * sizeof(char *), (i + 1) * sizeof(char *));
-	if (!map)
-		ft_error("realloc failed");
 	map[i] = NULL;
 	return (map);
 }
