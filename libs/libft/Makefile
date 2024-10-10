@@ -6,7 +6,7 @@
 #    By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/02 14:37:14 by dcaro-ro          #+#    #+#              #
-#    Updated: 2024/10/08 14:08:07 by dcaro-ro         ###   ########.fr        #
+#    Updated: 2024/10/10 15:26:33 by dcaro-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRCS		=		$(CTYPE_DIR)/ft_isalpha.c\
 					$(MATH_DIR)/ft_min.c\
 					$(MEM_DIR)/ft_bzero.c\
 					$(MEM_DIR)/ft_calloc.c\
+					$(MEM_DIR)/ft_free.c\
 					$(MEM_DIR)/ft_memchr.c\
 					$(MEM_DIR)/ft_memcmp.c\
 					$(MEM_DIR)/ft_memcpy.c\
@@ -55,7 +56,9 @@ SRCS		=		$(CTYPE_DIR)/ft_isalpha.c\
 					$(MEM_DIR)/ft_memset.c\
 					$(MEM_DIR)/ft_realloc.c\
 					$(MEM_DIR)/ft_safe_free.c\
-					$(MEM_DIR)/ft_free.c\
+					$(MEM_DIR)/ft_safe_malloc.c\
+					$(MEM_DIR)/ft_safe_memresize.c\
+					$(MEM_DIR)/ft_safe_realloc.c\
 					$(STRING_DIR)/ft_strlen.c\
 					$(STRING_DIR)/ft_strclen.c\
 					$(STRING_DIR)/ft_strcpy.c\
