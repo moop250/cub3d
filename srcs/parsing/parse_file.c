@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:06:00 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/11 12:38:51 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/11 13:26:41 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	base_file_check(const char *file_path)
 
 	fd = 0;
 	file_len = ft_strlen(file_path);
-	suffix_len = ft_strlen(	FILE_SUFFIX);
+	suffix_len = ft_strlen(FILE_SUFFIX);
 	if (file_len <= suffix_len || ft_strncmp(file_path
 			+ (file_len - suffix_len), FILE_SUFFIX, suffix_len))
 		ft_error("Invalid file extension");
@@ -77,12 +77,13 @@ static bool	file_check(char **file)
 	return (true);
 }
 
-static char	**file_parser_loop(int fd, char *line, char **file, int i)
+static char	**file_parser_loop(int fd, char *line, char **file, int i[2])
 {
 	char	*tmp;
 
 	while (line)
 	{
+		i[1] = 0;
 		tmp = ft_strtrim(line, " ");
 		if (!tmp)
 			ft_error("malloc failed");
@@ -92,16 +93,16 @@ static char	**file_parser_loop(int fd, char *line, char **file, int i)
 			line = get_next_line(fd);
 			continue ;
 		}
-		ft_safe_free(1, tmp);
-		file = ft_memresize(file, (i + 1) * sizeof(char *),
-				(i + 2) * sizeof(char *));
-		if (!file)
-			ft_error("realloc failed");
-		file[i++] = line;
+		ft_free(tmp);
+		file = ft_safe_memresize(file, (i[0] + 1) * sizeof(char *),
+				(i[0] + 2) * sizeof(char *), NULL);
+		file[i[0]++] = line;
+		while (file[i[0] - 1][i[1]] && file[i[0] - 1][i[1]] != '\n')
+			++i[1];
+		file[i[0] - 1][i[1]] = '\0';
 		line = get_next_line(fd);
 	}
-	file[i] = NULL;
-	close(fd);
+	file[i[0]] = NULL;
 	return (file);
 }
 
@@ -110,13 +111,14 @@ char	**file_parser(char *file_path)
 	int		fd;
 	char	**file;
 	char	*line;
-	int		i;
+	int		i[2];
 
-	i = 0;
+	i[0] = 0;
 	fd = base_file_check(file_path);
 	file = NULL;
 	line = get_next_line(fd);
 	file = file_parser_loop(fd, line, file, i);
+	close(fd);
 	if (!file_check(file))
 	{
 		ft_free_split(file);
