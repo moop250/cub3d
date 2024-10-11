@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:44:03 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/10 18:29:22 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/11 12:37:33 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@
 # include "../../include/cub3d.h"
 # include <fcntl.h>
 
+# define WHITESPACE " \n\t"
+# define MAP_CHARS "01NSEW"
+
 # ifndef FILE_SUFFIX
 #  define FILE_SUFFIX ".cub"
 # endif
 
-char	**file_parser(t_game *game, char *file_path);
+char	**file_parser(char *file_path);
 void	parse_map(t_game *game, char **file);
 void	parse_textures(t_game *game);
 bool	check_map_line(char *line);

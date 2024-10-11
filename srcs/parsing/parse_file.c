@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:06:00 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/10 18:29:43 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/11 12:38:51 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	base_file_check(const char *file_path)
 
 	fd = 0;
 	file_len = ft_strlen(file_path);
-	suffix_len = ft_strlen(FILE_SUFFIX);
+	suffix_len = ft_strlen(	FILE_SUFFIX);
 	if (file_len <= suffix_len || ft_strncmp(file_path
 			+ (file_len - suffix_len), FILE_SUFFIX, suffix_len))
 		ft_error("Invalid file extension");
@@ -105,7 +105,7 @@ static char	**file_parser_loop(int fd, char *line, char **file, int i)
 	return (file);
 }
 
-char	**file_parser(t_game *game, char *file_path)
+char	**file_parser(char *file_path)
 {
 	int		fd;
 	char	**file;
@@ -122,6 +122,5 @@ char	**file_parser(t_game *game, char *file_path)
 		ft_free_split(file);
 		ft_error("Invalid file content");
 	}
-	parse_map(game, file);
 	return (file);
 }
