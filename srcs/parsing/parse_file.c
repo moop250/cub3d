@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:06:00 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/11 13:26:41 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/11 19:15:05 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,16 @@ bool	check_map_line(char *line)
 {
 	char	*tmp;
 
+	if (!line || line[0] == '\n')
+		return (false);
 	tmp = ft_strtrim(line, " ");
 	if (!tmp)
 		ft_error("malloc failed");
+	if (!tmp[0])
+	{
+		ft_free(tmp);
+		return (false);
+	}
 	if (tmp[0] != '1' && tmp[ft_strlen(tmp) - 1] != '1')
 	{
 		ft_free(tmp);
@@ -57,7 +64,9 @@ static bool	file_check(char **file)
 	i = 0;
 	while (file[i])
 	{
-		if (file[i][0] == 'N' && file[i][1] == 'O' && file[i][2] == ' ')
+		if (!file[i][0] || file[i][0] == '\n')
+			return (false);
+		else if (file[i][0] == 'N' && file[i][1] == 'O' && file[i][2] == ' ')
 			++i;
 		else if (file[i][0] == 'S' && file[i][1] == 'O' && file[i][2] == ' ')
 			++i;
@@ -79,21 +88,20 @@ static bool	file_check(char **file)
 
 static char	**file_parser_loop(int fd, char *line, char **file, int i[2])
 {
-	char	*tmp;
+	bool	found_map;
 
+	found_map = false;
 	while (line)
 	{
 		i[1] = 0;
-		tmp = ft_strtrim(line, " ");
-		if (!tmp)
-			ft_error("malloc failed");
-		else if (!tmp[0] || tmp[0] == '\n')
+		if ((!line[0] || line[0] == '\n') && !found_map)
 		{
-			ft_safe_free(2, tmp, line);
+			ft_free(line);
 			line = get_next_line(fd);
 			continue ;
 		}
-		ft_free(tmp);
+		if (check_map_line(line) && !found_map)
+			found_map = true;
 		file = ft_safe_memresize(file, (i[0] + 1) * sizeof(char *),
 				(i[0] + 2) * sizeof(char *), NULL);
 		file[i[0]++] = line;
