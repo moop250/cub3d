@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memresize.c                                     :+:      :+:    :+:   */
+/*   ft_safe_memresize.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 11:58:27 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/10/10 15:34:20 by dcaro-ro         ###   ########.fr       */
+/*   Created: 2024/10/10 15:17:27 by dcaro-ro          #+#    #+#             */
+/*   Updated: 2024/10/10 15:33:40 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,29 +27,24 @@
  * @param ptr The original memory block.
  * @param old_size The size of the original memory block.
  * @param new_size The size of the new memory block.
+ * @param error_message The error message to be printed out
  * @return A pointer to the new memory block,
  * or NULL if allocation fails or new_size is zero.
  */
-void	*ft_memresize(void *ptr, size_t old_size, size_t new_size)
+void	*ft_safe_memresize(void *ptr, size_t old_size,
+	size_t new_size, char *error_message)
 {
 	void	*new_ptr;
-	size_t	copy_size;
 
-	if (new_size == 0)
-	{
-		free(ptr);
-		return (NULL);
-	}
-	if (!ptr)
-		return (malloc(new_size));
-	new_ptr = malloc(new_size);
+	new_ptr = ft_memresize(ptr, old_size, new_size);
 	if (!new_ptr)
-		return (NULL);
-	if (old_size < new_size)
-		copy_size = old_size;
-	else
-		copy_size = new_size;
-	ft_memcpy(new_ptr, ptr, copy_size);
-	free(ptr);
+	{
+		if (error_message)
+		{
+			ft_putstr_fd(error_message, STDERR_FILENO);
+			ft_putstr_fd("\n", STDERR_FILENO);
+		}
+		exit(EXIT_FAILURE);
+	}
 	return (new_ptr);
 }

@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   ft_safe_malloc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/11 11:45:43 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/10/10 15:14:40 by dcaro-ro         ###   ########.fr       */
+/*   Created: 2024/10/10 15:07:43 by dcaro-ro          #+#    #+#             */
+/*   Updated: 2024/10/10 15:17:13 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-void	*ft_realloc(void *ptr, size_t size)
+void	*ft_safe_malloc(size_t size, char *error_message)
 {
-	void	*new_ptr;
+	void	*ptr;
 
-	if (size == 0)
-	{
-		free(ptr);
-		return (NULL);
-	}
+	ptr = malloc(size);
 	if (!ptr)
-		return (malloc(size));
-	new_ptr = malloc(size);
-	if (!new_ptr)
-		return (NULL);
-	ft_memcpy(new_ptr, ptr, size);
-	free(ptr);
-	return (new_ptr);
+	{
+		if (error_message)
+		{
+			ft_putstr_fd(error_message, STDERR_FILENO);
+			ft_putstr_fd("\n", STDERR_FILENO);
+		}
+		exit(EXIT_FAILURE);
+	}
+	return (ptr);
 }
