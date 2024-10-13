@@ -43,6 +43,6 @@ Compilation & cleanup:
 
 Example usage of cub3d:
 ```
-./cub3d/maps/map.cub
+./cub3d maps/map.cub
 ```
 Use arrow keys or `W`, `A`, `S`, `D` to navigate the 3D environment. Explore the map and enjoy the raycasting demo!
