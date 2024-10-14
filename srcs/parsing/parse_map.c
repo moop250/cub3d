@@ -6,13 +6,11 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:45:59 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/11 18:58:41 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/14 22:39:20 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-#include <stdbool.h>
-#include <stdio.h>
 
 // Reapproach
 static bool	check_walls(char **map)
@@ -23,7 +21,6 @@ static bool	check_walls(char **map)
 	i = -1;
 	while (map[++i])
 	{
-		printf(">>>>%s%%\n", map[i]);
 		j = -1;
 		while (map[i][++j])
 		{
@@ -31,20 +28,16 @@ static bool	check_walls(char **map)
 				++j;
 			if (map[i][j] == '1')
 				continue ;
-/* 			if (!ft_strchr(MAP_CHARS, map[i][j]))
+			if (!ft_strchr(MAP_CHARS, map[i][j]) || !map[i][j])
 				return (false);
-			if (map[i][j] && i > 0)
-				if (!ft_strchr(MAP_CHARS, map[i - 1][j]))
-					return (false);
-			if (map[i][j] && map[i + 1])
-				if (!ft_strchr(MAP_CHARS, map[i + 1][j]))
-					return (false);
-			if (map[i][j] && j > 0)
-				if (!ft_strchr(MAP_CHARS, map[i][j - 1]))
-					return (false);
-			if (map[i][j] && map[i][j + 1])
-				if (!ft_strchr(MAP_CHARS, map[i][j + 1]))
-					return (false); */
+			if (!ft_strchr(MAP_CHARS, map[i - 1][j]) || !map[i - 1][j])
+				return (false);
+			if (!ft_strchr(MAP_CHARS, map[i + 1][j]) || !map[i + 1][j])
+				return (false);
+			if (!ft_strchr(MAP_CHARS, map[i][j - 1]) || !map[i][j - 1])
+				return (false);
+			if (!ft_strchr(MAP_CHARS, map[i][j + 1]) || !map[i][j + 1])
+				return (false);
 		}
 	}
 	return (true);
@@ -63,18 +56,19 @@ static char	**import_map(char **file)
 	j = i;
 	while (file[j])
 		++j;
-	map = malloc((j - i + 1) * sizeof(char *));
+	map = malloc((j - i + 3) * sizeof(char *));
 	if (!map)
 		ft_error("malloc failed");
-	k = i;
+	k = 1;
 	while (i < j)
 	{
-		map[i - k] = ft_strdup(file[i]);
-		if (!map[i - k])
+		map[k++] = ft_strjoin(" ", file[i]);
+		if (!map[k - 1])
 			ft_error("malloc failed");
 		++i;
 	}
-	map[i - k] = NULL;
+	map[k] = NULL;
+	map[k + 1] = NULL;
 	return (map);
 }
 
@@ -86,8 +80,14 @@ void	parse_map(t_game *game, char **file)
 	char		**map;
 
 	game->mapdata = malloc(sizeof(t_mapdata));
+	game->mapdata->map = NULL;
 	map = import_map(file);
+	clean_map(map);
 	if (check_walls(map) == false)
-		ft_error("Invalid map elements");
+	{
+		ft_free_split(map);
+		ft_free_split(file);
+		ft_error("Invalid map");
+	}
 	game->mapdata->map = map;
 }

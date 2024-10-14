@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/10 16:03:03 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/14 12:54:27 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_mapdata
 {
 	char		**map;
 	t_player	player;
+	int			colors[2][3];
 }	t_mapdata;
 
 typedef struct s_textures

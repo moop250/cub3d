@@ -6,7 +6,7 @@
 #    By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 16:51:54 by hlibine           #+#    #+#              #
-#    Updated: 2024/10/10 15:15:11 by hlibine          ###   ########.fr        #
+#    Updated: 2024/10/14 18:01:44 by hlibine          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ FILES		= main \
 				parsing/parsing \
 				parsing/parse_file \
 				parsing/parse_map \
+				parsing/parse_clean \
 				error_handling/error \
 
 SRCS		= $(addprefix $(SRCDIR)/, $(FILES:=.c))
