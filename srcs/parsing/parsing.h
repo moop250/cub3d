@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:44:03 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/14 17:53:03 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/15 13:26:46 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 # define WHITESPACE " \n\t"
 # define MAP_CHARS "01NSEW"
+# define SPAWN_CHARS "NSEW"
 
 # ifndef FILE_SUFFIX
 #  define FILE_SUFFIX ".cub"
