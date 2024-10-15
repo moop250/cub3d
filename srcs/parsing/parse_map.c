@@ -6,12 +6,11 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:45:59 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/15 13:35:26 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/15 13:57:05 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-#include <stdio.h>
 
 static bool	check_directions(char up, char down, char left, char right)
 {
@@ -85,18 +84,29 @@ static char	**import_map(char **file)
 	return (map);
 }
 
+static void	status_print(char **map, char *path)
+{
+	int	i;
+
+	printf("Map \"%s\" loaded\n", path);
+	i = 0;
+	while (map[i])
+		printf("%s\n", map[i++]);
+}
+
 /*
 	Parse the map file and store it in the game structure
 */
-void	parse_map(t_game *game, char **file)
+void	parse_map(t_game *game, char **file, char *path)
 {
 	char		**map;
 	int			tmp;
 
-	game->mapdata = malloc(sizeof(t_mapdata));
+	game->mapdata = ft_safe_malloc(sizeof(t_mapdata), "mapdata malloc failed");
 	game->mapdata->map = NULL;
 	map = import_map(file);
 	clean_map(map);
+	status_print(map, path);
 	tmp = check_walls(map);
 	if (tmp <= 0 || tmp > 1)
 	{
@@ -110,4 +120,5 @@ void	parse_map(t_game *game, char **file)
 			ft_error("Invalid map");
 	}
 	game->mapdata->map = map;
+	printf("Map \"%s\" verrified\n\n", path);
 }

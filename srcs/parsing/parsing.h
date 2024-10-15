@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:44:03 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/15 13:26:46 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/15 13:52:08 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # endif
 
 char	**file_parser(char *file_path);
-void	parse_map(t_game *game, char **file);
+void	parse_map(t_game *game, char **file, char *path);
 void	parse_textures(t_game *game);
 bool	check_map_line(char *line);
 void	clean_map(char **map);
