@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/14 12:54:27 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/15 15:38:27 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_player
 
 typedef struct s_mapdata
 {
+	char		**tmp;
 	char		**map;
 	t_player	player;
 	int			colors[2][3];
@@ -48,7 +49,14 @@ typedef struct s_mapdata
 
 typedef struct s_textures
 {
-
+	void	*north;
+	void	*south;
+	void	*east;
+	void	*west;
+	int		north_size[2];
+	int		south_size[2];
+	int		east_size[2];
+	int		west_size[2];
 }	t_textures;
 
 typedef struct s_game

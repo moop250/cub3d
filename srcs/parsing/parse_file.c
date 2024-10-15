@@ -6,11 +6,12 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:06:00 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/11 19:15:05 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/15 15:51:50 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include <stdbool.h>
 
 /*
 	Check if the file extension is correct and if the file can be opened

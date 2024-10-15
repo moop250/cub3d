@@ -6,11 +6,12 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:45:59 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/15 13:57:05 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/15 15:58:59 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include <stdio.h>
 
 static bool	check_directions(char up, char down, char left, char right)
 {
@@ -68,9 +69,9 @@ static char	**import_map(char **file)
 	j = i;
 	while (file[j])
 		++j;
-	map = malloc((j - i + 3) * sizeof(char *));
-	if (!map)
-		ft_error("malloc failed");
+	if (i == j)
+		return (NULL);
+	map = ft_safe_malloc((j - i + 3) * sizeof(char *), "malloc failed");
 	k = 1;
 	while (i < j)
 	{
@@ -103,15 +104,17 @@ void	parse_map(t_game *game, char **file, char *path)
 	int			tmp;
 
 	game->mapdata = ft_safe_malloc(sizeof(t_mapdata), "mapdata malloc failed");
+	game->mapdata->tmp = file;
 	game->mapdata->map = NULL;
-	map = import_map(file);
+	map = import_map(game->mapdata->tmp);
+	if (!map)
+		return ;
+	game->mapdata->map = map;
 	clean_map(map);
 	status_print(map, path);
 	tmp = check_walls(map);
 	if (tmp <= 0 || tmp > 1)
 	{
-		ft_free_split(map);
-		ft_free_split(file);
 		if (tmp == 0)
 			ft_error("Invalid map: no spawn point");
 		else if (tmp > 1)
@@ -119,6 +122,5 @@ void	parse_map(t_game *game, char **file, char *path)
 		else
 			ft_error("Invalid map");
 	}
-	game->mapdata->map = map;
-	printf("Map \"%s\" verrified\n\n", path);
+	printf("Map \"%s\" verified\n\n", path);
 }

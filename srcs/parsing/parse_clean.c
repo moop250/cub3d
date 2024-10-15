@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 17:52:35 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/15 13:45:03 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/15 15:56:37 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ void	clean_map(char **map)
 
 	j = 0;
 	i = ft_strlen(map[1]);
-	map[j] = malloc(i * sizeof(char));
+	map[j] = ft_safe_malloc(i * sizeof(char), "malloc failed");
 	while (--i >= 0)
 		map[j][i] = '\0';
 	while (map[j])
 		++j;
 	i = ft_strlen(map[j - 1]);
-	map[j] = malloc(i * sizeof(char));
+	map[j] = ft_safe_malloc(i * sizeof(char), "malloc failed");
 	while (--i >= 0)
 		map[j][i] = '\0';
 	clean_lines(map);
