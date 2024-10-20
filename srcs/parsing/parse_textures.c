@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:52:14 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/16 16:29:49 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/21 00:34:37 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	set_textures(t_game *game, char **paths)
 
 	game->textures = ft_safe_malloc(sizeof(t_textures), "malloc failed");
 	tex = game->textures;
-	tex->north->img = mlx_xpm_file_to_image(game->mlx.mlx, paths[0], &tex->north->width, &tex->north->hight);
+	tex->north->img = mlx_xpm_file_to_image(game->mlx.mlx, paths[0], &tex->north->width, &tex->north->height);
 }
 
 static void	check_textures(char **textures)

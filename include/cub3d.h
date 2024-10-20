@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/21 00:29:30 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/21 00:34:37 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,13 @@ typedef struct s_mapdata
  *
  * @param img Image pointer.
  * @param width Image width.
- * @param hight Image height.
+ * @param height Image height.
  */
 typedef struct s_xmp
 {
 	void	*img;
 	int		width;
-	int		hight;
+	int		height;
 }			t_xmp;
 
 /**
