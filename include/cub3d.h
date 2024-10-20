@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/20 12:13:35 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/21 00:29:30 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,17 @@
 # ifndef __APPLE__
 #  include "../libs/minilibx-linux/mlx.h"
 # endif
+
+# ifndef WIN_WIDTH
+#  define WIN_WIDTH 1920
+# endif
+
+# ifndef WIN_HEIGHT
+#  define WIN_HEIGHT 1080
+# endif
+
+# define GAME_ERR_MALLOC "Could not allocate memory for game structure"
+# define GAME_PIX_ERR "Could not allocate memory for pixel array"
 
 typedef struct s_vector
 {
@@ -70,7 +81,7 @@ typedef struct s_mapdata
  * @param width Image width.
  * @param hight Image height.
  */
-typedef struct s_xpm
+typedef struct s_xmp
 {
 	void	*img;
 	int		width;
@@ -111,22 +122,23 @@ typedef struct s_mlx
  * @param mapdata Map data (map, player, colors).
  * @param textures Wall textures.
  * @param mlx MiniLibX related data.
- * @param screen_width Screen width in pixels.
- * @param screen_height Screen height in pixels.
- * @param buffer 2D buffer for storing pixel colors.
+ * @param width Screen width in pixels.
+ * @param height Screen height in pixels.
+ * @param pixels 2D buffer for storing pixel colors.
  */
 typedef struct s_game
 {
 	t_mapdata	*mapdata;
 	t_textures	*textures;
 	t_mlx		mlx;
-	int			screen_width;
-	int			screen_height;
-	int			**buffer;
+	int			width;
+	int			height;
+	int			**pixels;
 }	t_game;
 
 void	*parsing(t_game *game, char *lvl_path);
 void	ft_error(const char *msg);
 void	freeall(t_game *game);
+void	clean_map(char **map);
 
 #endif
