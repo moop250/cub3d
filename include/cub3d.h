@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/16 15:15:52 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/20 12:13:35 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,28 @@ typedef struct s_vector
 	double	y;
 }	t_vector;
 
+/**
+ * Player structure
+ *
+ * @param pos Player's position in the map.
+ * @param dir Player's POV or direction (which whay the player is facing).
+ * @param plane 2D vector representing the camera plane.
+ */
 typedef struct s_player
 {
 	t_vector	pos;
 	t_vector	dir;
+	t_vector	plane;
 }	t_player;
 
+/**
+ * Player structure
+ *
+ * @param tmp Temporary map storage.
+ * @param map Parsed map representation.
+ * @param player Player information (position, direction, etc.)
+ * @param colors[2][3] Floor and ceiling colors.
+ */
 typedef struct s_mapdata
 {
 	char		**tmp;
@@ -47,6 +63,13 @@ typedef struct s_mapdata
 	int			colors[2][3];
 }	t_mapdata;
 
+/**
+ * XPM image structure
+ *
+ * @param img Image pointer.
+ * @param width Image width.
+ * @param hight Image height.
+ */
 typedef struct s_xpm
 {
 	void	*img;
@@ -54,6 +77,14 @@ typedef struct s_xpm
 	int		hight;
 }			t_xmp;
 
+/**
+ * Textures structure
+ *
+ * @param north North wall texture.
+ * @param south South wall texture.
+ * @param east East wall texture.
+ * @param west West wall texture.
+ */
 typedef struct s_textures
 {
 	t_xmp	*north;
@@ -62,18 +93,37 @@ typedef struct s_textures
 	t_xmp	*west;
 }			t_textures;
 
+/**
+ * MLX structure
+ *
+ * @param mlx MLX pointer.
+ * @param mlx_window MLX window pointer.
+ */
 typedef struct s_mlx
 {
 	void	*mlx;
 	void	*mlx_window;
 }			t_mlx;
 
+/**
+ * Game structure
+ *
+ * @param mapdata Map data (map, player, colors).
+ * @param textures Wall textures.
+ * @param mlx MiniLibX related data.
+ * @param screen_width Screen width in pixels.
+ * @param screen_height Screen height in pixels.
+ * @param buffer 2D buffer for storing pixel colors.
+ */
 typedef struct s_game
 {
 	t_mapdata	*mapdata;
 	t_textures	*textures;
 	t_mlx		mlx;
-}				t_game;
+	int			screen_width;
+	int			screen_height;
+	int			**buffer;
+}	t_game;
 
 void	*parsing(t_game *game, char *lvl_path);
 void	ft_error(const char *msg);
