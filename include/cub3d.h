@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/16 15:15:52 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/18 14:56:52 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ typedef struct s_xpm
 
 typedef struct s_textures
 {
-	t_xmp	*north;
-	t_xmp	*south;
-	t_xmp	*east;
-	t_xmp	*west;
+	t_xmp	north;
+	t_xmp	south;
+	t_xmp	east;
+	t_xmp	west;
 }			t_textures;
 
 typedef struct s_mlx

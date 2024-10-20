@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:38:56 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/15 15:40:37 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/18 14:58:43 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static t_game	*get_game(void)
 	if (!game)
 		exit(1);
 	game->mapdata = NULL;
+	game->textures = NULL;
 	return (game);
 }
 
@@ -35,6 +36,8 @@ void	freeall(t_game *game)
 			ft_free_split(game->mapdata->map);
 		if (game->mapdata->tmp)
 			ft_free_split(game->mapdata->tmp);
+		if (game->textures)
+			ft_safe_free(1, game->textures);
 		ft_safe_free(1, game->mapdata);
 	}
 	ft_safe_free(1, game);
