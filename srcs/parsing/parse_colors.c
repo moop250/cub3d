@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:09:16 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/21 18:38:20 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:57:27 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static void	treat_split(t_game *game, char **split, char mode)
 			game->mapdata->colors[1][i] = ft_atoi(split[i]);
 }
 
+// Set the color of the floor and ceiling
 static bool	set_color(t_game *game, char *line, char mode)
 {
 	int		i;
@@ -72,7 +73,13 @@ static bool	set_color(t_game *game, char *line, char mode)
 	}
 	split = ft_split(tmp, ',');
 	if (!split)
-		ft_error("malloc failed");
+	{
+		ft_free(tmp);
+		ft_free_split(split);
+		freeall();
+		ft_error("split failed"); // check all this
+		return (false);
+	}
 	ft_free(tmp);
 	treat_split(game, split, mode);
 	ft_free_split(split);
