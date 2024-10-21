@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/21 14:58:59 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:14:56 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,6 @@ typedef struct s_mapdata
 	int			colors[2][3];
 }	t_mapdata;
 
-/**
- * XPM image structure
- *
- * @param img Image pointer.
- * @param width Image width.
- * @param height Image height.
- */
 typedef struct s_xmp
 {
 	void	*img;
@@ -137,8 +130,10 @@ typedef struct s_game
 }	t_game;
 
 void	*parsing(t_game *game, char *lvl_path);
-void	freeall(t_game *game);
 void	clean_map(char **map);
+
+/* Cleanup */
+void	freeall(void);
 
 /* errors */
 void	ft_error(const char *msg);
