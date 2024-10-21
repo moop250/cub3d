@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/21 13:26:02 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:58:59 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,12 @@ typedef struct s_game
 }	t_game;
 
 void	*parsing(t_game *game, char *lvl_path);
-void	ft_error(const char *msg);
 void	freeall(t_game *game);
 void	clean_map(char **map);
+
+/* errors */
+void	ft_error(const char *msg);
+void	*ft_free_msg(void *ptr, const char *msg);
+bool	ft_free_bool(void *ptr, const char *msg, bool flag);
 
 #endif
