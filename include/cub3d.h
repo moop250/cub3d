@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/21 16:30:27 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:46:55 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <fcntl.h>
+
 
 # ifdef __APPLE__
 #  include "../libs/minilibx_opengl/mlx.h"
@@ -33,6 +35,15 @@
 
 # ifndef WIN_HEIGHT
 #  define WIN_HEIGHT 1080
+# endif
+
+# define WHITESPACE " \n\t"
+# define MAP_CHARS "01NSEW"
+# define SPAWN_CHARS "NSEW"
+# define COLOR_CHARS "0123456789,"
+
+# ifndef FILE_SUFFIX
+#  define FILE_SUFFIX ".cub"
 # endif
 
 # define GAME_ERR_MALLOC "Could not allocate memory for game structure"
@@ -75,13 +86,12 @@ typedef struct s_mapdata
 }	t_mapdata;
 
 typedef struct s_xpm
-typedef struct s_xpm
 {
 	void	*img;
 	int		width;
 	int		height;
-}			t_xpm;
-}			t_xpm;
+}	t_xpm;
+
 
 /**
  * Textures structure
@@ -97,11 +107,7 @@ typedef struct s_textures
 	t_xpm	south;
 	t_xpm	east;
 	t_xpm	west;
-	t_xpm	north;
-	t_xpm	south;
-	t_xpm	east;
-	t_xpm	west;
-}			t_textures;
+}	t_textures;
 
 /**
  * MLX structure
@@ -135,8 +141,14 @@ typedef struct s_game
 	int			**pixels;
 }	t_game;
 
-void	*parsing(t_game *game, char *lvl_path);
+/* Parsing */
+char	**file_parser(char *file_path);
+void	parse_map(t_game *game, char **file, char *path);
+void	parse_textures(t_game *game);
+bool	check_map_line(char *line);
 void	clean_map(char **map);
+bool	parse_colors(t_game *game, char **file_content);
+void	*parsing(t_game *game, char *lvl_path);
 
 /* Cleanup */
 void	freeall(void);

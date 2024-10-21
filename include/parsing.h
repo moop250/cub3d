@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:44:03 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/21 15:46:54 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/21 18:42:05 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
-# include "../../include/cub3d.h"
+# include "structs.h"
 # include <fcntl.h>
 
 # define WHITESPACE " \n\t"
