@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/21 00:34:37 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:26:02 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,10 @@ typedef struct s_xmp
  */
 typedef struct s_textures
 {
-	t_xmp	*north;
-	t_xmp	*south;
-	t_xmp	*east;
-	t_xmp	*west;
+	t_xmp	north;
+	t_xmp	south;
+	t_xmp	east;
+	t_xmp	west;
 }			t_textures;
 
 /**

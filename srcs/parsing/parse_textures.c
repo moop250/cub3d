@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:52:14 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/21 00:34:37 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:26:33 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,26 @@ static void	set_textures(t_game *game, char **paths)
 
 	game->textures = ft_safe_malloc(sizeof(t_textures), "malloc failed");
 	tex = game->textures;
-	tex->north->img = mlx_xpm_file_to_image(game->mlx.mlx, paths[0], &tex->north->width, &tex->north->height);
+	tex->north.img = NULL;
+	tex->south.img = NULL;
+	tex->west.img = NULL;
+	tex->east.img = NULL;
+	tex->north.img = mlx_xpm_file_to_image(game->mlx.mlx, paths[0],
+			&tex->north.width, &tex->north.hight);
+	if (!tex->north.img)
+		ft_error("Could not load texture: noth");
+	tex->south.img = mlx_xpm_file_to_image(game->mlx.mlx, paths[1],
+			&tex->south.width, &tex->south.hight);
+	if (!tex->south.img)
+		ft_error("Could not load texture: south");
+	tex->west.img = mlx_xpm_file_to_image(game->mlx.mlx, paths[2],
+			&tex->west.width, &tex->west.hight);
+	if (!tex->west.img)
+		ft_error("Could not load texture: west");
+	tex->east.img = mlx_xpm_file_to_image(game->mlx.mlx, paths[3],
+			&tex->east.width, &tex->east.hight);
+	if (!tex->east.img)
+		ft_error("Could not load texture: east");
 }
 
 static void	check_textures(char **textures)
