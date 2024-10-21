@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_colors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:09:16 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/21 16:24:12 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/21 18:38:20 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "../../include/cub3d.h"
 
 static void	check_colors(t_game *game)
 {
@@ -67,6 +67,7 @@ static bool	set_color(t_game *game, char *line, char mode)
 		{
 			ft_free(tmp);
 			ft_error("Unauthorized character in color");
+			return (false);
 		}
 	}
 	split = ft_split(tmp, ',');

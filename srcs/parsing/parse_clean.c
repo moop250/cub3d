@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_clean.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 17:52:35 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/15 15:56:37 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/21 18:38:17 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "../../include/cub3d.h"
 
 static void	resize(char **map, int i, int len, int next_len)
 {

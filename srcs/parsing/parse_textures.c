@@ -6,11 +6,11 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:52:14 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/21 16:30:40 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:38:38 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "../../include/cub3d.h"
 
 static void	set_textures(t_game *game, char **paths)
 {
