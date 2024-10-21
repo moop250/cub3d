@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/21 15:34:05 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:46:07 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,12 @@ typedef struct s_mapdata
 	int			colors[2][3];
 }	t_mapdata;
 
-typedef struct s_xmp
+typedef struct s_xpm
 {
 	void	*img;
 	int		width;
 	int		height;
-}			t_xmp;
+}			t_xpm;
 
 /**
  * Textures structure
@@ -91,10 +91,10 @@ typedef struct s_xmp
  */
 typedef struct s_textures
 {
-	t_xmp	north;
-	t_xmp	south;
-	t_xmp	east;
-	t_xmp	west;
+	t_xpm	north;
+	t_xpm	south;
+	t_xpm	east;
+	t_xpm	west;
 }			t_textures;
 
 /**

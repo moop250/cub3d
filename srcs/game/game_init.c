@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 12:45:54 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/10/21 15:21:49 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/21 16:20:18 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,26 +48,21 @@ static bool	init_pixels(t_game *game)
 }
 
 // Initialize game structure
-void	game_init(t_game game, t_mapdata *mapdata, t_textures *textures)
+t_game	*game_init(t_game *game, t_mapdata *mapdata, t_textures *textures)
 {
-	int		i;
-
-	game.mapdata = mapdata;
-	game.textures = textures;
-	game.width = WIN_WIDTH;
-	game.height = WIN_HEIGHT;
-	game.textures = textures;
-	game.mlx.mlx_window = mlx_new_window(game.mlx.mlx,
-			game.width, game.height, "cub3D");
-	if (!game.mlx.mlx_window)
+	game->mapdata = mapdata;
+	game->width = WIN_WIDTH;
+	game->height = WIN_HEIGHT;
+	game->mlx.mlx_window = mlx_new_window(game->mlx.mlx, game->width, game->height, "cub3D");
+	if (!game->mlx.mlx_window)
 	{
 		freeall();
-		perror("Failed to create window");
-		return ;
+		return (ft_free_msg(NULL, "Failed to create window"));
 	}
 	if (!init_pixels(&game))
 	{
 		freeall();
-		return ;
+		return (NULL);
 	}
+	return (game);
 }
