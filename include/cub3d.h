@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/18 14:56:52 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/21 13:24:19 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ typedef struct s_mapdata
 	int			colors[2][3];
 }	t_mapdata;
 
-typedef struct s_xpm
+typedef struct s_xmp
 {
 	void	*img;
 	int		width;
-	int		hight;
+	int		height;
 }			t_xmp;
 
 typedef struct s_textures
@@ -77,6 +77,6 @@ typedef struct s_game
 
 void	*parsing(t_game *game, char *lvl_path);
 void	ft_error(const char *msg);
-void	freeall(t_game *game);
+void	freeall(void);
 
 #endif

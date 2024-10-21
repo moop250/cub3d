@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:38:56 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/18 14:58:43 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/21 13:21:51 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ static t_game	*get_game(void)
 	return (game);
 }
 
-void	freeall(t_game *game)
+void	freeall(void)
 {
-	if (!game)
-		game = get_game();
+	t_game	*game;
+
+	game = get_game();
 	if (game->mapdata)
 	{
 		if (game->mapdata->map)
@@ -53,7 +54,8 @@ int	main(int ac, char **av)
 		exit(1);
 	}
 	game = get_game();
+	game->mlx.mlx = mlx_init();
 	parsing(game, av[1]);
-	freeall(game);
+	freeall();
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:52:14 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/18 19:36:13 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/21 13:24:35 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@ static void	set_textures(t_game *game, char **paths)
 	tex->west.img = NULL;
 	tex->east.img = NULL;
 	tex->north.img = mlx_xpm_file_to_image(game->mlx.mlx, paths[0],
-			&tex->north.width, &tex->north.hight);
+			&tex->north.width, &tex->north.height);
 	if (!tex->north.img)
 		ft_error("Could not load texture: noth");
 	tex->south.img = mlx_xpm_file_to_image(game->mlx.mlx, paths[1],
-			&tex->south.width, &tex->south.hight);
+			&tex->south.width, &tex->south.height);
 	if (!tex->south.img)
 		ft_error("Could not load texture: south");
 	tex->west.img = mlx_xpm_file_to_image(game->mlx.mlx, paths[2],
-			&tex->west.width, &tex->west.hight);
+			&tex->west.width, &tex->west.height);
 	if (!tex->west.img)
 		ft_error("Could not load texture: west");
 	tex->east.img = mlx_xpm_file_to_image(game->mlx.mlx, paths[3],
-			&tex->east.width, &tex->east.hight);
+			&tex->east.width, &tex->east.height);
 	if (!tex->east.img)
 		ft_error("Could not load texture: east");
 }
