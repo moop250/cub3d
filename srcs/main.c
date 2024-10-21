@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:38:56 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/21 13:21:51 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/21 15:39:15 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,20 @@ static t_game	*get_game(void)
 		exit(1);
 	game->mapdata = NULL;
 	game->textures = NULL;
+	game->mlx.mlx = NULL;
+	game->mlx.mlx_window = NULL;
 	return (game);
+}
+
+static void	freemlx(t_mlx mlx)
+{
+	if (mlx.mlx)
+	{
+		if (mlx.mlx_window)
+			mlx_destroy_window(mlx.mlx, mlx.mlx_window);
+		mlx_destroy_display(mlx.mlx);
+		ft_free(mlx.mlx);
+	}
 }
 
 void	freeall(void)
@@ -38,9 +51,20 @@ void	freeall(void)
 		if (game->mapdata->tmp)
 			ft_free_split(game->mapdata->tmp);
 		if (game->textures)
+		{
+			if (game->textures->north.img)
+				mlx_destroy_image(game->mlx.mlx, game->textures->north.img);
+			if (game->textures->south.img)
+				mlx_destroy_image(game->mlx.mlx, game->textures->south.img);
+			if (game->textures->west.img)
+				mlx_destroy_image(game->mlx.mlx, game->textures->west.img);
+			if (game->textures->east.img)
+				mlx_destroy_image(game->mlx.mlx, game->textures->east.img);
 			ft_safe_free(1, game->textures);
+		}
 		ft_safe_free(1, game->mapdata);
 	}
+	freemlx(game->mlx);
 	ft_safe_free(1, game);
 }
 
