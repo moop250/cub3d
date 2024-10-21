@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 16:51:54 by hlibine           #+#    #+#              #
-#    Updated: 2024/10/16 14:24:03 by hlibine          ###   ########.fr        #
+#    Updated: 2024/10/21 15:35:20 by dcaro-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,12 +30,12 @@ MINILIBX_PATH =
 OS = $(shell uname -s)
 
 ifeq ($(OS),Linux)
-	CFLAGS += -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+	FLAGS += -Lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 	MINILIBX_PATH = $(MINILIBX_LINUX_PATH)
 endif
 
 ifeq ($(OS),Darwin)
-	CFLAGS += -framework OpenGL -framework AppKit
+	FLAGS += -framework OpenGL -framework AppKit
 	MINILIBX_PATH = $(MINILIBX_MAC_PATH)
 endif
 
@@ -68,7 +68,7 @@ EXFT_LIB = $(LIBFT_DIR:%=%libft.a)
 # Compilation
 $(NAME): $(SRCS) $(OBJS) $(EXFT_LIB) $(MINILIBX)
 	@printf "$(ORANGE)Compiling $(NAME)$(RESET)"
-	@ $(CC) $(OBJS) $(EXFT_LIB) $(MINILIBX) -o $(NAME)
+	@ $(CC) $(OBJS) $(EXFT_LIB) $(MINILIBX) -o $(NAME) $(FLAGS)
 	@printf "\r\033[K"
 	@printf "$(GREEN)$(NAME) compiled$(RESETNL)"
 
