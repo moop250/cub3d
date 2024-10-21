@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:52:14 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/21 15:39:37 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/21 16:24:33 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,6 @@ void	parse_textures(t_game *game)
 		printf("Texture \"%s\" found\n", textures[i++]);
 	}
 	set_textures(game, textures);
-	printf("\nTextures validated\n");
+	printf("\nTextures validated\n\n");
 	ft_free_split(textures);
 }
