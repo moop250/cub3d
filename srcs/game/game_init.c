@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 12:45:54 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/10/21 00:33:00 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:21:49 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,35 +48,26 @@ static bool	init_pixels(t_game *game)
 }
 
 // Initialize game structure
-t_game	*game_init(t_mapdata *mapdata, t_textures *textures)
+void	game_init(t_game game, t_mapdata *mapdata, t_textures *textures)
 {
-	t_game	*game;
 	int		i;
 
-	game = ft_safe_malloc(sizeof(t_game), GAME_ERR_MALLOC);
-	game->mapdata = mapdata;
-	game->textures = textures;
-	game->width = WIN_WIDTH;
-	game->height = WIN_HEIGHT;
-	game->textures = textures;
-	game->mlx.mlx = mlx_init();
-	if (!game->mlx.mlx)
+	game.mapdata = mapdata;
+	game.textures = textures;
+	game.width = WIN_WIDTH;
+	game.height = WIN_HEIGHT;
+	game.textures = textures;
+	game.mlx.mlx_window = mlx_new_window(game.mlx.mlx,
+			game.width, game.height, "cub3D");
+	if (!game.mlx.mlx_window)
 	{
-		// free textures
-		perror("Failed to initialize MiniLibX");
-		return (ft_free(game));
-	}
-	game->mlx.mlx_window = mlx_new_window(game->mlx.mlx,
-			game->width, game->height, "cub3D");
-	if (!game->mlx.mlx_window)
-	{
-		// free textures
+		freeall();
 		perror("Failed to create window");
-		return (ft_free(game));
+		return ;
 	}
-	if (!init_pixels(game))
+	if (!init_pixels(&game))
 	{
-		// free textures
-		return (ft_free(game));
+		freeall();
+		return ;
 	}
 }

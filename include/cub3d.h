@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/21 15:14:56 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:34:05 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ void	freeall(void);
 
 /* errors */
 void	ft_error(const char *msg);
-void	*ft_free_msg(void *ptr, const char *msg);
-bool	ft_free_bool(void *ptr, const char *msg, bool flag);
+void	*ft_free_msg(void *ptr, char *msg);
+bool	ft_free_bool(void *ptr, char *msg, bool flag);
 
 #endif

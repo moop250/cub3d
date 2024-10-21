@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 16:26:42 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/21 15:11:49 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:33:49 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_error(const char *msg)
 }
 
 // Free a pointer and print a message to stderr, always return NULL
-void	*ft_free_msg(void *ptr, const char *msg)
+void	*ft_free_msg(void *ptr, char *msg)
 {
 	if (ptr)
 		free(ptr);
@@ -33,7 +33,7 @@ void	*ft_free_msg(void *ptr, const char *msg)
 }
 
 // Free a pointer and return a boolean value
-bool	ft_free_bool(void *ptr, const char *msg, bool flag)
+bool	ft_free_bool(void *ptr, char *msg, bool flag)
 {
 	ft_free_msg(ptr, msg);
 	return (flag);
