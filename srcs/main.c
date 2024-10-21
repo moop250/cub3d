@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:38:56 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/21 15:39:15 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/21 18:43:03 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		ft_printf("Error: Invalid number of arguments\n");
-		exit(1);
+		ft_putstr_fd("Usage: ./cub3d <map.cub>\n", 2);
+		return (1);
 	}
 	game = get_game();
 	game->mlx.mlx = mlx_init();
