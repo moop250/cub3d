@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:09:16 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/23 19:03:04 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/23 19:05:03 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,9 @@ static bool	set_color(t_game *game, char *line, char mode)
 		ft_error("split failed");
 		return (ft_free_bool(tmp, "split failed", false));
 	}
-	ft_free(tmp);
 	treat_split(game, split, mode);
 	ft_free_split(split);
-	return (true);
+	return (ft_free_bool(tmp, NULL, true));
 }
 
 bool	parse_colors(t_game *game, char **file_content)
