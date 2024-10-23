@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/23 18:46:53 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/23 19:02:55 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@
 
 # define GAME_ERR_MALLOC "Could not allocate memory for game structure"
 # define GAME_PIX_ERR "Could not allocate memory for pixel array"
+# define COLOR_ERR_CHAR "Unauthorized character in color"
 
 typedef struct s_indexes
 {
