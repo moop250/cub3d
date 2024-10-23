@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/21 18:46:55 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/23 18:27:22 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,13 @@
 
 # define GAME_ERR_MALLOC "Could not allocate memory for game structure"
 # define GAME_PIX_ERR "Could not allocate memory for pixel array"
+
+typedef struct s_indexes
+{
+	int		i;
+	int		j;
+	int		k;
+}	t_indexes;
 
 typedef struct s_vector
 {
@@ -143,6 +150,7 @@ typedef struct s_game
 
 /* Parsing */
 char	**file_parser(char *file_path);
+int		check_walls(char **map, t_player *player);
 void	parse_map(t_game *game, char **file, char *path);
 void	parse_textures(t_game *game);
 bool	check_map_line(char *line);
