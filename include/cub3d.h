@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/23 18:27:22 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/23 18:46:53 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
-
 
 # ifdef __APPLE__
 #  include "../libs/minilibx_opengl/mlx.h"
@@ -98,7 +97,6 @@ typedef struct s_xpm
 	int		width;
 	int		height;
 }	t_xpm;
-
 
 /**
  * Textures structure
