@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 15:24:00 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/10/24 11:23:48 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/24 15:44:34 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 # define KEYCODES_H
 
 # ifdef __APPLE__
+#  define KEY_W			13
+#  define KEY_A			0
+#  define KEY_S			1
+#  define KEY_D			2
+#  define KEY_LEFT		123
+#  define KEY_RIGHT		124
+#  define KEY_FORWARD 	126
+#  define KEY_BACKWARD	125
 #  define KEY_ESC 53
 # endif
 
