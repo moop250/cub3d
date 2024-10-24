@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 16:26:42 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/21 15:33:49 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/24 11:24:35 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_error(const char *msg)
 {
 	freeall();
-	ft_printf("Error: %s\n", msg);
+	printf("Error: %s\n", msg);
 	exit(1);
 }
 
@@ -25,10 +25,7 @@ void	*ft_free_msg(void *ptr, char *msg)
 	if (ptr)
 		free(ptr);
 	if (msg)
-	{
-		ft_putstr_fd(msg, 2);
-		ft_putchar_fd('\n', 2);
-	}
+		ft_putendl_fd(msg, 2);
 	return (NULL);
 }
 

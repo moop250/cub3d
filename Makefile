@@ -6,7 +6,7 @@
 #    By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 16:51:54 by hlibine           #+#    #+#              #
-#    Updated: 2024/10/24 10:32:58 by dcaro-ro         ###   ########.fr        #
+#    Updated: 2024/10/24 12:18:39 by dcaro-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ FILES		= main \
 				error_handling/error \
 				game/game_init \
 				utils/cleanup \
+				test/debug/print_game \
 
 SRCS		= $(addprefix $(SRCDIR)/, $(FILES:=.c))
 OBJS		= $(addprefix $(OBJDIR)/, $(FILES:=.o))

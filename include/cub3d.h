@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/24 10:35:15 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/24 12:18:02 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,5 +170,8 @@ void	*cleanup_game(t_game *game);
 void	ft_error(const char *msg);
 void	*ft_free_msg(void *ptr, char *msg);
 bool	ft_free_bool(void *ptr, char *msg, bool flag);
+
+/* Debug */
+void	print_game(t_game *game);
 
 #endif
