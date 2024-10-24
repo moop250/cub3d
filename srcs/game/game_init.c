@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 12:45:54 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/10/24 10:34:39 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/24 10:42:10 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ static bool	init_pixels(t_game *game)
 {
 	int	i;
 
-	game->pixels = ft_safe_malloc(sizeof(int *) * game->height, GAME_PIX_ERR);
 	game->pixels = malloc(sizeof(int *) * game->height);
 	if (!game->pixels)
 	{
 		cleanup_game(game);
+		ft_putstr_fd(GAME_PIX_ERR, 2);
 		return (false);
 	}
 	i = 0;
