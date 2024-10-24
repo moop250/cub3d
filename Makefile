@@ -6,7 +6,7 @@
 #    By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 16:51:54 by hlibine           #+#    #+#              #
-#    Updated: 2024/10/23 18:28:37 by dcaro-ro         ###   ########.fr        #
+#    Updated: 2024/10/24 10:32:58 by dcaro-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,8 @@ FILES		= main \
 				parsing/parse_textures \
 				parsing/parse_colors \
 				error_handling/error \
+				game/game_init \
+				utils/cleanup \
 
 SRCS		= $(addprefix $(SRCDIR)/, $(FILES:=.c))
 OBJS		= $(addprefix $(OBJDIR)/, $(FILES:=.o))

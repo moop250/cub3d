@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/24 10:02:23 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/24 10:35:15 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 # endif
 
 # define GAME_ERR_MALLOC "Could not allocate memory for game structure"
-# define GAME_PIX_ERR "Could not allocate memory for pixel array"
+# define GAME_PIX_ERR "Could not allocate memory for pixel array\n"
 # define COLOR_ERR_CHAR "Unauthorized character in color"
 
 typedef struct s_indexes
@@ -157,8 +157,13 @@ void	clean_map(char **map);
 bool	parse_colors(t_game *game, char **file_content);
 void	*parsing(t_game *game, char *lvl_path);
 
+/* Game */
+bool	game_init(t_game *game);
+
 /* Cleanup */
 void	freeall(void);
+void	freemlx(t_mlx mlx);
+void	*free_pixels(int **pixels, unsigned int rows);
 void	*cleanup_game(t_game *game);
 
 /* errors */

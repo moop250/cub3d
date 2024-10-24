@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 12:45:54 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/10/24 10:03:03 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/24 10:34:39 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,15 @@
 // Initialize the screen buffer
 static bool	init_pixels(t_game *game)
 {
-	unsigned int	i;
+	int	i;
 
 	game->pixels = ft_safe_malloc(sizeof(int *) * game->height, GAME_PIX_ERR);
+	game->pixels = malloc(sizeof(int *) * game->height);
+	if (!game->pixels)
+	{
+		cleanup_game(game);
+		return (false);
+	}
 	i = 0;
 	while (i < game->height)
 	{
@@ -25,7 +31,8 @@ static bool	init_pixels(t_game *game)
 		if (!game->pixels[i])
 		{
 			free_pixels(game->pixels, i);
-			perror(GAME_PIX_ERR);
+			cleanup_game(game);
+			ft_putstr_fd(GAME_PIX_ERR, 2);
 			return (false);
 		}
 		i++;
@@ -34,22 +41,21 @@ static bool	init_pixels(t_game *game)
 }
 
 // Initialize game structure
-t_game	*game_init(t_game *game, t_mapdata *mapdata, t_textures *textures)
+bool	game_init(t_game *game)
 {
-	game->mapdata = mapdata;
 	game->width = WIN_WIDTH;
 	game->height = WIN_HEIGHT;
 	game->mlx.window = mlx_new_window(game->mlx.ptr,
 			game->width, game->height, "cub3D");
 	if (!game->mlx.window)
 	{
-		freeall();
-		return (ft_free_msg(NULL, "Failed to create window"));
+		cleanup_game(game);
+		return (ft_free_bool(NULL, "Failed to create window", false));
 	}
-	if (!init_pixels(&game))
+	if (!init_pixels(game))
 	{
-		freeall();
-		return (NULL);
+		cleanup_game(game);
+		return (false);
 	}
-	return (game);
+	return (true);
 }

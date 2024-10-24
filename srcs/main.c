@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:38:56 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/24 10:03:24 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/24 10:35:30 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_game	*get_game(void)
 	return (game);
 }
 
-static void	freemlx(t_mlx mlx)
+void	freemlx(t_mlx mlx)
 {
 	if (mlx.ptr)
 	{
@@ -68,6 +68,26 @@ void	freeall(void)
 	ft_safe_free(1, game);
 }
 
+
+// void	game_init(t_game *game)
+// {
+// 	game->width = WIN_WIDTH;
+// 	game->height = WIN_HEIGHT;
+// 	game->mlx.window = mlx_new_window(game->mlx.ptr,
+// 			game->width, game->height, "cub3D");
+// 	if (!game->mlx.window)
+// 	{
+// 		cleanup_game(game);
+// 		ft_putstr_fd("Failed to create window\n", 2);
+// 		return ;
+// 	}
+// 	if (!init_pixels(&game))
+// 	{
+// 		cleanup_game(game);
+// 		return ;
+// 	}
+// }
+
 int	main(int ac, char **av)
 {
 	t_game	*game;
@@ -80,6 +100,11 @@ int	main(int ac, char **av)
 	game = get_game();
 	game->mlx.ptr = mlx_init();
 	parsing(game, av[1]);
-	freeall();
+	if (!game_init(game))
+	{
+		cleanup_game(game);
+		return (1);
+	}
+	cleanup_game(game);
 	return (0);
 }
