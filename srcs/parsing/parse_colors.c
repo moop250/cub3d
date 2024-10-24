@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:09:16 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/23 19:05:03 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/24 12:53:07 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,14 @@ static bool	set_color(t_game *game, char *line, char mode)
 	{
 		if (!ft_strchr(COLOR_CHARS, tmp[i]))
 		{
-			ft_error("Unauthorized character in color");
+			freeall();
 			return (ft_free_bool(tmp, COLOR_ERR_CHAR, false));
 		}
 	}
 	split = ft_split(tmp, ',');
 	if (!split)
 	{
-		ft_error("split failed");
+		freeall();
 		return (ft_free_bool(tmp, "split failed", false));
 	}
 	treat_split(game, split, mode);
