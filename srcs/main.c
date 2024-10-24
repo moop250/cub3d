@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:38:56 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/21 18:43:03 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/24 10:03:24 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@ static t_game	*get_game(void)
 		exit(1);
 	game->mapdata = NULL;
 	game->textures = NULL;
-	game->mlx.mlx = NULL;
-	game->mlx.mlx_window = NULL;
+	game->mlx.ptr = NULL;
+	game->mlx.window = NULL;
 	return (game);
 }
 
 static void	freemlx(t_mlx mlx)
 {
-	if (mlx.mlx)
+	if (mlx.ptr)
 	{
-		if (mlx.mlx_window)
-			mlx_destroy_window(mlx.mlx, mlx.mlx_window);
-		mlx_destroy_display(mlx.mlx);
-		ft_free(mlx.mlx);
+		if (mlx.window)
+			mlx_destroy_window(mlx.ptr, mlx.window);
+		mlx_destroy_display(mlx.ptr);
+		ft_free(mlx.ptr);
 	}
 }
 
@@ -53,13 +53,13 @@ void	freeall(void)
 		if (game->textures)
 		{
 			if (game->textures->north.img)
-				mlx_destroy_image(game->mlx.mlx, game->textures->north.img);
+				mlx_destroy_image(game->mlx.ptr, game->textures->north.img);
 			if (game->textures->south.img)
-				mlx_destroy_image(game->mlx.mlx, game->textures->south.img);
+				mlx_destroy_image(game->mlx.ptr, game->textures->south.img);
 			if (game->textures->west.img)
-				mlx_destroy_image(game->mlx.mlx, game->textures->west.img);
+				mlx_destroy_image(game->mlx.ptr, game->textures->west.img);
 			if (game->textures->east.img)
-				mlx_destroy_image(game->mlx.mlx, game->textures->east.img);
+				mlx_destroy_image(game->mlx.ptr, game->textures->east.img);
 			ft_safe_free(1, game->textures);
 		}
 		ft_safe_free(1, game->mapdata);
@@ -78,7 +78,7 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	game = get_game();
-	game->mlx.mlx = mlx_init();
+	game->mlx.ptr = mlx_init();
 	parsing(game, av[1]);
 	freeall();
 	return (0);

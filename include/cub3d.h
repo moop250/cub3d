@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/23 19:02:55 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/24 10:02:23 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,13 +118,13 @@ typedef struct s_textures
 /**
  * MLX structure
  *
- * @param mlx MLX pointer.
- * @param mlx_window MLX window pointer.
+ * @param ptr MLX pointer.
+ * @param window MLX window pointer.
  */
 typedef struct s_mlx
 {
-	void	*mlx;
-	void	*mlx_window;
+	void	*ptr;
+	void	*window;
 }			t_mlx;
 
 /**
@@ -159,6 +159,7 @@ void	*parsing(t_game *game, char *lvl_path);
 
 /* Cleanup */
 void	freeall(void);
+void	*cleanup_game(t_game *game);
 
 /* errors */
 void	ft_error(const char *msg);
