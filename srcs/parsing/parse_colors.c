@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:09:16 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/24 12:53:07 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:47:14 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	check_colors(t_game *game)
 	int	i;
 
 	i = -1;
-	while (++i < 2)
+	while (++i <= 2)
 		if (game->mapdata->colors[0][i] < 0
 			|| game->mapdata->colors[0][i] > 255
 			|| game->mapdata->colors[1][i] < 0
@@ -43,10 +43,10 @@ static void	treat_split(t_game *game, char **split, char mode)
 	}
 	i = -1;
 	if (mode == 'F')
-		while (++i < 2)
+		while (++i <= 2)
 			game->mapdata->colors[0][i] = ft_atoi(split[i]);
 	else
-		while (++i < 2)
+		while (++i <= 2)
 			game->mapdata->colors[1][i] = ft_atoi(split[i]);
 }
 
@@ -65,17 +65,11 @@ static bool	set_color(t_game *game, char *line, char mode)
 	while (tmp[++i])
 	{
 		if (!ft_strchr(COLOR_CHARS, tmp[i]))
-		{
-			freeall();
-			return (ft_free_bool(tmp, COLOR_ERR_CHAR, false));
-		}
+			return (freeall(), ft_free_bool(tmp, COLOR_ERR_CHAR, false));
 	}
 	split = ft_split(tmp, ',');
 	if (!split)
-	{
-		freeall();
-		return (ft_free_bool(tmp, "split failed", false));
-	}
+		return (freeall(), ft_free_bool(tmp, "split failed", false));
 	treat_split(game, split, mode);
 	ft_free_split(split);
 	return (ft_free_bool(tmp, NULL, true));
