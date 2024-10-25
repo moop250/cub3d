@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/25 11:15:04 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/25 18:53:03 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@
 # define GAME_ERR_MALLOC "Could not allocate memory for game structure"
 # define GAME_PIX_ERR "Could not allocate memory for pixel array\n"
 # define COLOR_ERR_CHAR "Unauthorized character in color"
+
+# define RAY_LIGHT_COLOR 0x007F0000
+# define RAY_DARK_COLOR 0x00FF0000
 
 typedef struct s_indexes
 {
@@ -169,12 +172,11 @@ typedef struct s_game
  * @param dir Ray direction.
  * @param side_dist Distance to the first side of the wall.
  * @param delta_dist Distance between two sides of the wall.
- * @param coord Current ray coordinates.
+ * @param map Current ray coordinates.
  * @param step Step to take in x and y direction (either -1 or 1).
- * @param wall_dist Distance to the wall.
- * @param side Side of the wall hit.
+ * @param wall_dist Distance from the player to the wall.
+ * @param side Side of the wall hit (0 for horizontal, 1 for vertical).
  * @param hit Flag indicating if the ray hit a wall.
- * @param side Side of the wall hit.
  */
 typedef struct s_ray
 {
@@ -183,10 +185,17 @@ typedef struct s_ray
 	t_vector	delta_dist;
 	t_coord		coord;
 	t_vector	step;
-	//double		wall_dist;
-	//int			side;
-	//int			hit;
+	int			side;
+	double		wall_dist;
+	bool		hit;
 }	t_ray;
+
+typedef struct t_ray_line
+{
+	int	height;
+	int	draw_start;
+	int	draw_end;
+}	t_ray_line;
 
 /* Parsing */
 char	**file_parser(char *file_path);
