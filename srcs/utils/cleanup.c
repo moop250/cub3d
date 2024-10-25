@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 22:32:06 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/10/24 09:59:58 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/25 10:51:00 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,20 @@ void	*destroy_textures(t_game *game)
 	return (NULL);
 }
 
+void	*mlx_cleanup(t_game *game)
+{
+	if (game->mlx.img_ptr)
+		mlx_destroy_image(game->mlx.ptr, game->mlx.img_ptr);
+	if (game->mlx.win_ptr)
+		mlx_destroy_window(game->mlx.ptr, game->mlx.win_ptr);
+	if (game->mlx.ptr)
+	{
+		mlx_destroy_display(game->mlx.ptr);
+		free(game->mlx.ptr);
+	}
+	return (NULL);
+}
+
 void	*cleanup_game(t_game *game)
 {
 	if (game)
@@ -61,8 +75,7 @@ void	*cleanup_game(t_game *game)
 		}
 		if (game->textures)
 			destroy_textures(game);
-		if (game->mlx.ptr)
-			freemlx(game->mlx);
+		mlx_cleanup(game);
 		if (game->pixels)
 			free_pixels(game->pixels, game->height);
 		free(game);

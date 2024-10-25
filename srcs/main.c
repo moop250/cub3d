@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:38:56 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/24 12:18:10 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/25 10:51:19 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static t_game	*get_game(void)
 	game->mapdata = NULL;
 	game->textures = NULL;
 	game->mlx.ptr = NULL;
-	game->mlx.window = NULL;
+	game->mlx.win_ptr = NULL;
 	return (game);
 }
 
@@ -32,8 +32,8 @@ void	freemlx(t_mlx mlx)
 {
 	if (mlx.ptr)
 	{
-		if (mlx.window)
-			mlx_destroy_window(mlx.ptr, mlx.window);
+		if (mlx.win_ptr)
+			mlx_destroy_window(mlx.ptr, mlx.win_ptr);
 		mlx_destroy_display(mlx.ptr);
 		ft_free(mlx.ptr);
 	}

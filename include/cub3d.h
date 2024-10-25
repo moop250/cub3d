@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/24 12:18:02 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/25 11:15:04 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,12 @@ typedef struct s_vector
 	double	x;
 	double	y;
 }	t_vector;
+
+typedef struct s_coord
+{
+	int	x;
+	int	y;
+}	t_coord;
 
 /**
  * Player structure
@@ -119,13 +125,23 @@ typedef struct s_textures
  * MLX structure
  *
  * @param ptr MLX pointer.
- * @param window MLX window pointer.
+ * @param win_ptr MLX window pointer.
+ * @param img_ptr MLX image pointer.
+ * @param addr Image address.
+ * @param bpp Bits per pixel.
+ * @param size_line Size of a line in bytes.
+ * @param endian Endianess.
  */
 typedef struct s_mlx
 {
 	void	*ptr;
-	void	*window;
-}			t_mlx;
+	void	*win_ptr;
+	void	*img_ptr;
+	char	*addr;
+	int		bpp;
+	int		size_line;
+	int		endian;
+}	t_mlx;
 
 /**
  * Game structure
@@ -147,6 +163,31 @@ typedef struct s_game
 	int			**pixels;
 }	t_game;
 
+/**
+ * Ray structure
+ *
+ * @param dir Ray direction.
+ * @param side_dist Distance to the first side of the wall.
+ * @param delta_dist Distance between two sides of the wall.
+ * @param coord Current ray coordinates.
+ * @param step Step to take in x and y direction (either -1 or 1).
+ * @param wall_dist Distance to the wall.
+ * @param side Side of the wall hit.
+ * @param hit Flag indicating if the ray hit a wall.
+ * @param side Side of the wall hit.
+ */
+typedef struct s_ray
+{
+	t_vector	dir;
+	t_vector	side_dist;
+	t_vector	delta_dist;
+	t_coord		coord;
+	t_vector	step;
+	//double		wall_dist;
+	//int			side;
+	//int			hit;
+}	t_ray;
+
 /* Parsing */
 char	**file_parser(char *file_path);
 int		check_walls(char **map, t_player *player);
@@ -164,6 +205,7 @@ bool	game_init(t_game *game);
 void	freeall(void);
 void	freemlx(t_mlx mlx);
 void	*free_pixels(int **pixels, unsigned int rows);
+void	*mlx_cleanup(t_game *game);
 void	*cleanup_game(t_game *game);
 
 /* errors */
