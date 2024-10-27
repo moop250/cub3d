@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/24 12:18:02 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/25 18:31:38 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@
 # ifndef WIN_HEIGHT
 #  define WIN_HEIGHT 1080
 # endif
+
+# define PI 3.14159265358979323846
+# define STEP_SIZE 0.1
 
 # define WHITESPACE " \n\t"
 # define MAP_CHARS "01NSEW"
@@ -72,7 +75,8 @@ typedef struct s_vector
 typedef struct s_player
 {
 	t_vector	pos;
-	t_vector	dir;
+	t_vector	delta;
+	double 		angle;
 	t_vector	plane;
 }	t_player;
 
