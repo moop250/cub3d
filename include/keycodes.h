@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 15:24:00 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/10/24 15:44:34 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/24 16:01:12 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 #  define KEY_D			2
 #  define KEY_LEFT		123
 #  define KEY_RIGHT		124
-#  define KEY_FORWARD 	126
-#  define KEY_BACKWARD	125
+#  define KEY_UP 	126
+#  define KEY_DOWN	125
 #  define KEY_ESC 53
 # endif
 

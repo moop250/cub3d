@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/25 18:31:38 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/28 15:01:26 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@
 # define GAME_PIX_ERR "Could not allocate memory for pixel array\n"
 # define COLOR_ERR_CHAR "Unauthorized character in color"
 
+# define RAY_LIGHT_COLOR 0x007F0000
+# define RAY_DARK_COLOR 0x00FF0000
+
 typedef struct s_indexes
 {
 	int		i;
@@ -64,6 +67,12 @@ typedef struct s_vector
 	double	x;
 	double	y;
 }	t_vector;
+
+typedef struct s_coord
+{
+	int	x;
+	int	y;
+}	t_coord;
 
 /**
  * Player structure
@@ -123,13 +132,23 @@ typedef struct s_textures
  * MLX structure
  *
  * @param ptr MLX pointer.
- * @param window MLX window pointer.
+ * @param win_ptr MLX window pointer.
+ * @param img_ptr MLX image pointer.
+ * @param addr Image address.
+ * @param bpp Bits per pixel.
+ * @param size_line Size of a line in bytes.
+ * @param endian Endianess.
  */
 typedef struct s_mlx
 {
 	void	*ptr;
-	void	*window;
-}			t_mlx;
+	void	*win_ptr;
+	void	*img_ptr;
+	char	*addr;
+	int		bpp;
+	int		size_line;
+	int		endian;
+}	t_mlx;
 
 /**
  * Game structure
@@ -151,6 +170,37 @@ typedef struct s_game
 	int			**pixels;
 }	t_game;
 
+/**
+ * Ray structure
+ *
+ * @param dir Ray direction.
+ * @param side_dist Distance to the first side of the wall.
+ * @param delta_dist Distance between two sides of the wall.
+ * @param map Current ray coordinates.
+ * @param step Step to take in x and y direction (either -1 or 1).
+ * @param wall_dist Distance from the player to the wall.
+ * @param side Side of the wall hit (0 for horizontal, 1 for vertical).
+ * @param hit Flag indicating if the ray hit a wall.
+ */
+typedef struct s_ray
+{
+	t_vector	dir;
+	t_vector	side_dist;
+	t_vector	delta_dist;
+	t_coord		coord;
+	t_vector	step;
+	int			side;
+	double		wall_dist;
+	bool		hit;
+}	t_ray;
+
+typedef struct t_ray_line
+{
+	int	height;
+	int	draw_start;
+	int	draw_end;
+}	t_ray_line;
+
 /* Parsing */
 char	**file_parser(char *file_path);
 int		check_walls(char **map, t_player *player);
@@ -168,6 +218,7 @@ bool	game_init(t_game *game);
 void	freeall(void);
 void	freemlx(t_mlx mlx);
 void	*free_pixels(int **pixels, unsigned int rows);
+void	*mlx_cleanup(t_game *game);
 void	*cleanup_game(t_game *game);
 
 /* errors */

@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 11:27:24 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/10/25 18:17:16 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/28 15:00:29 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,30 @@ static void	print_map(char **map)
 	}
 }
 
-static void	print_colors(int colors[2][3])
+// static void	print_colors(int colors[2][3])
+// {
+// 	printf("Floor color: R=%d, G=%d, B=%d\n",
+// 		colors[0][0], colors[0][1], colors[0][2]);
+// 	printf("Ceiling color: R=%d, G=%d, B=%d\n",
+// 		colors[1][0], colors[1][1], colors[1][2]);
+// }
+
+static void	print_mlx(t_mlx *mlx)
 {
-	printf("Floor color: R=%d, G=%d, B=%d\n",
-		colors[0][0], colors[0][1], colors[0][2]);
-	printf("Ceiling color: R=%d, G=%d, B=%d\n",
-		colors[1][0], colors[1][1], colors[1][2]);
+	if (!mlx)
+	{
+		ft_putendl_fd("MLX is not properly initialized", 2);
+		return ;
+	}
+	printf("  MLX:\n");
+	printf("    ptr: %p\n", mlx->ptr);
+	printf("    win_ptr: %p\n", mlx->win_ptr);
+	printf("    img_ptr: %p\n", mlx->img_ptr);
+	printf("    addr: %p\n", mlx->addr);
+	printf("    bpp: %d\n", mlx->bpp);
+	printf("    size_line: %d\n", mlx->size_line);
+	printf("    endian: %d\n", mlx->endian);
+	printf("\n");
 }
 
 void	print_game(t_game *game)
@@ -56,13 +74,14 @@ void	print_game(t_game *game)
 	}
 	ft_putstr_fd("Game Structure:\n", 1);
 	printf("  Width: %d, Height: %d\n", game->width, game->height);
-	printf("  MLX:\n");
-	printf("    ptr: %p\n", game->mlx.ptr);
-	printf("    window: %p\n", game->mlx.window);
+	print_mlx(&game->mlx);
 	printf("  Mapdata:\n");
 	print_map(game->mapdata->map);
 	print_player(&game->mapdata->player);
-	print_colors(game->mapdata->colors);
+	printf("Floor color: R=%d, G=%d, B=%d\n", game->mapdata->colors[0][0],
+		game->mapdata->colors[0][1], game->mapdata->colors[0][2]);
+	printf("Ceiling color: R=%d, G=%d, B=%d\n", game->mapdata->colors[1][0],
+		game->mapdata->colors[1][1], game->mapdata->colors[1][2]);
 	printf("  Textures:\n");
 	printf("    North:\n");
 	print_xpm(&game->textures->north);

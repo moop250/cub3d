@@ -6,7 +6,7 @@
 #    By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/02 14:37:14 by dcaro-ro          #+#    #+#              #
-#    Updated: 2024/10/10 15:26:33 by dcaro-ro         ###   ########.fr        #
+#    Updated: 2024/10/25 19:23:46 by dcaro-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRCS		=		$(CTYPE_DIR)/ft_isalpha.c\
 					$(MATH_DIR)/ft_swap.c\
 					$(MATH_DIR)/ft_max.c\
 					$(MATH_DIR)/ft_min.c\
+					$(MATH_DIR)/ft_clamp.c\
 					$(MEM_DIR)/ft_bzero.c\
 					$(MEM_DIR)/ft_calloc.c\
 					$(MEM_DIR)/ft_free.c\

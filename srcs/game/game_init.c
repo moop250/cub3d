@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 12:45:54 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/10/24 10:42:10 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/25 10:57:01 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,45 @@ static bool	init_pixels(t_game *game)
 	return (true);
 }
 
+static bool	game_mlx_init(t_game *game)
+{
+	game->mlx.win_ptr = mlx_new_window(game->mlx.ptr,
+			game->width, game->height, "cub3D");
+	if (!game->mlx.win_ptr)
+	{
+		cleanup_game(game);
+		return (ft_free_bool(NULL, "Failed to create window", false));
+	}
+	game->mlx.img_ptr = mlx_new_image(game->mlx.ptr, game->width, game->height);
+	if (!game->mlx.img_ptr)
+	{
+		cleanup_game(game);
+		return (ft_free_bool(NULL, "Failed to create image", false));
+	}
+	game->mlx.addr = mlx_get_data_addr(game->mlx.img_ptr, &game->mlx.bpp,
+			&game->mlx.size_line, &game->mlx.endian);
+	if (!game->mlx.addr)
+	{
+		cleanup_game(game);
+		return (ft_free_bool(NULL, "Failed to get image address", false));
+	}
+	return (true);
+}
+
 // Initialize game structure
 bool	game_init(t_game *game)
 {
 	game->width = WIN_WIDTH;
 	game->height = WIN_HEIGHT;
-	game->mlx.window = mlx_new_window(game->mlx.ptr,
-			game->width, game->height, "cub3D");
-	if (!game->mlx.window)
+	if (!game_mlx_init(game))
 	{
 		cleanup_game(game);
-		return (ft_free_bool(NULL, "Failed to create window", false));
+		return (ft_free_bool(NULL, "Failed to initialize mlx", false));
 	}
 	if (!init_pixels(game))
 	{
 		cleanup_game(game);
-		return (false);
+		return (ft_free_bool(NULL, "Failed to initialize pixels", false));
 	}
 	return (true);
 }
