@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:35:38 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/10/25 18:24:28 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/28 15:20:48 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ static void	handle_spawn(char c, t_player *player, int x, int y)
 	player->pos.y = y;
 	if (c == 'N')
 	{
-		player->angle = PI / 2;
+		player->angle = HALF_PI;
 		player->plane = (t_vector){0.66, 0};
 	}
 	else if (c == 'S')
 	{
-		player->angle = 3 * PI / 2;
+		player->angle = 3 * HALF_PI;
 		player->plane = (t_vector){-0.66, 0};
 	}
 	else if (c == 'E')

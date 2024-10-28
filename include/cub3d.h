@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/28 15:01:26 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/28 16:00:09 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # endif
 
 # define PI 3.14159265358979323846
+# define HALF_PI 1.57079632679489661923
 # define STEP_SIZE 0.1
 
 # define WHITESPACE " \n\t"
@@ -78,14 +79,15 @@ typedef struct s_coord
  * Player structure
  *
  * @param pos Player's position in the map.
- * @param dir Player's POV or direction (which whay the player is facing).
+ * @param delta 2D vector used to calculate movement based on the angle.
+ * @param angle The angle of the player (which whay the player is facing).
  * @param plane 2D vector representing the camera plane.
  */
 typedef struct s_player
 {
 	t_vector	pos;
 	t_vector	delta;
-	double 		angle;
+	double		angle;
 	t_vector	plane;
 }	t_player;
 

@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 17:19:47 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/25 18:37:06 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/28 15:18:31 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	move(t_game *game, int dir, int strafe)
 	strafe_step = strafe * STEP_SIZE;
 	player->pos.x += cos(player->angle) * move_step;
 	player->pos.y += sin(player->angle) * move_step;
-	player->pos.x += cos(player->angle + PI / 2) * strafe_step;
-	player->pos.y += sin(player->angle + PI / 2) * strafe_step;
+	player->pos.x += cos(player->angle + HALF_PI) * strafe_step;
+	player->pos.y += sin(player->angle + HALF_PI) * strafe_step;
 }
 
 /*
