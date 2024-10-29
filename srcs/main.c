@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:38:56 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/25 10:51:19 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/29 09:52:37 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ int	main(int ac, char **av)
 		cleanup_game(game);
 		return (1);
 	}
-	//game_play(game);
-	print_game(game);
+	game_play(game);
+	//print_game(game);
 	cleanup_game(game);
 	return (0);
 }

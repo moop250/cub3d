@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/25 18:53:03 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/29 09:54:11 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <unistd.h>
+# include "keycodes.h"
 
 # ifdef __APPLE__
 #  include "../libs/minilibx_opengl/mlx.h"
@@ -52,6 +54,15 @@
 # define RAY_LIGHT_COLOR 0x007F0000
 # define RAY_DARK_COLOR 0x00FF0000
 
+# ifndef FT_PI
+#  define FT_PI 3.14159265358979323846
+# endif
+
+# define MOVE_SPEED 0.05
+# define ROTATE_SPEED 0.1
+# define ROTATION_DEGREE 5.0
+# define MAX_DIRTY_RECTS 64
+
 typedef struct s_indexes
 {
 	int		i;
@@ -70,6 +81,14 @@ typedef struct s_coord
 	int	x;
 	int	y;
 }	t_coord;
+
+typedef enum e_move
+{
+	FORWARD,
+	BACKWARD,
+	LEFT,
+	RIGHT
+}	t_move;
 
 /**
  * Player structure
@@ -146,6 +165,36 @@ typedef struct s_mlx
 	int		endian;
 }	t_mlx;
 
+// for dirty rectangles approach
+// /**
+//  * Rectangle structure
+//  *
+//  * @param x X coordinate.
+//  * @param y Y coordinate.
+//  * @param width Rectangle width.
+//  * @param height Rectangle height.
+//  */
+// typedef struct s_rect
+// {
+// 	int	x;
+// 	int	y;
+// 	int	width;
+// 	int	height;
+// }	t_rect;
+
+// /**
+//  * Dirty rectangle structure
+//  * Used for storing rectangles that need to be redrawn.
+//  *
+//  * @param rects Array of rectangles.
+//  * @param count Number of rectangles.
+//  */
+// typedef struct dirty_rect
+// {
+// 	t_rect	rects[MAX_DIRTY_RECTS];
+// 	int		count;
+// }	t_dirty_rect;
+
 /**
  * Game structure
  *
@@ -158,12 +207,13 @@ typedef struct s_mlx
  */
 typedef struct s_game
 {
-	t_mapdata	*mapdata;
-	t_textures	*textures;
-	t_mlx		mlx;
-	int			width;
-	int			height;
-	int			**pixels;
+	t_mapdata		*mapdata;
+	t_textures		*textures;
+	t_mlx			mlx;
+	int				width;
+	int				height;
+	int				**pixels;
+//	t_dirty_rect	dirty;
 }	t_game;
 
 /**
@@ -209,6 +259,12 @@ void	*parsing(t_game *game, char *lvl_path);
 
 /* Game */
 bool	game_init(t_game *game);
+void	init_ray(t_game *game, t_ray *ray, int x);
+void	ray_casting(t_game *game);
+void	move_player(t_game *game, t_move dir);
+void	rotate_player(t_game *game, double angle);
+void	render_scene(t_game *game);
+void	game_play(t_game *game);
 
 /* Cleanup */
 void	freeall(void);
