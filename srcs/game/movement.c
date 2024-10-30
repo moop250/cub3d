@@ -6,22 +6,17 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 17:19:47 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/30 14:24:57 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/30 14:30:05 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-#include <stdbool.h>
 
-static bool	collision_check(t_game *game, double new_x_y[2])
+static bool	collision_check(t_game *game, double new_x, double new_y)
 {
-	double	new_x;
-	double	new_y;
 	int		map_x;
 	int		map_y;
 
-	new_x = new_x_y[0];
-	new_y = new_x_y[1];
 	map_x = (int)(new_x);
 	map_y = (int)(new_y);
 	if (game->mapdata->map[map_y][map_x] == '1')
@@ -40,20 +35,21 @@ void	move(t_game *game, int dir, int strafe)
 	t_player	*player;
 	double		move_step;
 	double		strafe_step;
-	double		new_x_y[2];
+	double		new_x;
+	double		new_y;
 
 	player = &game->mapdata->player;
 	move_step = dir * STEP_SIZE;
 	strafe_step = strafe * STEP_SIZE;
-	new_x_y[0] += player->dir.x * move_step;
-	new_x_y[1] += player->dir.y * move_step;
-	new_x_y[0] += (player->dir.x + HALF_PI) * strafe_step;
-	new_x_y[1] += (player->dir.y + HALF_PI) * strafe_step;
+	new_x += (player->dir.x * move_step)
+		+ ((player->dir.x + HALF_PI) * strafe_step);
+	new_y += (player->dir.y * move_step)
+		+ ((player->dir.y + HALF_PI) * strafe_step);
 
-	if (!collision_check(game, new_x_y))
+	if (!collision_check(game, new_x, new_y))
 	{
-		player->pos.x = new_x_y[0];
-		player->pos.y = new_x_y[1];
+		player->pos.x = new_x;
+		player->pos.y = new_y;
 	}
 }
 
