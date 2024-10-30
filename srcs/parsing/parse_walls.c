@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:35:38 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/10/28 15:20:48 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/30 13:24:01 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ static void	handle_spawn(char c, t_player *player, int x, int y)
 		player->angle = PI;
 		player->plane = (t_vector){0, -0.66};
 	}
-	player->delta.x = cos(player->angle) * 5;
-	player->delta.y = sin(player->angle) * 5;
+	player->dir.x = cos(player->angle) * 5;
+	player->dir.y = sin(player->angle) * 5;
 }
 
 static int	skip_whitespace(char **map, int *i, int *j)

@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 11:27:24 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/10/28 15:00:29 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/30 13:22:11 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static void	print_player(t_player *player)
 {
 	printf("      Pos: %f, %f\n", player->pos.x, player->pos.y);
-	printf("      Dir: %f\n", player->angle);
-	printf("      Deltas: %f, %f\n", player->delta.x, player->delta.y);
+	printf("      Angle: %f\n", player->angle);
+	printf("      Dirs: %f, %f\n", player->dir.x, player->dir.y);
 	printf("      Plane: %f, %f\n", player->plane.x, player->plane.y);
 }
 

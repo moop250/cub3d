@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/28 16:00:09 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/30 13:21:52 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,14 @@ typedef struct s_coord
  * Player structure
  *
  * @param pos Player's position in the map.
- * @param delta 2D vector used to calculate movement based on the angle.
+ * @param dir 2D vector used to calculate movement based on the angle.
  * @param angle The angle of the player (which whay the player is facing).
  * @param plane 2D vector representing the camera plane.
  */
 typedef struct s_player
 {
 	t_vector	pos;
-	t_vector	delta;
+	t_vector	dir;
 	double		angle;
 	t_vector	plane;
 }	t_player;

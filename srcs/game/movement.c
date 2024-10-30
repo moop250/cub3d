@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 17:19:47 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/28 15:18:31 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/30 13:23:37 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	move(t_game *game, int dir, int strafe)
 	player = &game->mapdata->player;
 	move_step = dir * STEP_SIZE;
 	strafe_step = strafe * STEP_SIZE;
-	player->pos.x += cos(player->angle) * move_step;
-	player->pos.y += sin(player->angle) * move_step;
-	player->pos.x += cos(player->angle + HALF_PI) * strafe_step;
-	player->pos.y += sin(player->angle + HALF_PI) * strafe_step;
+	player->pos.x += player->dir.x * move_step;
+	player->pos.y += player->dir.y * move_step;
+	player->pos.x += (player->dir.x + HALF_PI) * strafe_step;
+	player->pos.y += (player->dir.y + HALF_PI) * strafe_step;
 }
 
 /*
@@ -56,6 +56,6 @@ void	rotate(t_game *game, int dir)
 	}
 	else
 		return ;
-	player->delta.x = cos(player->angle) * 5;
-	player->delta.y = sin(player->angle) * 5;
+	player->dir.x = cos(player->angle);
+	player->dir.y = sin(player->angle);
 }
