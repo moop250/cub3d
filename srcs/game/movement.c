@@ -6,11 +6,12 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 17:19:47 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/30 14:30:05 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/10/30 14:51:47 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include <stdbool.h>
 
 static bool	collision_check(t_game *game, double new_x, double new_y)
 {
@@ -20,8 +21,8 @@ static bool	collision_check(t_game *game, double new_x, double new_y)
 	map_x = (int)(new_x);
 	map_y = (int)(new_y);
 	if (game->mapdata->map[map_y][map_x] == '1')
-		return (false);
-	return (true);
+		return (true);
+	return (false);
 }
 
 /*
