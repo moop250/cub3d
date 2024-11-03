@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/29 09:54:11 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/03 11:49:45 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@
 # ifndef WIN_HEIGHT
 #  define WIN_HEIGHT 1080
 # endif
+
+# define PI 3.14159265358979323846
+# define HALF_PI 1.57079632679489661923
+# define STEP_SIZE 0.1
 
 # define WHITESPACE " \n\t"
 # define MAP_CHARS "01NSEW"
@@ -94,13 +98,15 @@ typedef enum e_move
  * Player structure
  *
  * @param pos Player's position in the map.
- * @param dir Player's POV or direction (which whay the player is facing).
+ * @param dir 2D vector used to calculate movement based on the angle.
+ * @param angle The angle of the player (which whay the player is facing).
  * @param plane 2D vector representing the camera plane.
  */
 typedef struct s_player
 {
 	t_vector	pos;
 	t_vector	dir;
+	double		angle;
 	t_vector	plane;
 }	t_player;
 
