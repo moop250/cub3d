@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 12:45:54 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/10/29 09:50:35 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/04 15:27:48 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,5 @@ bool	game_init(t_game *game)
 		cleanup_game(game);
 		return (ft_free_bool(NULL, "Failed to initialize pixels", false));
 	}
-	//game->dirty.count = 0;
 	return (true);
 }
