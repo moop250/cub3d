@@ -6,13 +6,13 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 15:58:19 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/04 15:19:11 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/04 15:47:38 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	init_ray(t_ray *ray)
+static void	init_ray(t_ray *ray)
 {
 	ray->cam_x = 0.0;
 	ray->dir.x = 0.0;
@@ -58,7 +58,7 @@ void	init_ray_data(t_game *game, t_ray *ray, int x)
 	ray->hit = false;
 }
 
-static void	calc_step_side_dist(t_game *game, t_ray *ray)
+void	calc_step_side_dist(t_game *game, t_ray *ray)
 {
 	t_vector	pos;
 

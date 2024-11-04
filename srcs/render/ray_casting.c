@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 10:27:22 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/04 15:21:23 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/04 15:45:45 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ static void	calculate_line_height(t_game *game, t_ray *ray)
 		ray->wall_dist = ray->side_dist.x - ray->delta_dist.x;
 	else
 		ray->wall_dist = ray->side_dist.y - ray->delta_dist.y;
-	ray->line_height = (int)(WIN_HEIGHT / ray->wall_dist);
-	ray->draw_end = ray->line_height / 2 + WIN_HEIGHT / 2;
-	if (ray->draw_end >= WIN_HEIGHT)
-		ray->draw_end = WIN_HEIGHT - 1;
+	ray->line_height = (int)(game->height / ray->wall_dist);
+	ray->draw_end = ray->line_height / 2 + game->height / 2;
+	if (ray->draw_end >= game->height)
+		ray->draw_end = game->height - 1;
 	if (ray->side == 0)
 		ray->wall_x = player->pos.y + ray->wall_dist * ray->dir.y;
 	else

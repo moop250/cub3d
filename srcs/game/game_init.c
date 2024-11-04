@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 12:45:54 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/04 15:27:48 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/04 16:04:17 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,22 @@ static bool	game_mlx_init(t_game *game)
 	return (true);
 }
 
+void	init_texture_data(t_game *game)
+{
+	game->textures->north.addr = mlx_get_data_addr(game->textures->north.img,
+			&game->textures->north.bpp, &game->textures->north.size_line,
+			&game->textures->north.endian);
+	game->textures->south.addr = mlx_get_data_addr(game->textures->south.img,
+			&game->textures->south.bpp, &game->textures->south.size_line,
+			&game->textures->south.endian);
+	game->textures->east.addr = mlx_get_data_addr(game->textures->east.img,
+			&game->textures->east.bpp, &game->textures->east.size_line,
+			&game->textures->east.endian);
+	game->textures->west.addr = mlx_get_data_addr(game->textures->west.img,
+			&game->textures->west.bpp, &game->textures->west.size_line,
+			&game->textures->west.endian);
+}
+
 // Initialize game structure
 bool	game_init(t_game *game)
 {
@@ -80,5 +96,6 @@ bool	game_init(t_game *game)
 		cleanup_game(game);
 		return (ft_free_bool(NULL, "Failed to initialize pixels", false));
 	}
+	init_texture_data(game);
 	return (true);
 }
