@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/03 11:49:45 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/04 15:03:21 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,14 @@ typedef enum e_move
 	RIGHT
 }	t_move;
 
+typedef enum e_tex
+{
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST
+}	t_tex;
+
 /**
  * Player structure
  *
@@ -126,11 +134,27 @@ typedef struct s_mapdata
 	int			colors[2][3];
 }	t_mapdata;
 
+/**
+ * XPM structure
+ *
+ * @param img Image pointer.
+ * @param width Width of the texture in px.
+ * @param height Height of the texture in px.
+ * @param addr Address of the pixel data.
+ * @param bpp Bits per pixel.
+ * @param size_line Size of a line (number of bytes per row in the texture).
+ * @param endian Endianess.
+ * @param path Path to the XPM file.
+ */
 typedef struct s_xpm
 {
 	void	*img;
 	int		width;
 	int		height;
+	char	*addr;
+	int		bpp;
+	int		size_line;
+	int		endian;
 }	t_xpm;
 
 /**
@@ -171,36 +195,6 @@ typedef struct s_mlx
 	int		endian;
 }	t_mlx;
 
-// for dirty rectangles approach
-// /**
-//  * Rectangle structure
-//  *
-//  * @param x X coordinate.
-//  * @param y Y coordinate.
-//  * @param width Rectangle width.
-//  * @param height Rectangle height.
-//  */
-// typedef struct s_rect
-// {
-// 	int	x;
-// 	int	y;
-// 	int	width;
-// 	int	height;
-// }	t_rect;
-
-// /**
-//  * Dirty rectangle structure
-//  * Used for storing rectangles that need to be redrawn.
-//  *
-//  * @param rects Array of rectangles.
-//  * @param count Number of rectangles.
-//  */
-// typedef struct dirty_rect
-// {
-// 	t_rect	rects[MAX_DIRTY_RECTS];
-// 	int		count;
-// }	t_dirty_rect;
-
 /**
  * Game structure
  *
@@ -219,23 +213,28 @@ typedef struct s_game
 	int				width;
 	int				height;
 	int				**pixels;
-//	t_dirty_rect	dirty;
 }	t_game;
 
 /**
  * Ray structure
  *
+ * @param cam_x Camera X position.
  * @param dir Ray direction.
  * @param side_dist Distance to the first side of the wall.
  * @param delta_dist Distance between two sides of the wall.
  * @param map Current ray coordinates.
  * @param step Step to take in x and y direction (either -1 or 1).
  * @param wall_dist Distance from the player to the wall.
+ * @param wall_x Exact position of the wall hit.
  * @param side Side of the wall hit (0 for horizontal, 1 for vertical).
  * @param hit Flag indicating if the ray hit a wall.
+ * @param line_height Height of the wall line to draw.
+ * @param draw_start Start of the wall line to draw.
+ * @param draw_end End of the wall line to draw.
  */
 typedef struct s_ray
 {
+	double		cam_x;
 	t_vector	dir;
 	t_vector	side_dist;
 	t_vector	delta_dist;
@@ -243,7 +242,11 @@ typedef struct s_ray
 	t_vector	step;
 	int			side;
 	double		wall_dist;
+	double		wall_x;
 	bool		hit;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
 }	t_ray;
 
 typedef struct t_ray_line
@@ -265,10 +268,9 @@ void	*parsing(t_game *game, char *lvl_path);
 
 /* Game */
 bool	game_init(t_game *game);
-void	init_ray(t_game *game, t_ray *ray, int x);
+//void	init_ray(t_game *game, t_ray *ray, int x);
+void	init_ray(t_ray *ray);
 void	ray_casting(t_game *game);
-void	move_player(t_game *game, t_move dir);
-void	rotate_player(t_game *game, double angle);
 void	render_scene(t_game *game);
 void	game_play(t_game *game);
 
