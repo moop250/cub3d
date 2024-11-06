@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/04 15:49:18 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/06 03:29:41 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,6 @@ typedef enum e_move
 	LEFT,
 	RIGHT
 }	t_move;
-
-typedef enum e_tex
-{
-	NORTH,
-	SOUTH,
-	EAST,
-	WEST
-}	t_tex;
 
 /**
  * Player structure
@@ -243,18 +235,11 @@ typedef struct s_ray
 	int			side;
 	double		wall_dist;
 	double		wall_x;
-	bool		hit;
+	int			hit;
 	int			line_height;
 	int			draw_start;
 	int			draw_end;
 }	t_ray;
-
-typedef struct t_ray_line
-{
-	int	height;
-	int	draw_start;
-	int	draw_end;
-}	t_ray_line;
 
 /* Parsing */
 char	**file_parser(char *file_path);
@@ -273,10 +258,10 @@ bool	game_init(t_game *game);
 void	game_play(t_game *game);
 
 /* Rendering */
-void	init_ray_data(t_game *game, t_ray *ray, int x);
-void	calc_step_side_dist(t_game *game, t_ray *ray);
-t_xpm	*select_texture(t_game *game, t_ray *ray);
-int		get_texture_color(t_game *game, t_ray *ray, int x, int y);
+void	init_ray(t_ray *ray);
+int		get_color(int red, int green, int blue);
+void	put_pixel(t_game *game, int x, int y, int color);
+void	render_pixel(t_game *game, int x, int y, t_ray *ray);
 void	ray_casting(t_game *game);
 
 /* Cleanup */
