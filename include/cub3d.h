@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/06 03:29:41 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/06 17:37:46 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,6 +253,10 @@ void	*parsing(t_game *game, char *lvl_path);
 
 /* Game */
 bool	game_init(t_game *game);
+
+/* Movement */
+void	move_player(t_game *game, t_move dir);
+void	rotate_player(t_game *game, t_move dir);
 
 //void	render_scene(t_game *game);
 void	game_play(t_game *game);
