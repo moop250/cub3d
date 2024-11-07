@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 10:27:22 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/06 16:40:28 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/07 11:32:06 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void	dda(t_game *game, t_ray *ray)
 			ray->coord.x, ray->coord.y,
 			game->mapdata->map[ray->coord.y][ray->coord.x],
 			ray->side, ray->hit);
-		if (game->mapdata->map[ray->coord.x][ray->coord.y] == '1')
+		if (game->mapdata->map[ray->coord.y][ray->coord.x] == '1')
 			ray->hit = 1;
 	}
 }
