@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 17:19:47 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/30 14:51:47 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/07 01:13:37 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,14 @@ void	move(t_game *game, int dir, int strafe)
 	double		new_y;
 
 	player = &game->mapdata->player;
+	new_x = player->pos.x;
+	new_y = player->pos.y;
 	move_step = dir * STEP_SIZE;
 	strafe_step = strafe * STEP_SIZE;
 	new_x += (player->dir.x * move_step)
 		+ ((player->dir.x + HALF_PI) * strafe_step);
 	new_y += (player->dir.y * move_step)
 		+ ((player->dir.y + HALF_PI) * strafe_step);
-
 	if (!collision_check(game, new_x, new_y))
 	{
 		player->pos.x = new_x;
