@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 17:19:47 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/06 17:36:55 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/07 00:28:47 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,14 @@ void	move_player(t_game *game, t_move dir)
 		strafe_step = -STEP_SIZE;
 	else if (dir == RIGHT)
 		strafe_step = STEP_SIZE;
-	new_x = (player->dir.x * move_step) + ((player->dir.x + HALF_PI) * strafe_step);
-	new_y = (player->dir.y * move_step) + ((player->dir.y + HALF_PI) * strafe_step);
+	new_x = player->pos.x;
+	new_y = player->pos.y;
+	new_x += (player->dir.x * move_step)
+		+ ((player->dir.x + HALF_PI) * strafe_step);
+	new_y += (player->dir.y * move_step)
+		+ ((player->dir.y + HALF_PI) * strafe_step);
 	if (!collision_check(game, new_x, new_y))
-	{
-		player->pos.x = new_x;
-		player->pos.y = new_y;
-	}
+		player->pos = (t_vector){new_x, new_y};
 }
 
 /*
