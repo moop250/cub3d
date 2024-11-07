@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 10:27:22 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/07 11:32:06 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/07 15:46:50 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,16 @@ static void	dda(t_game *game, t_ray *ray)
 
 static void	calculate_line_height(t_game *game, t_ray *ray)
 {
+	// if (ray->side == 0)
+	// 	ray->wall_dist = ray->side_dist.x - ray->delta_dist.x;
+	// else
+	// 	ray->wall_dist = ray->side_dist.y - ray->delta_dist.y;
 	if (ray->side == 0)
-		ray->wall_dist = ray->side_dist.x - ray->delta_dist.x;
+		ray->wall_dist = (ray->coord.x - game->mapdata->player.pos.x
+				+ (1 - ray->step.x) / 2) / ray->dir.x;
 	else
-		ray->wall_dist = ray->side_dist.y - ray->delta_dist.y;
+		ray->wall_dist = (ray->coord.y - game->mapdata->player.pos.y
+				+ (1 - ray->step.y) / 2) / ray->dir.y;
 	ray->line_height = (int)(game->height / ray->wall_dist);
 	ray->draw_start = -ray->line_height / 2 + game->height / 2;
 	if (ray->draw_start < 0)

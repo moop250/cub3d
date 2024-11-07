@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 10:46:14 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/07 01:41:17 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/07 13:38:49 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	handle_keypress(int keycode, t_game *game)
 {
 	if (keycode == KEY_ESC)
 		exit_game(game);
-	if (keycode == KEY_W)
+	if (keycode == KEY_W || keycode == KEY_UP)
 		move_player(game, FORWARD);
-	else if (keycode == KEY_S)
+	else if (keycode == KEY_S || keycode == KEY_DOWN)
 		move_player(game, BACKWARD);
 	else if (keycode == KEY_A)
 		move_player(game, LEFT);

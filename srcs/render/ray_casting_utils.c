@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 15:58:19 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/06 03:32:12 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/07 15:53:54 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	render_pixel(t_game *game, int x, int y, t_ray *ray)
 		tex.y = (y - ray->draw_start)
 			* game->textures->north.height / ray->line_height;
 		texture = select_texture(game, ray);
-		tex.x = (int)(ray->wall_x * texture->width);
+		tex.x = (int)(ray->wall_x * (double)texture->width);
 		if ((ray->side == 0 && ray->dir.x < 0)
 			|| (ray->side == 1 && ray->dir.y > 0))
 			tex.x = texture->width - tex.x - 1;
