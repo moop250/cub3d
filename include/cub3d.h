@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/06 17:37:46 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/07 01:42:30 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,7 +259,7 @@ void	move_player(t_game *game, t_move dir);
 void	rotate_player(t_game *game, t_move dir);
 
 //void	render_scene(t_game *game);
-void	game_play(t_game *game);
+int		game_play(t_game *game);
 
 /* Rendering */
 void	init_ray(t_ray *ray);
@@ -267,6 +267,10 @@ int		get_color(int red, int green, int blue);
 void	put_pixel(t_game *game, int x, int y, int color);
 void	render_pixel(t_game *game, int x, int y, t_ray *ray);
 void	ray_casting(t_game *game);
+
+/* Hooks */
+int		exit_game(t_game *game);
+int		handle_keypress(int keycode, t_game *game);
 
 /* Cleanup */
 void	freeall(void);

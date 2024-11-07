@@ -6,7 +6,7 @@
 #    By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 16:51:54 by hlibine           #+#    #+#              #
-#    Updated: 2024/11/06 03:27:09 by dcaro-ro         ###   ########.fr        #
+#    Updated: 2024/11/07 01:44:07 by dcaro-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,10 +58,12 @@ FILES		= main \
 				parsing/parse_colors \
 				error_handling/error \
 				game/game_init \
+				game/movement \
 				game/game_play \
 				render/ray_casting_utils \
 				render/color_utils \
 				render/ray_casting \
+				hooks/cub3d_hooks \
 				utils/cleanup \
 				test/debug/print_game \
 
