@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 15:58:19 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/08 00:51:35 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/08 12:08:10 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	init_ray(t_ray *ray)
 	ray->side_dist.y = 0.0;
 	ray->delta_dist.x = 0.0;
 	ray->delta_dist.y = 0.0;
-	ray->coord.x = 0;
-	ray->coord.y = 0;
+	ray->map.x = 0;
+	ray->map.y = 0;
 	ray->step.x = 0.0;
 	ray->step.y = 0.0;
 	ray->side = 0;

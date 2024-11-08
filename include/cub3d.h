@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/07 01:42:30 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/08 12:08:10 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,7 @@ typedef struct s_ray
 	t_vector	dir;
 	t_vector	side_dist;
 	t_vector	delta_dist;
-	t_coord		coord;
+	t_coord		map;
 	t_vector	step;
 	int			side;
 	double		wall_dist;
