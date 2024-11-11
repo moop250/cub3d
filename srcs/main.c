@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:38:56 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/25 10:51:19 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/08 11:38:29 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,12 @@ int	main(int ac, char **av)
 		cleanup_game(game);
 		return (1);
 	}
-	//game_play(game);
-	print_game(game);
+	// ft_putstr_fd("Rendering game\n", 1);
+	// game_play(game);
+	mlx_hook(game->mlx.win_ptr, 2, 1L << 0, &handle_keypress, game);
+	mlx_hook(game->mlx.win_ptr, 17, 0, &exit_game, game);
+	mlx_loop_hook(game->mlx.ptr, &game_play, game);
+	mlx_loop(game->mlx.ptr);
 	cleanup_game(game);
 	return (0);
 }

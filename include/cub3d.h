@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/30 13:21:52 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/08 12:08:10 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <unistd.h>
+# include "keycodes.h"
 
 # ifdef __APPLE__
 #  include "../libs/minilibx_opengl/mlx.h"
@@ -56,6 +58,15 @@
 # define RAY_LIGHT_COLOR 0x007F0000
 # define RAY_DARK_COLOR 0x00FF0000
 
+# ifndef FT_PI
+#  define FT_PI 3.14159265358979323846
+# endif
+
+# define MOVE_SPEED 0.05
+# define ROTATE_SPEED 0.1
+# define ROTATION_DEGREE 5.0
+# define MAX_DIRTY_RECTS 64
+
 typedef struct s_indexes
 {
 	int		i;
@@ -74,6 +85,14 @@ typedef struct s_coord
 	int	x;
 	int	y;
 }	t_coord;
+
+typedef enum e_move
+{
+	FORWARD,
+	BACKWARD,
+	LEFT,
+	RIGHT
+}	t_move;
 
 /**
  * Player structure
@@ -107,11 +126,27 @@ typedef struct s_mapdata
 	int			colors[2][3];
 }	t_mapdata;
 
+/**
+ * XPM structure
+ *
+ * @param img Image pointer.
+ * @param width Width of the texture in px.
+ * @param height Height of the texture in px.
+ * @param addr Address of the pixel data.
+ * @param bpp Bits per pixel.
+ * @param size_line Size of a line (number of bytes per row in the texture).
+ * @param endian Endianess.
+ * @param path Path to the XPM file.
+ */
 typedef struct s_xpm
 {
 	void	*img;
 	int		width;
 	int		height;
+	char	*addr;
+	int		bpp;
+	int		size_line;
+	int		endian;
 }	t_xpm;
 
 /**
@@ -164,44 +199,47 @@ typedef struct s_mlx
  */
 typedef struct s_game
 {
-	t_mapdata	*mapdata;
-	t_textures	*textures;
-	t_mlx		mlx;
-	int			width;
-	int			height;
-	int			**pixels;
+	t_mapdata		*mapdata;
+	t_textures		*textures;
+	t_mlx			mlx;
+	int				width;
+	int				height;
+	int				**pixels;
 }	t_game;
 
 /**
  * Ray structure
  *
+ * @param cam_x Camera X position.
  * @param dir Ray direction.
  * @param side_dist Distance to the first side of the wall.
  * @param delta_dist Distance between two sides of the wall.
  * @param map Current ray coordinates.
  * @param step Step to take in x and y direction (either -1 or 1).
  * @param wall_dist Distance from the player to the wall.
+ * @param wall_x Exact position of the wall hit.
  * @param side Side of the wall hit (0 for horizontal, 1 for vertical).
  * @param hit Flag indicating if the ray hit a wall.
+ * @param line_height Height of the wall line to draw.
+ * @param draw_start Start of the wall line to draw.
+ * @param draw_end End of the wall line to draw.
  */
 typedef struct s_ray
 {
+	double		cam_x;
 	t_vector	dir;
 	t_vector	side_dist;
 	t_vector	delta_dist;
-	t_coord		coord;
+	t_coord		map;
 	t_vector	step;
 	int			side;
 	double		wall_dist;
-	bool		hit;
+	double		wall_x;
+	int			hit;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
 }	t_ray;
-
-typedef struct t_ray_line
-{
-	int	height;
-	int	draw_start;
-	int	draw_end;
-}	t_ray_line;
 
 /* Parsing */
 char	**file_parser(char *file_path);
@@ -215,6 +253,24 @@ void	*parsing(t_game *game, char *lvl_path);
 
 /* Game */
 bool	game_init(t_game *game);
+
+/* Movement */
+void	move_player(t_game *game, t_move dir);
+void	rotate_player(t_game *game, t_move dir);
+
+//void	render_scene(t_game *game);
+int		game_play(t_game *game);
+
+/* Rendering */
+void	init_ray(t_ray *ray);
+int		get_color(int red, int green, int blue);
+void	put_pixel(t_game *game, int x, int y, int color);
+void	render_pixel(t_game *game, int x, int y, t_ray *ray);
+void	ray_casting(t_game *game);
+
+/* Hooks */
+int		exit_game(t_game *game);
+int		handle_keypress(int keycode, t_game *game);
 
 /* Cleanup */
 void	freeall(void);
