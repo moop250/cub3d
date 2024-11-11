@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 17:19:47 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/11 15:14:50 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/11 17:08:26 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,10 @@ void	move_player(t_game *game, t_move dir)
 		strafe_step = -STEP_SIZE;
 	else if (dir == RIGHT)
 		strafe_step = STEP_SIZE;
-	new_x = player->pos.x;
-	new_y = player->pos.y;
-	new_x += (player->dir.x * move_step)
-		+ ((player->dir.x + HALF_PI) * strafe_step);
-	new_y += (player->dir.y * move_step)
-		+ ((player->dir.y + HALF_PI) * strafe_step);
+	new_x = player->pos.x + (player->dir.x * move_step)
+		- (player->dir.y * strafe_step);
+	new_y = player->pos.y + (player->dir.y * move_step)
+		+ (player->dir.x * strafe_step);
 	if (!collision_check(game, new_x, new_y))
 		player->pos = (t_vector){new_x, new_y};
 }
@@ -65,23 +63,28 @@ void	move_player(t_game *game, t_move dir)
 */
 void	rotate_player(t_game *game, t_move dir)
 {
+	t_vector	*plane;
 	t_player	*player;
+	double		old_plane_x;
+	double		rotation_angle;
 
+	plane = &game->mapdata->player.plane;
 	player = &game->mapdata->player;
 	if (dir == LEFT)
-	{
-		player->angle -= 0.1;
-		if (player->angle < 0)
-			player->angle += 2 * PI;
-	}
+		rotation_angle = -ROTATE_SPEED;
 	else if (dir == RIGHT)
-	{
-		player->angle += 0.1;
-		if (player->angle > 2 * PI)
-			player->angle -= 2 * PI;
-	}
+		rotation_angle = ROTATE_SPEED;
 	else
 		return ;
+	player->angle += rotation_angle;
+	if (player->angle < 0)
+		player->angle += 2 * PI;
+	else if (player->angle > 2 * PI)
+		player->angle -= 2 * PI;
+	old_plane_x = plane->x;
+	plane->x = plane->x * cos(rotation_angle) - plane->y * sin(rotation_angle);
+	plane->y = old_plane_x * sin(rotation_angle)
+		+ plane->y * cos(rotation_angle);
 	player->dir.x = cos(player->angle);
 	player->dir.y = sin(player->angle);
 }

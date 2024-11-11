@@ -1,7 +1,7 @@
-NO ./textures/tmp.xpm
-SO ./textures/tmp.xpm
-WE ./textures/tmp.xpm
-EA ./textures/tmp.xpm
+NO ./textures/wolftex/bluestone.xpm
+SO ./textures/wolftex/eagle.xpm
+WE ./textures/wolftex/mossy.xpm
+EA .//textures/wolftex/purplestone.xpm
 
 
 
