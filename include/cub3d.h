@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/08 12:08:10 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/11 23:35:05 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 
 # define PI 3.14159265358979323846
 # define HALF_PI 1.57079632679489661923
+# define TWO_PI 6.28318530717958647692
 # define STEP_SIZE 0.1
 
 # define WHITESPACE " \n\t"
