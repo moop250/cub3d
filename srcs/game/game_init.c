@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 12:45:54 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/04 16:04:17 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/12 09:43:35 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static bool	init_pixels(t_game *game)
 	i = 0;
 	while (i < game->height)
 	{
-		game->pixels[i] = malloc(sizeof(int) * game->width);
+		game->pixels[i] = ft_calloc(1, game->width * sizeof(int));
+		//game->pixels[i] = malloc(sizeof(int) * game->width);
 		if (!game->pixels[i])
 		{
 			free_pixels(game->pixels, i);
