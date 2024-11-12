@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 17:19:47 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/12 09:16:47 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/12 09:21:50 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ void	move_player(t_game *game, t_move dir)
 	else if (dir == BACKWARD)
 		move_step = -STEP_SIZE;
 	else if (dir == LEFT)
-		strafe_step = -STEP_SIZE;
-	else if (dir == RIGHT)
 		strafe_step = STEP_SIZE;
+	else if (dir == RIGHT)
+		strafe_step = -STEP_SIZE;
 	new_x = player->pos.x + (player->dir.x * move_step)
 		- (player->dir.y * strafe_step);
 	new_y = player->pos.y + (player->dir.y * move_step)
@@ -71,9 +71,9 @@ void	rotate_player(t_game *game, t_move dir)
 	plane = &game->mapdata->player.plane;
 	player = &game->mapdata->player;
 	if (dir == LEFT)
-		rotation_angle = -ROTATE_SPEED;
-	else if (dir == RIGHT)
 		rotation_angle = ROTATE_SPEED;
+	else if (dir == RIGHT)
+		rotation_angle = -ROTATE_SPEED;
 	else
 		return ;
 	player->angle += rotation_angle;
