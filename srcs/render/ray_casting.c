@@ -3,62 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 10:27:22 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/08 12:08:10 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/13 18:51:41 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	init_ray_data(t_game *game, t_ray *ray, int x)
-{
-	t_vector	dir;
-	t_vector	plane;
-
-	init_ray(ray);
-	ray->cam_x = 2 * x / (double)game->width - 1;
-	dir = game->mapdata->player.dir;
-	plane = game->mapdata->player.plane;
-	ray->dir.x = dir.x + plane.x * ray->cam_x;
-	ray->dir.y = dir.y + plane.y * ray->cam_x;
-	ray->map.x = (int)game->mapdata->player.pos.x;
-	ray->map.y = (int)game->mapdata->player.pos.y;
-	ray->delta_dist.x = sqrt(1 + (ray->dir.y * ray->dir.y)
-			/ (ray->dir.x * ray->dir.x));
-	ray->delta_dist.y = sqrt(1 + (ray->dir.x * ray->dir.x)
-			/ (ray->dir.y * ray->dir.y));
-}
-
-void	calc_step_side_dist(t_game *game, t_ray *ray)
-{
-	t_vector	pos;
-
-	pos = game->mapdata->player.pos;
-	if (ray->dir.x < 0)
-	{
-		ray->step.x = -1;
-		ray->side_dist.x = (pos.x - ray->map.x) * ray->delta_dist.x;
-	}
-	else
-	{
-		ray->step.x = 1;
-		ray->side_dist.x = (ray->map.x + 1.0 - pos.x) * ray->delta_dist.x;
-	}
-	if (ray->dir.y < 0)
-	{
-		ray->step.y = -1;
-		ray->side_dist.y = (pos.y - ray->map.y) * ray->delta_dist.y;
-	}
-	else
-	{
-		ray->step.y = 1;
-		ray->side_dist.y = (ray->map.y + 1.0 - pos.y) * ray->delta_dist.y;
-	}
-}
-
-//Ray casting algorithm
 static void	dda(t_game *game, t_ray *ray)
 {
 	while (ray->hit == 0)
@@ -80,31 +33,44 @@ static void	dda(t_game *game, t_ray *ray)
 	}
 }
 
-static void	calculate_line_height(t_game *game, t_ray *ray)
+static void	calc_line_height(t_game *game, t_ray *ray)
 {
-	// if (ray->side == 0)
-	// 	ray->wall_dist = ray->side_dist.x - ray->delta_dist.x;
-	// else
-	// 	ray->wall_dist = ray->side_dist.y - ray->delta_dist.y;
+	t_vector	pos;
+
 	if (ray->side == 0)
-		ray->wall_dist = (ray->map.x - game->mapdata->player.pos.x
-				+ (1 - ray->step.x) / 2) / ray->dir.x;
+		ray->wall_dist = ray->side_dist.x - ray->delta_dist.x;
 	else
-		ray->wall_dist = (ray->map.y - game->mapdata->player.pos.y
-				+ (1 - ray->step.y) / 2) / ray->dir.y;
-	ray->line_height = (int)(game->height / ray->wall_dist);
-	ray->draw_start = -ray->line_height / 2 + game->height / 2;
+		ray->wall_dist = ray->side_dist.y - ray->delta_dist.y;
+	ray->line_height = (int)(WIN_HEIGHT / ray->wall_dist);
+	ray->draw_start = -ray->line_height / 2 + WIN_HEIGHT / 2;
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;
-	ray->draw_end = ray->line_height / 2 + game->height / 2;
-	if (ray->draw_end >= game->height)
-		ray->draw_end = game->height - 1;
+	ray->draw_end = ray->line_height / 2 + WIN_HEIGHT / 2;
+	if (ray->draw_end >= WIN_HEIGHT)
+		ray->draw_end = WIN_HEIGHT - 1;
+	pos = game->mapdata->player.pos;
 	if (ray->side == 0)
-		ray->wall_x = game->mapdata->player.pos.y + ray->wall_dist * ray->dir.y;
+		ray->wall_x = pos.y + ray->wall_dist * ray->dir.y;
 	else
-		ray->wall_x = game->mapdata->player.pos.x + ray->wall_dist * ray->dir.x;
+		ray->wall_x = pos.x + ray->wall_dist * ray->dir.x;
 	ray->wall_x -= floor(ray->wall_x);
 }
+
+// static void	calc_line_height(t_ray *ray)
+// {
+// 	if (ray->side == 0)
+// 		ray->wall_dist = ray->side_dist.x - ray->delta_dist.x;
+// 	else
+// 		ray->wall_dist = ray->side_dist.y - ray->delta_dist.y;
+// 	ray->line_height = (int)(WIN_HEIGHT / ray->wall_dist);
+// 	ray->draw_start = -ray->line_height / 2 + WIN_HEIGHT / 2;
+// 	if (ray->draw_start < 0)
+// 		ray->draw_start = 0;
+// 	ray->draw_end = ray->line_height / 2 + WIN_HEIGHT / 2;
+// 	if (ray->draw_end >= WIN_HEIGHT)
+// 		ray->draw_end = WIN_HEIGHT - 1;
+// }
+
 
 void	ray_casting(t_game *game)
 {
@@ -115,17 +81,33 @@ void	ray_casting(t_game *game)
 	x = 0;
 	while (x < game->width)
 	{
-		init_ray_data(game, &ray, x);
-		calc_step_side_dist(game, &ray);
+		init_ray(game, &ray, x);
 		dda(game, &ray);
-		calculate_line_height(game, &ray);
-
+		// calc_line_height(&ray);
+		calc_line_height(game, &ray);
 		y = 0;
 		while (y < game->height)
 		{
-			render_pixel(game, x, y, &ray);
+			render_pixel(game, &ray, x, y);
 			y++;
 		}
 		x++;
 	}
 }
+
+// void	ray_casting(t_game *game)
+// {
+// 	t_ray	ray;
+// 	int		x;
+
+// 	x = 0;
+// 	while (x < game->width)
+// 	{
+// 		init_ray(game, &ray, x);
+// 		dda(game, &ray);
+// 		// calc_line_height(&ray);
+// 		calc_line_height(game, &ray);
+// 		render_pixel(game, &ray, x);
+// 		x++;
+// 	}
+// }

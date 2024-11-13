@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_play.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/24 10:45:04 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/07 01:42:17 by dcaro-ro         ###   ########.fr       */
+/*   Created: 2024/11/13 11:31:30 by dcaro-ro          #+#    #+#             */
+/*   Updated: 2024/11/13 18:51:20 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ int	game_play(t_game *game)
 {
 	ft_bzero(game->mlx.addr, game->width * game->height * (game->mlx.bpp / 8));
 	ray_casting(game);
-	//render_scene(game);
-	mlx_put_image_to_window(game->mlx.ptr, game->mlx.win_ptr,
-		game->mlx.img_ptr, 0, 0);
+	mlx_put_image_to_window(game->mlx.ptr,
+		game->mlx.win_ptr, game->mlx.img_ptr, 0, 0);
 	return (0);
 }

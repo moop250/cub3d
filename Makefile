@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+         #
+#    By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 16:51:54 by hlibine           #+#    #+#              #
-#    Updated: 2024/11/07 01:44:07 by dcaro-ro         ###   ########.fr        #
+#    Updated: 2024/11/13 18:47:41 by hlibine          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ RESETNL		= \033[0m\n
 
 # Files
 
-FILES		= main \
+FILES		=	main \
 				parsing/parsing \
 				parsing/parse_file \
 				parsing/parse_walls \
@@ -57,15 +57,16 @@ FILES		= main \
 				parsing/parse_textures \
 				parsing/parse_colors \
 				error_handling/error \
-				game/game_init \
-				game/movement \
+				game/player_movement \
 				game/game_play \
+				init/game_init \
+				init/ray_init \
 				render/ray_casting_utils \
-				render/color_utils \
+				render/render_pixel \
 				render/ray_casting \
 				hooks/cub3d_hooks \
 				utils/cleanup \
-				test/debug/print_game \
+				utils/utils \
 
 SRCS		= $(addprefix $(SRCDIR)/, $(FILES:=.c))
 OBJS		= $(addprefix $(OBJDIR)/, $(FILES:=.o))
