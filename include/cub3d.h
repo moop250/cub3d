@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/11 23:35:05 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/13 18:54:29 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,12 +200,14 @@ typedef struct s_mlx
  */
 typedef struct s_game
 {
-	t_mapdata		*mapdata;
-	t_textures		*textures;
-	t_mlx			mlx;
-	int				width;
-	int				height;
-	int				**pixels;
+	t_mapdata	*mapdata;
+	t_textures	*textures;
+	t_mlx		mlx;
+	int			width;
+	int			height;
+	int			**pixels;
+	int			ceiling_color;
+	int			floor_color;
 }	t_game;
 
 /**
@@ -241,6 +243,15 @@ typedef struct s_ray
 	int			draw_start;
 	int			draw_end;
 }	t_ray;
+
+typedef struct s_texdata
+{
+	int		x;
+	int		y;
+	double	step;
+	double	pos;
+	int		color;
+}	t_texdata;
 
 /* Parsing */
 char	**file_parser(char *file_path);

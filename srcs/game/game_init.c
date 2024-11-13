@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 12:45:54 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/12 09:43:35 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/13 18:49:52 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,10 @@ bool	game_init(t_game *game)
 {
 	game->width = WIN_WIDTH;
 	game->height = WIN_HEIGHT;
+	game->ceiling_color = get_color(game->mapdata->colors[0][0],
+			game->mapdata->colors[0][1], game->mapdata->colors[0][2]);
+	game->floor_color = get_color(game->mapdata->colors[1][0],
+			game->mapdata->colors[1][1], game->mapdata->colors[1][2]);
 	if (!game_mlx_init(game))
 	{
 		cleanup_game(game);
