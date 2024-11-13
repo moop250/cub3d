@@ -6,7 +6,7 @@
 #    By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 16:51:54 by hlibine           #+#    #+#              #
-#    Updated: 2024/10/29 09:50:53 by dcaro-ro         ###   ########.fr        #
+#    Updated: 2024/11/13 15:57:11 by dcaro-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ RESETNL		= \033[0m\n
 
 # Files
 
-FILES		= main \
+FILES		=	main \
 				parsing/parsing \
 				parsing/parse_file \
 				parsing/parse_walls \
@@ -57,13 +57,16 @@ FILES		= main \
 				parsing/parse_textures \
 				parsing/parse_colors \
 				error_handling/error \
-				game/game_init \
+				game/player_movement \
 				game/game_play \
-				game/renderization \
-				game/ray_casting_utils \
-				game/ray_casting \
+				init/game_init \
+				init/ray_init \
+				render/ray_casting_utils \
+				render/render_pixel \
+				render/ray_casting \
+				hooks/cub3d_hooks \
 				utils/cleanup \
-				test/debug/print_game \
+				utils/utils \
 
 SRCS		= $(addprefix $(SRCDIR)/, $(FILES:=.c))
 OBJS		= $(addprefix $(OBJDIR)/, $(FILES:=.o))

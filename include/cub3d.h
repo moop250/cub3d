@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/29 09:54:11 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/13 15:44:25 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@
 #  define WIN_HEIGHT 1080
 # endif
 
+# define PI 3.14159265358979323846
+# define HALF_PI 1.57079632679489661923
+# define TWO_PI 6.28318530717958647692
+# define STEP_SIZE 0.1
+
 # define WHITESPACE " \n\t"
 # define MAP_CHARS "01NSEW"
 # define SPAWN_CHARS "NSEW"
@@ -50,18 +55,22 @@
 # define GAME_ERR_MALLOC "Could not allocate memory for game structure"
 # define GAME_PIX_ERR "Could not allocate memory for pixel array\n"
 # define COLOR_ERR_CHAR "Unauthorized character in color"
+# define TEX_MALLOC_ERR "Could not allocate memore for texture buffer"
+# define TEX_INIT_ERR "Could not initialize texture pixels"
 
 # define RAY_LIGHT_COLOR 0x007F0000
 # define RAY_DARK_COLOR 0x00FF0000
 
-# ifndef FT_PI
-#  define FT_PI 3.14159265358979323846
-# endif
 
 # define MOVE_SPEED 0.05
 # define ROTATE_SPEED 0.1
 # define ROTATION_DEGREE 5.0
 # define MAX_DIRTY_RECTS 64
+
+# define TEX_SIZE 64
+# define NUM_TEXTURES 4
+# define TEX_WIDTH 64
+# define TEX_HEIGHT 64
 
 typedef struct s_indexes
 {
@@ -90,22 +99,32 @@ typedef enum e_move
 	RIGHT
 }	t_move;
 
+typedef enum e_tex_id
+{
+	NO,
+	SO,
+	WE,
+	EA
+}	t_tex_id;
+
 /**
  * Player structure
  *
  * @param pos Player's position in the map.
- * @param dir Player's POV or direction (which whay the player is facing).
+ * @param dir 2D vector used to calculate movement based on the angle.
+ * @param angle The angle of the player (which whay the player is facing).
  * @param plane 2D vector representing the camera plane.
  */
 typedef struct s_player
 {
 	t_vector	pos;
 	t_vector	dir;
+	double		angle;
 	t_vector	plane;
 }	t_player;
 
 /**
- * Player structure
+ * mapdata structure
  *
  * @param tmp Temporary map storage.
  * @param map Parsed map representation.
@@ -120,11 +139,27 @@ typedef struct s_mapdata
 	int			colors[2][3];
 }	t_mapdata;
 
+/**
+ * XPM structure
+ *
+ * @param img Image pointer.
+ * @param width Width of the texture in px.
+ * @param height Height of the texture in px.
+ * @param addr Address of the pixel data.
+ * @param bpp Bits per pixel.
+ * @param size_line Size of a line (number of bytes per row in the texture).
+ * @param endian Endianess.
+ * @param path Path to the XPM file.
+ */
 typedef struct s_xpm
 {
 	void	*img;
 	int		width;
 	int		height;
+	char	*addr;
+	int		bpp;
+	int		size_line;
+	int		endian;
 }	t_xpm;
 
 /**
@@ -163,89 +198,81 @@ typedef struct s_mlx
 	int		bpp;
 	int		size_line;
 	int		endian;
+	void	*tmp_img;
+	char	*tmp_addr;
 }	t_mlx;
-
-// for dirty rectangles approach
-// /**
-//  * Rectangle structure
-//  *
-//  * @param x X coordinate.
-//  * @param y Y coordinate.
-//  * @param width Rectangle width.
-//  * @param height Rectangle height.
-//  */
-// typedef struct s_rect
-// {
-// 	int	x;
-// 	int	y;
-// 	int	width;
-// 	int	height;
-// }	t_rect;
-
-// /**
-//  * Dirty rectangle structure
-//  * Used for storing rectangles that need to be redrawn.
-//  *
-//  * @param rects Array of rectangles.
-//  * @param count Number of rectangles.
-//  */
-// typedef struct dirty_rect
-// {
-// 	t_rect	rects[MAX_DIRTY_RECTS];
-// 	int		count;
-// }	t_dirty_rect;
 
 /**
  * Game structure
  *
  * @param mapdata Map data (map, player, colors).
- * @param textures Wall textures.
  * @param mlx MiniLibX related data.
  * @param width Screen width in pixels.
  * @param height Screen height in pixels.
- * @param pixels 2D buffer for storing pixel colors.
- */
+ * @param floor_color Floor color.
+ * @param ceiling_color Ceiling color.
+ * @param textures Wall textures.
+ * @param current_tex Current texture.
+ * @param tex Array of textures.
+ * @param tex_pixels Array of texture pixels.
+ *
+*/
 typedef struct s_game
 {
-	t_mapdata		*mapdata;
-	t_textures		*textures;
-	t_mlx			mlx;
-	int				width;
-	int				height;
-	int				**pixels;
-//	t_dirty_rect	dirty;
+	t_mapdata	*mapdata;
+	t_mlx		mlx;
+	int			width;
+	int			height;
+	int			floor_color;
+	int			ceiling_color;
+	t_textures	*textures;
+	t_tex_id	current_tex;
+	t_xpm		*tex[NUM_TEXTURES];
+	int			*tex_pixels[NUM_TEXTURES];
 }	t_game;
 
 /**
  * Ray structure
  *
+ * @param cam_x Camera X position.
  * @param dir Ray direction.
- * @param side_dist Distance to the first side of the wall.
- * @param delta_dist Distance between two sides of the wall.
- * @param map Current ray coordinates.
- * @param step Step to take in x and y direction (either -1 or 1).
- * @param wall_dist Distance from the player to the wall.
- * @param side Side of the wall hit (0 for horizontal, 1 for vertical).
+ * @param side_dist Distance to the side of the wall.
+ * @param delta_dist Distance between two consecutive x or y intersections.
+ * @param map Map coordinates.
+ * @param step Step vector.
+ * @param side Side of the wall hit.
+ * @param wall_dist Distance to the wall.
+ * @param wall_x X coordinate of the wall hit.
  * @param hit Flag indicating if the ray hit a wall.
+ * @param pitch Pitch of the ray.
+ * @param line_height Height of the wall slice to draw.
+ * @param draw_start Start of the wall slice to draw.
+ * @param draw_end End of the wall slice to draw.
+ * @param tex_x X coordinate of the texture.
+ * @param tex_y Y coordinate of the texture.
+ * @param tex_pos Position in the texture.
+ * @param tex_step Step in the texture.
  */
 typedef struct s_ray
 {
+	double		cam_x;
 	t_vector	dir;
 	t_vector	side_dist;
 	t_vector	delta_dist;
-	t_coord		coord;
+	t_coord		map;
 	t_vector	step;
 	int			side;
 	double		wall_dist;
-	bool		hit;
+	double		wall_x;
+	int			hit;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+	int			tex_x;
+	int			tex_y;
+	double		tex_pos;
+	double		tex_step;
 }	t_ray;
-
-typedef struct t_ray_line
-{
-	int	height;
-	int	draw_start;
-	int	draw_end;
-}	t_ray_line;
 
 /* Parsing */
 char	**file_parser(char *file_path);
@@ -257,26 +284,40 @@ void	clean_map(char **map);
 bool	parse_colors(t_game *game, char **file_content);
 void	*parsing(t_game *game, char *lvl_path);
 
-/* Game */
-bool	game_init(t_game *game);
-void	init_ray(t_game *game, t_ray *ray, int x);
-void	ray_casting(t_game *game);
-void	move_player(t_game *game, t_move dir);
-void	rotate_player(t_game *game, double angle);
-void	render_scene(t_game *game);
-void	game_play(t_game *game);
-
 /* Cleanup */
 void	freeall(void);
 void	freemlx(t_mlx mlx);
-void	*free_pixels(int **pixels, unsigned int rows);
+//void	*free_pixels(int **pixels, unsigned int rows);
 void	*mlx_cleanup(t_game *game);
+void	*destroy_textures(t_game *game);
 void	*cleanup_game(t_game *game);
 
 /* errors */
 void	ft_error(const char *msg);
+
+/* Utils */
 void	*ft_free_msg(void *ptr, char *msg);
 bool	ft_free_bool(void *ptr, char *msg, bool flag);
+int		get_color(int red, int green, int blue);
+
+/* init */
+bool	game_init(t_game *game);
+void	init_ray(t_game *game, t_ray *ray, int x);
+
+/* rendering */
+void	put_pixel(t_game *game, int x, int y, int color);
+t_xpm	*get_current_texture(t_game *game, t_ray *ray);
+// void	render_pixel(t_game *game, t_ray *ray, int x, int y);
+void	render_pixel(t_game *game, t_ray *ray, int x);
+void	ray_casting(t_game *game);
+int		game_play(t_game *game);
+
+/* Movement and key events */
+
+void	move_player(t_game *game, t_move dir);
+void	rotate_player(t_game *game, t_move dir);
+int		exit_game(t_game *game);
+int		handle_keypress(int keycode, t_game *game);
 
 /* Debug */
 void	print_game(t_game *game);

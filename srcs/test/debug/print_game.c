@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 11:27:24 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/10/25 11:20:19 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/10/30 13:22:11 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 static void	print_player(t_player *player)
 {
 	printf("      Pos: %f, %f\n", player->pos.x, player->pos.y);
-	printf("      Dir: %f, %f\n", player->dir.x, player->dir.y);
+	printf("      Angle: %f\n", player->angle);
+	printf("      Dirs: %f, %f\n", player->dir.x, player->dir.y);
 	printf("      Plane: %f, %f\n", player->plane.x, player->plane.y);
 }
 
