@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/13 16:38:48 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:26:07 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@
 # define MOVE_SPEED 0.05
 # define ROTATE_SPEED 0.1
 # define ROTATION_DEGREE 5.0
-# define MAX_DIRTY_RECTS 64
+
+# define MIN_DISTANCE 0.001
 
 # define TEX_SIZE 64
 # define NUM_TEXTURES 4
