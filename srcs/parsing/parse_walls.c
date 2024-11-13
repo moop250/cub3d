@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:35:38 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/10/30 13:24:01 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/12 14:22:57 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,15 @@ static void	handle_spawn(char c, t_player *player, int x, int y)
 	else if (c == 'E')
 	{
 		player->angle = 2 * PI;
-		player->plane = (t_vector){0, 0.66};
+		player->plane = (t_vector){0, -0.66};
 	}
 	else if (c == 'W')
 	{
 		player->angle = PI;
-		player->plane = (t_vector){0, -0.66};
+		player->plane = (t_vector){0, 0.66};
 	}
-	player->dir.x = cos(player->angle) * 5;
-	player->dir.y = sin(player->angle) * 5;
+	player->dir.x = cos(player->angle);
+	player->dir.y = sin(player->angle);
 }
 
 static int	skip_whitespace(char **map, int *i, int *j)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:03:09 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/21 18:38:42 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/11 23:55:14 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,9 @@
 
 void	*parsing(t_game *game, char *lvl_path)
 {
-	int		i;
 	char	**file_content;
 
 	file_content = file_parser(lvl_path);
-	i = 0;
-	while (file_content[i])
-		printf("%s\n", file_content[i++]);
-	printf("\n");
 	parse_map(game, file_content, lvl_path);
 	if (!game->mapdata->map)
 		ft_error("No map found");
