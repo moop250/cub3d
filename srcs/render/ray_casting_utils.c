@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 15:58:19 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/13 11:11:59 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/13 16:36:31 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	put_pixel(t_game *game, int x, int y, int color)
 
 static t_xpm	*set_texture(t_game *game, t_tex_id id, t_xpm *texture)
 {
-	game->current_tex = id;
+	game->tex_id = id;
 	return (texture);
 }
 
@@ -97,9 +97,9 @@ t_xpm	*get_current_texture(t_game *game, t_ray *ray)
 // 	{
 // 		game->tex.y = (int)game->tex_pos & (texture->height - 1);
 // 		game->tex_pos += game->tex_step;
-// 		color = game->tex_pixels[game->current_tex][texture->width
+// 		color = game->tex_pixels[game->tex_id][texture->width
 // 			* game->tex.y + game->tex.x];
-// 		if (game->current_tex == NO || game->current_tex == EA)
+// 		if (game->current_tex == NO || game->tex_id == EA)
 // 			color = (color >> 1) & 8355711;
 // 		if (color > 0)
 // 			game->tex_pixels[y][x] = color;

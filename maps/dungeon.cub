@@ -1,10 +1,10 @@
 F 76,76,76
 C 99,99,99
 
-NO textures/wolftex/eagle.xpm
-SO textures/wolftex/eagle.xpm
-WE textures/wolftex/eagle.xpm
-EA textures/wolftex/eagle.xpm
+NO ./textures/wolftex/bluestone.xpm
+SO ./textures/wolftex/eagle.xpm
+WE ./textures/wolftex/mossy.xpm
+EA .//textures/wolftex/purplestone.xpm
 
 1111111111111111111
 10W1001001001000001

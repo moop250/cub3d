@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/13 15:44:25 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/13 16:38:48 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,7 @@ typedef struct s_mlx
  * @param floor_color Floor color.
  * @param ceiling_color Ceiling color.
  * @param textures Wall textures.
- * @param current_tex Current texture.
+ * @param tex_id Current texture.
  * @param tex Array of textures.
  * @param tex_pixels Array of texture pixels.
  *
@@ -226,7 +226,7 @@ typedef struct s_game
 	int			floor_color;
 	int			ceiling_color;
 	t_textures	*textures;
-	t_tex_id	current_tex;
+	t_tex_id	tex_id;
 	t_xpm		*tex[NUM_TEXTURES];
 	int			*tex_pixels[NUM_TEXTURES];
 }	t_game;
@@ -307,8 +307,8 @@ void	init_ray(t_game *game, t_ray *ray, int x);
 /* rendering */
 void	put_pixel(t_game *game, int x, int y, int color);
 t_xpm	*get_current_texture(t_game *game, t_ray *ray);
-// void	render_pixel(t_game *game, t_ray *ray, int x, int y);
-void	render_pixel(t_game *game, t_ray *ray, int x);
+void	render_pixel(t_game *game, t_ray *ray, int x, int y);
+// void	render_pixel(t_game *game, t_ray *ray, int x);
 void	ray_casting(t_game *game);
 int		game_play(t_game *game);
 

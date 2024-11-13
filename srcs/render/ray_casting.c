@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 10:27:22 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/13 15:45:51 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/13 16:39:44 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,12 @@ static void	calc_line_height(t_game *game, t_ray *ray)
 // 		ray->draw_end = WIN_HEIGHT - 1;
 // }
 
+
 void	ray_casting(t_game *game)
 {
 	t_ray	ray;
 	int		x;
-	//int		y;
+	int		y;
 
 	x = 0;
 	while (x < game->width)
@@ -84,13 +85,29 @@ void	ray_casting(t_game *game)
 		dda(game, &ray);
 		// calc_line_height(&ray);
 		calc_line_height(game, &ray);
-		//y = 0;
-		// while (y < game->height)
-		// {
-			//render_pixel(game, &ray, x, y);
-			render_pixel(game, &ray, x);
-		// 	y++;
-		// }
+		y = 0;
+		while (y < game->height)
+		{
+			render_pixel(game, &ray, x, y);
+			y++;
+		}
 		x++;
 	}
 }
+
+// void	ray_casting(t_game *game)
+// {
+// 	t_ray	ray;
+// 	int		x;
+
+// 	x = 0;
+// 	while (x < game->width)
+// 	{
+// 		init_ray(game, &ray, x);
+// 		dda(game, &ray);
+// 		// calc_line_height(&ray);
+// 		calc_line_height(game, &ray);
+// 		render_pixel(game, &ray, x);
+// 		x++;
+// 	}
+// }
