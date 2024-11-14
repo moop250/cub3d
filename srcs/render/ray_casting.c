@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 10:27:22 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/13 16:39:44 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/14 19:03:01 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,22 +56,6 @@ static void	calc_line_height(t_game *game, t_ray *ray)
 	ray->wall_x -= floor(ray->wall_x);
 }
 
-// static void	calc_line_height(t_ray *ray)
-// {
-// 	if (ray->side == 0)
-// 		ray->wall_dist = ray->side_dist.x - ray->delta_dist.x;
-// 	else
-// 		ray->wall_dist = ray->side_dist.y - ray->delta_dist.y;
-// 	ray->line_height = (int)(WIN_HEIGHT / ray->wall_dist);
-// 	ray->draw_start = -ray->line_height / 2 + WIN_HEIGHT / 2;
-// 	if (ray->draw_start < 0)
-// 		ray->draw_start = 0;
-// 	ray->draw_end = ray->line_height / 2 + WIN_HEIGHT / 2;
-// 	if (ray->draw_end >= WIN_HEIGHT)
-// 		ray->draw_end = WIN_HEIGHT - 1;
-// }
-
-
 void	ray_casting(t_game *game)
 {
 	t_ray	ray;
@@ -83,7 +67,6 @@ void	ray_casting(t_game *game)
 	{
 		init_ray(game, &ray, x);
 		dda(game, &ray);
-		// calc_line_height(&ray);
 		calc_line_height(game, &ray);
 		y = 0;
 		while (y < game->height)
@@ -94,20 +77,3 @@ void	ray_casting(t_game *game)
 		x++;
 	}
 }
-
-// void	ray_casting(t_game *game)
-// {
-// 	t_ray	ray;
-// 	int		x;
-
-// 	x = 0;
-// 	while (x < game->width)
-// 	{
-// 		init_ray(game, &ray, x);
-// 		dda(game, &ray);
-// 		// calc_line_height(&ray);
-// 		calc_line_height(game, &ray);
-// 		render_pixel(game, &ray, x);
-// 		x++;
-// 	}
-// }
