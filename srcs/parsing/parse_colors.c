@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:09:16 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/24 16:01:05 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/14 17:24:22 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ static bool	set_color(t_game *game, char *line, char mode)
 	while (tmp[++i])
 	{
 		if (!ft_strchr(COLOR_CHARS, tmp[i]))
-			return (freeall(), ft_free_bool(tmp, COLOR_ERR_CHAR, false));
+			return (ft_free_bool(tmp, COLOR_ERR_CHAR, false));
 	}
 	split = ft_split(tmp, ',');
 	if (!split)
-		return (freeall(), ft_free_bool(tmp, "split failed", false));
+		return (ft_free_bool(tmp, "split failed", false));
 	treat_split(game, split, mode);
 	ft_free_split(split);
 	return (ft_free_bool(tmp, NULL, true));

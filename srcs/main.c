@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:38:56 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/13 11:36:05 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/14 17:19:45 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	freeall(void)
 		ft_safe_free(1, game->mapdata);
 	}
 	freemlx(game->mlx);
-	ft_safe_free(1, game);
+	ft_free(game);
 }
 
 int	main(int ac, char **av)
