@@ -6,7 +6,7 @@
 #    By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 16:51:54 by hlibine           #+#    #+#              #
-#    Updated: 2024/11/13 18:47:41 by hlibine          ###   ########.fr        #
+#    Updated: 2024/11/14 15:50:15 by hlibine          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,6 @@ FILES		=	main \
 				parsing/parse_textures \
 				parsing/parse_colors \
 				error_handling/error \
-				game/player_movement \
 				game/game_play \
 				init/game_init \
 				init/ray_init \
