@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:06:00 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/21 18:52:55 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/14 10:30:08 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,11 @@ char	**file_parser(char *file_path)
 	fd = base_file_check(file_path);
 	file = NULL;
 	line = get_next_line(fd);
+	if (!line)
+	{
+		ft_error("File is empty");
+		return (NULL);
+	}
 	file = file_parser_loop(fd, line, file, i);
 	close(fd);
 	if (!file_check(file))
