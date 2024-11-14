@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 22:32:06 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/11 18:11:25 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/14 16:31:43 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ void	*mlx_cleanup(t_game *game)
 
 void	*cleanup_game(t_game *game)
 {
+	int	i;
+
+	i = 0;
 	if (game)
 	{
 		if (game->mapdata)
@@ -72,12 +75,10 @@ void	*cleanup_game(t_game *game)
 		if (game->textures)
 			destroy_textures(game);
 		mlx_cleanup(game);
-		if (game->tex_pixels)
+		while (i < NUM_TEXTURES)
 		{
-			ft_free(game->tex_pixels[NO]);
-			ft_free(game->tex_pixels[SO]);
-			ft_free(game->tex_pixels[WE]);
-			ft_free(game->tex_pixels[EA]);
+			if (game->tex_pixels[i])
+				free(game->tex_pixels[i++]);
 		}
 		free(game);
 	}

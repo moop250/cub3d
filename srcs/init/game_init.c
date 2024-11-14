@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 11:52:25 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/13 12:11:27 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/14 16:32:06 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ static bool	allocate_tex_buf(t_game *game)
 {
 	int	i;
 
+	i = 0;
+	while (i < NUM_TEXTURES)
+		game->tex_pixels[i++] = NULL;
 	i = 0;
 	while (i < NUM_TEXTURES)
 	{
