@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/13 17:26:07 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/15 00:10:33 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,14 @@
 # define NUM_TEXTURES 4
 # define TEX_WIDTH 64
 # define TEX_HEIGHT 64
+
+# ifndef BONUS_FLAG
+#  if defined(BONUS)
+#   define BONUS_FLAG true
+#  else
+#   define BONUS_FLAG false
+#  endif
+# endif
 
 typedef struct s_indexes
 {
@@ -152,7 +160,7 @@ typedef struct s_mapdata
  * @param endian Endianess.
  * @param path Path to the XPM file.
  */
-typedef struct s_xpm
+typedef struct s_img
 {
 	void	*img;
 	int		width;
@@ -161,7 +169,7 @@ typedef struct s_xpm
 	int		bpp;
 	int		size_line;
 	int		endian;
-}	t_xpm;
+}	t_img;
 
 /**
  * Textures structure
@@ -173,10 +181,10 @@ typedef struct s_xpm
  */
 typedef struct s_textures
 {
-	t_xpm	north;
-	t_xpm	south;
-	t_xpm	east;
-	t_xpm	west;
+	t_img	north;
+	t_img	south;
+	t_img	east;
+	t_img	west;
 }	t_textures;
 
 /**
@@ -204,6 +212,26 @@ typedef struct s_mlx
 }	t_mlx;
 
 /**
+ * Bresenham structure
+ *
+ * @param dx Delta x.
+ * @param dy Delta y.
+ * @param sx Step x.
+ * @param sy Step y.
+ * @param error Error.
+ * @param e2 Error 2.
+ */
+typedef struct s_bresenham
+{
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	error;
+	int	e2;
+}	t_bresenham;
+
+/**
  * Game structure
  *
  * @param mapdata Map data (map, player, colors).
@@ -228,8 +256,10 @@ typedef struct s_game
 	int			ceiling_color;
 	t_textures	*textures;
 	t_tex_id	tex_id;
-	t_xpm		*tex[NUM_TEXTURES];
+	t_img		*tex[NUM_TEXTURES];
 	int			*tex_pixels[NUM_TEXTURES];
+	t_img		minimap;
+	bool		bonus;
 }	t_game;
 
 /**
@@ -307,11 +337,12 @@ void	init_ray(t_game *game, t_ray *ray, int x);
 
 /* rendering */
 void	put_pixel(t_game *game, int x, int y, int color);
-t_xpm	*get_current_texture(t_game *game, t_ray *ray);
+t_img	*get_current_texture(t_game *game, t_ray *ray);
 void	render_pixel(t_game *game, t_ray *ray, int x, int y);
 // void	render_pixel(t_game *game, t_ray *ray, int x);
 void	ray_casting(t_game *game);
 int		game_play(t_game *game);
+void	draw_minimap(t_game *game);
 
 /* Movement and key events */
 

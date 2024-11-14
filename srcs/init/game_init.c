@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 11:52:25 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/13 12:11:27 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/14 22:12:21 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,10 @@ bool	game_init(t_game *game)
 			game->mapdata->colors[0][1], game->mapdata->colors[0][2]);
 	game->ceiling_color = get_color(game->mapdata->colors[1][0],
 			game->mapdata->colors[1][1], game->mapdata->colors[1][2]);
+	if (BONUS_FLAG)
+		game->bonus = true;
+	else
+		game->bonus = false;
 	if (!game_mlx_init(game)
 		|| !init_texture_data(game) || !allocate_tex_buf(game))
 	{
