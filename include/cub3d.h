@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/15 16:11:36 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/15 20:55:26 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <X11/X.h>
+# include <sys/time.h>
 # include "keycodes.h"
 
 # ifdef __APPLE__
@@ -42,7 +43,6 @@
 # define PI 3.14159265358979323846
 # define HALF_PI 1.57079632679489661923
 # define TWO_PI 6.28318530717958647692
-# define STEP_SIZE 0.1
 
 # define WHITESPACE " \n\t"
 # define MAP_CHARS "01NSEW"
@@ -62,10 +62,12 @@
 # define RAY_LIGHT_COLOR 0x007F0000
 # define RAY_DARK_COLOR 0x00FF0000
 
-
 # define MOVE_SPEED 0.05
-# define ROTATE_SPEED 0.1
+# define ROTATE_SPEED 0.05
 # define ROTATION_DEGREE 5.0
+
+/* 0.016 == 60 fps (1 / 60) */
+# define FRAME_TIME 0.016
 
 # define MIN_DISTANCE 0.001
 
@@ -246,6 +248,7 @@ typedef struct s_game
 	t_xpm			*tex[NUM_TEXTURES];
 	int				*tex_pixels[NUM_TEXTURES];
 	t_move_bools	move;
+	double			last_time;
 }	t_game;
 
 /**
@@ -335,8 +338,11 @@ void	move_player(t_game *game, t_move dir);
 void	rotate_player(t_game *game, t_move dir);
 int		exit_game(t_game *game);
 int		handle_keypress(int keycode, t_game *game);
-int		key_hook_up(int keycode, t_game *game);
 int		handle_keyrelease(int keycode, t_game *game);
+int		key_hook_up(int keycode, t_game *game);
+
+/* Time */
+double	get_current_time(void);
 
 /* Debug */
 void	print_game(t_game *game);

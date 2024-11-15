@@ -6,7 +6,7 @@
 #    By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 16:51:54 by hlibine           #+#    #+#              #
-#    Updated: 2024/11/15 17:42:54 by hlibine          ###   ########.fr        #
+#    Updated: 2024/11/15 20:04:14 by hlibine          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ FILES		=	main \
 				error_handling/error \
 				game/player_movement \
 				game/game_play \
+				game/delta_time \
 				init/game_init \
 				init/ray_init \
 				render/ray_casting_utils \

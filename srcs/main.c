@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:38:56 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/15 17:45:24 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/15 20:49:21 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static t_game	*get_game(void)
 	game->move.rotate_right = false;
 	game->move.rotate_left = false;
 	game->move.is_rotating = false;
+	game->last_time = 0;
 	return (game);
 }
 
