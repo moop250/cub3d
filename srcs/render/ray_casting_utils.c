@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 15:58:19 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/13 16:36:31 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/14 21:24:19 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	put_pixel(t_game *game, int x, int y, int color)
 	}
 }
 
-static t_xpm	*set_texture(t_game *game, t_tex_id id, t_xpm *texture)
+static t_img	*set_texture(t_game *game, t_tex_id id, t_img *texture)
 {
 	game->tex_id = id;
 	return (texture);
 }
 
-t_xpm	*get_current_texture(t_game *game, t_ray *ray)
+t_img	*get_current_texture(t_game *game, t_ray *ray)
 {
 	if (ray->side == 0)
 	{
@@ -50,7 +50,7 @@ t_xpm	*get_current_texture(t_game *game, t_ray *ray)
 }
 
 
-// void	draw_wall(t_game *game, t_xpm *texture, t_ray *ray, int x)
+// void	draw_wall(t_game *game, t_img *texture, t_ray *ray, int x)
 // {
 // 	int	y;
 // 	int	color;
@@ -80,7 +80,7 @@ t_xpm	*get_current_texture(t_game *game, t_ray *ray)
 
 // void	update_texture_pixels(t_game *game, t_ray *ray, int x)
 // {
-// 	t_xpm	*texture;
+// 	t_img	*texture;
 // 	int		y;
 // 	int		color;
 

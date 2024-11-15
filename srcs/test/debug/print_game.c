@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 11:27:24 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/10/30 13:22:11 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/14 21:24:19 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	print_player(t_player *player)
 	printf("      Plane: %f, %f\n", player->plane.x, player->plane.y);
 }
 
-static void	print_xpm(t_xpm *xpm)
+static void	print_xpm(t_img *xpm)
 {
 	printf("      img: %p\n", xpm->img);
 	printf("      width: %d\n", xpm->width);

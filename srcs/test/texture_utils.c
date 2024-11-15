@@ -6,13 +6,13 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 10:06:31 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/04 11:10:23 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/14 21:24:19 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	init_texture_data(t_xpm *texture, void *mlx_ptr)
+void	init_texture_data(t_img *texture, void *mlx_ptr)
 {
 	texture->addr = mlx_get_data_addr(texture->img, &texture->bpp,
 			&texture->size_line, &texture->endian);
@@ -26,7 +26,7 @@ void	init_textures(t_game *game)
 	init_texture_data(&game->textures->west, game->mlx.ptr);
 }
 
-int	get_texture_pixel_color(t_xpm *texture, int x, int y)
+int	get_texture_pixel_color(t_img *texture, int x, int y)
 {
 	char	*px;
 	int		color;
@@ -42,7 +42,7 @@ int	get_texture_pixel_color(t_xpm *texture, int x, int y)
 	return ((int)color);
 }
 
-static t_xpm	*select_texture(t_game *game, t_ray *ray)
+static t_img	*select_texture(t_game *game, t_ray *ray)
 {
 	if (ray->side == 0)
 	{
@@ -68,7 +68,7 @@ int	get_wall_texture_color(t_game *game, t_ray *ray, int y, t_ray_line *line)
 	int		tex_y;
 	int		tex_x;
 	int		color;
-	t_xpm	*texture;
+	t_img	*texture;
 
 	texture_height = game->textures->north.height;
 	if (ray->side == 0)

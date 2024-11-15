@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/15 00:10:33 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/15 21:53:39 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,8 +258,10 @@ typedef struct s_game
 	t_tex_id	tex_id;
 	t_img		*tex[NUM_TEXTURES];
 	int			*tex_pixels[NUM_TEXTURES];
-	t_img		minimap;
 	bool		bonus;
+	// t_img		minimap;
+	// int			mini_w;
+	// int			mini_h;
 }	t_game;
 
 /**

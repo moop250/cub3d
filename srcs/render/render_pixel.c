@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:07:07 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/14 20:21:02 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/14 21:24:19 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	adjust_brightness(int color, double factor)
 
 void	render_pixel(t_game *game, t_ray *ray, int x, int y)
 {
-	t_xpm	*texture;
+	t_img	*texture;
 	int		color;
 
 	if (y < ray->draw_start)

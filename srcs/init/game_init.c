@@ -6,11 +6,26 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 11:52:25 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/14 22:12:21 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/15 21:49:16 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+
+// static void	init_minimap(t_game *game)
+// {
+// 	t_img	minimap;
+
+// 	minimap = game->minimap;
+// 	minimap.img = mlx_new_image(game->mlx.ptr, game->mini_w, game->mini_h);
+// 	minimap.addr = mlx_get_data_addr(minimap.img, &minimap.bpp,
+// 			&minimap.size_line, &minimap.endian);
+// 	if (!minimap.img || !minimap.addr)
+// 	{
+// 		cleanup_game(game);
+// 		ft_putendl_fd("Failed to create minimap image", 2);
+// 	}
+// }
 
 //mlx.ptr was initialized during the parsing
 static bool	game_mlx_init(t_game *game)
