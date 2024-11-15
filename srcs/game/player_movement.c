@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 17:19:47 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/13 17:24:44 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/15 16:20:46 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static bool	collision_check(t_game *game, double new_x, double new_y)
 
 	map_x = (int)(new_x);
 	map_y = (int)(new_y);
-	if (game->mapdata->map[map_y][map_x] == '1')
+	if (game->mapdata->map[map_y][map_x] == '1'
+		|| game->mapdata->map[map_y][map_x] == ' ')
 		return (true);
 	return (false);
 }
@@ -59,6 +60,8 @@ void	move_player(t_game *game, t_move dir)
 		strafe_step = STEP_SIZE;
 	else if (dir == RIGHT)
 		strafe_step = -STEP_SIZE;
+	else
+		return ;
 	new_x = player->pos.x + (player->dir.x * move_step)
 		- (player->dir.y * strafe_step);
 	new_y = player->pos.y + (player->dir.y * move_step)
@@ -69,8 +72,8 @@ void	move_player(t_game *game, t_move dir)
 }
 
 /*
-	rotate(game, RIGHT) to rotate right.
-	rotate(game, LEFT) to rotate left.
+	rotate(game, TURN_RIGHT) to rotate right.
+	rotate(game, TURN_LEFT) to rotate left.
 */
 void	rotate_player(t_game *game, t_move dir)
 {
@@ -81,9 +84,9 @@ void	rotate_player(t_game *game, t_move dir)
 
 	plane = &game->mapdata->player.plane;
 	player = &game->mapdata->player;
-	if (dir == LEFT)
+	if (dir == TURN_LEFT)
 		rotation_angle = ROTATE_SPEED;
-	else if (dir == RIGHT)
+	else if (dir == TURN_RIGHT)
 		rotation_angle = -ROTATE_SPEED;
 	else
 		return ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/13 17:26:07 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/15 16:11:36 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <X11/X.h>
 # include "keycodes.h"
 
 # ifdef __APPLE__
@@ -97,7 +98,9 @@ typedef enum e_move
 	FORWARD,
 	BACKWARD,
 	LEFT,
-	RIGHT
+	RIGHT,
+	TURN_LEFT,
+	TURN_RIGHT
 }	t_move;
 
 typedef enum e_tex_id
@@ -203,6 +206,18 @@ typedef struct s_mlx
 	char	*tmp_addr;
 }	t_mlx;
 
+typedef struct s_move_bools
+{
+	bool	forward;
+	bool	backward;
+	bool	left;
+	bool	right;
+	bool	is_moving;
+	bool	rotate_right;
+	bool	rotate_left;
+	bool	is_rotating;
+}	t_move_bools;
+
 /**
  * Game structure
  *
@@ -220,16 +235,17 @@ typedef struct s_mlx
 */
 typedef struct s_game
 {
-	t_mapdata	*mapdata;
-	t_mlx		mlx;
-	int			width;
-	int			height;
-	int			floor_color;
-	int			ceiling_color;
-	t_textures	*textures;
-	t_tex_id	tex_id;
-	t_xpm		*tex[NUM_TEXTURES];
-	int			*tex_pixels[NUM_TEXTURES];
+	t_mapdata		*mapdata;
+	t_mlx			mlx;
+	int				width;
+	int				height;
+	int				floor_color;
+	int				ceiling_color;
+	t_textures		*textures;
+	t_tex_id		tex_id;
+	t_xpm			*tex[NUM_TEXTURES];
+	int				*tex_pixels[NUM_TEXTURES];
+	t_move_bools	move;
 }	t_game;
 
 /**
@@ -319,6 +335,8 @@ void	move_player(t_game *game, t_move dir);
 void	rotate_player(t_game *game, t_move dir);
 int		exit_game(t_game *game);
 int		handle_keypress(int keycode, t_game *game);
+int		key_hook_up(int keycode, t_game *game);
+int		handle_keyrelease(int keycode, t_game *game);
 
 /* Debug */
 void	print_game(t_game *game);
