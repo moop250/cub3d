@@ -50,9 +50,9 @@ int	handle_keyrelease(int keycode, t_game *game)
 	t_move_bools	*dir;
 
 	dir = &game->move;
-	if (keycode == KEY_W && dir->forward)
+	if ((keycode == KEY_W || keycode == KEY_UP) && dir->forward)
 		dir->forward = false;
-	else if (keycode == KEY_S && dir->backward)
+	else if ((keycode == KEY_S || keycode == KEY_DOWN) && dir->backward)
 		dir->backward = false;
 	else if (keycode == KEY_A && dir->left)
 		dir->left = false;
