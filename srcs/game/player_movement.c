@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/25 17:19:47 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/14 17:47:22 by hlibine          ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/11/15 19:35:30 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../include/cub3d.h"
 
@@ -62,6 +63,8 @@ void	move_player(t_game *game, t_move dir)
 		strafe_step = STEP_SIZE;
 	else if (dir == RIGHT)
 		strafe_step = -STEP_SIZE;
+	else
+		return ;
 	new_x = player->pos.x + (player->dir.x * move_step)
 		- (player->dir.y * strafe_step);
 	new_y = player->pos.y + (player->dir.y * move_step)
@@ -70,8 +73,8 @@ void	move_player(t_game *game, t_move dir)
 }
 
 /*
-	rotate(game, RIGHT) to rotate right.
-	rotate(game, LEFT) to rotate left.
+	rotate(game, TURN_RIGHT) to rotate right.
+	rotate(game, TURN_LEFT) to rotate left.
 */
 void	rotate_player(t_game *game, t_move dir)
 {
@@ -82,9 +85,9 @@ void	rotate_player(t_game *game, t_move dir)
 
 	plane = &game->mapdata->player.plane;
 	player = &game->mapdata->player;
-	if (dir == LEFT)
+	if (dir == TURN_LEFT)
 		rotation_angle = ROTATE_SPEED;
-	else if (dir == RIGHT)
+	else if (dir == TURN_RIGHT)
 		rotation_angle = -ROTATE_SPEED;
 	else
 		return ;

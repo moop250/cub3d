@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+         #
+#    By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 16:51:54 by hlibine           #+#    #+#              #
-#    Updated: 2024/11/13 15:57:11 by dcaro-ro         ###   ########.fr        #
+#    Updated: 2024/11/15 17:42:54 by hlibine          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
