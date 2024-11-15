@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:35:38 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/12 14:22:57 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/15 20:33:24 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ static int	is_valid_cell(char c, char **map, int i, int j)
 
 static void	handle_spawn(char c, t_player *player, int x, int y)
 {
-	player->pos.x = x;
-	player->pos.y = y;
+	player->pos.x = x + 0.5;
+	player->pos.y = y + 0.5;
 	if (c == 'N')
 	{
 		player->angle = HALF_PI;
