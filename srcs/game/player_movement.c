@@ -6,21 +6,11 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 17:19:47 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/15 16:20:46 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/15 17:26:01 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-
-double	distance_to_wall(double x, double y)
-{
-	double	dist_x;
-	double	dist_y;
-
-	dist_x = fmin(x - floor(x), ceil(x) - x);
-	dist_y = fmin(y - floor(y), ceil(y) - y);
-	return (fmin(dist_x, dist_y));
-}
 
 static bool	collision_check(t_game *game, double new_x, double new_y)
 {
@@ -66,8 +56,7 @@ void	move_player(t_game *game, t_move dir)
 		- (player->dir.y * strafe_step);
 	new_y = player->pos.y + (player->dir.y * move_step)
 		+ (player->dir.x * strafe_step);
-	if (!collision_check(game, new_x, new_y)
-		&& distance_to_wall(new_x, new_y) > MIN_DISTANCE)
+	if (!collision_check(game, new_x, new_y))
 		player->pos = (t_vector){new_x, new_y};
 }
 

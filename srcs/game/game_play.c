@@ -6,35 +6,36 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:31:30 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/15 16:11:45 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/15 17:34:39 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-t_move	return_dir(t_move_bools *dir)
+void	move_dir(t_game *game)
 {
+	t_move_bools	*dir;
+
+	dir = &game->move;
 	if (dir->forward)
-		return (FORWARD);
+		move_player(game, FORWARD);
 	if (dir->backward)
-		return (BACKWARD);
+		move_player(game, BACKWARD);
 	if (dir->left)
-		return (LEFT);
+		move_player(game, LEFT);
 	if (dir->right)
-		return (RIGHT);
+		move_player(game, RIGHT);
 	if (dir->rotate_right)
-		return (TURN_RIGHT);
+		rotate_player(game, TURN_RIGHT);
 	if (dir->rotate_left)
-		return (TURN_LEFT);
-	return (-1);
+		rotate_player(game, TURN_LEFT);
 }
 
 int	game_play(t_game *game)
 {
 	if (game->move.is_moving || game->move.is_rotating)
 	{
-		move_player(game, return_dir(&game->move));
-		rotate_player(game, return_dir(&game->move));
+		move_dir(game);
 		ft_bzero(game->mlx.addr,
 			game->width * game->height * (game->mlx.bpp / 8));
 		ray_casting(game);

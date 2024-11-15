@@ -6,7 +6,7 @@
 #    By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 16:51:54 by hlibine           #+#    #+#              #
-#    Updated: 2024/11/15 14:28:56 by hlibine          ###   ########.fr        #
+#    Updated: 2024/11/15 17:42:54 by hlibine          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,6 @@ FILES		=	main \
 				hooks/cub3d_hooks \
 				utils/cleanup \
 				utils/utils \
-				mlx_key_hooks/movement_hooks \
 
 SRCS		= $(addprefix $(SRCDIR)/, $(FILES:=.c))
 OBJS		= $(addprefix $(OBJDIR)/, $(FILES:=.o))

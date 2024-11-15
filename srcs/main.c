@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:38:56 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/15 16:32:52 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/15 17:45:24 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,7 @@ void	freeall(void)
 
 static int	initial_render(t_game *game)
 {
-	ft_bzero(game->mlx.addr,
-			game->width * game->height * (game->mlx.bpp / 8));
+	ft_bzero(game->mlx.addr, game->width * game->height * (game->mlx.bpp / 8));
 	ray_casting(game);
 	mlx_put_image_to_window(game->mlx.ptr,
 		game->mlx.win_ptr, game->mlx.img_ptr, 0, 0);
@@ -103,10 +102,9 @@ int	main(int ac, char **av)
 		cleanup_game(game);
 		return (1);
 	}
-	//mlx_key_hook(game->mlx.win_ptr, &key_hook_up, game);
-	//mlx_key_hook(game->mlx.win_ptr, &handle_keyrelease, game);
+	mlx_do_key_autorepeatoff(game->mlx.ptr);
 	mlx_expose_hook(game->mlx.win_ptr, &initial_render, game);
-	mlx_hook(game->mlx.win_ptr, 2, 1L << 0, &key_hook_up, game);
+	mlx_hook(game->mlx.win_ptr, 2, 1L << 0, &handle_keypress, game);
 	mlx_hook(game->mlx.win_ptr, 3, 1L << 1, &handle_keyrelease, game);
 	mlx_hook(game->mlx.win_ptr, 17, 0, &exit_game, game);
 	mlx_loop_hook(game->mlx.ptr, &game_play, game);
