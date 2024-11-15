@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 17:19:47 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/13 17:24:44 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/14 17:47:22 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,19 @@ double	distance_to_wall(double x, double y)
 	return (fmin(dist_x, dist_y));
 }
 
-static bool	collision_check(t_game *game, double new_x, double new_y)
+static void	collision(t_game *game, double new_x, double new_y, t_player *play)
 {
 	int		map_x;
 	int		map_y;
 
 	map_x = (int)(new_x);
 	map_y = (int)(new_y);
-	if (game->mapdata->map[map_y][map_x] == '1')
-		return (true);
-	return (false);
+	if (game->mapdata->map[map_y][map_x] != '1')
+		play->pos = (t_vector){new_x, new_y};
+	else if (game->mapdata->map[(int)play->pos.y][map_x] != '1')
+		play->pos = (t_vector){new_x, play->pos.y};
+	else if (game->mapdata->map[map_y][(int)play->pos.x] != '1')
+		play->pos = (t_vector){play->pos.x, new_y};
 }
 
 /*
@@ -63,9 +66,7 @@ void	move_player(t_game *game, t_move dir)
 		- (player->dir.y * strafe_step);
 	new_y = player->pos.y + (player->dir.y * move_step)
 		+ (player->dir.x * strafe_step);
-	if (!collision_check(game, new_x, new_y)
-		&& distance_to_wall(new_x, new_y) > MIN_DISTANCE)
-		player->pos = (t_vector){new_x, new_y};
+	collision(game, new_x, new_y, player);
 }
 
 /*
