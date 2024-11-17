@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/17 12:34:14 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/17 12:40:32 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <X11/X.h>
+# include <sys/time.h>
 # include <X11/X.h>
 # include <sys/time.h>
 # include "keycodes.h"
@@ -113,7 +115,6 @@ typedef enum e_move
 	TURN_LEFT,
 	TURN_RIGHT
 }	t_move;
-
 
 typedef enum e_tex_id
 {

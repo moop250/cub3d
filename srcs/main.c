@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:38:56 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/17 10:47:27 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/17 12:44:31 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@ static t_game	*get_game(void)
 	game->textures = NULL;
 	game->mlx.ptr = NULL;
 	game->mlx.win_ptr = NULL;
+	game->move.backward = false;
+	game->move.forward = false;
+	game->move.left = false;
+	game->move.right = false;
+	game->move.is_moving = false;
+	game->move.rotate_right = false;
+	game->move.rotate_left = false;
+	game->move.is_rotating = false;
+	game->last_time = 0;
 	return (game);
 }
 
@@ -65,7 +74,17 @@ void	freeall(void)
 		ft_safe_free(1, game->mapdata);
 	}
 	freemlx(game->mlx);
-	ft_safe_free(1, game);
+	ft_free(game);
+}
+
+static int	initial_render(t_game *game)
+{
+	ft_bzero(game->mlx.img.addr,
+		game->width * game->height * (game->mlx.img.bpp / 8));
+	ray_casting(game);
+	mlx_put_image_to_window(game->mlx.ptr,
+		game->mlx.win_ptr, game->mlx.img.img, 0, 0);
+	return (0);
 }
 
 int	main(int ac, char **av)
@@ -85,10 +104,11 @@ int	main(int ac, char **av)
 		cleanup_game(game);
 		return (1);
 	}
-	// ft_putstr_fd("Rendering game\n", 1);
-	// game_play(game);
+	mlx_do_key_autorepeatoff(game->mlx.ptr);
+	mlx_expose_hook(game->mlx.win_ptr, &initial_render, game);
 	printf("Bonus flag: %d\n", game->bonus);
 	mlx_hook(game->mlx.win_ptr, 2, 1L << 0, &handle_keypress, game);
+	mlx_hook(game->mlx.win_ptr, 3, 1L << 1, &handle_keyrelease, game);
 	mlx_hook(game->mlx.win_ptr, 17, 0, &exit_game, game);
 	mlx_loop_hook(game->mlx.ptr, &game_play, game);
 	mlx_loop(game->mlx.ptr);

@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 11:52:25 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/17 11:09:33 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/17 12:43:03 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ static bool	allocate_tex_buf(t_game *game)
 {
 	int	i;
 
+	i = 0;
+	while (i < NUM_TEXTURES)
+		game->tex_pixels[i++] = NULL;
 	i = 0;
 	while (i < NUM_TEXTURES)
 	{
