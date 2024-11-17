@@ -6,11 +6,11 @@
 #    By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 16:51:54 by hlibine           #+#    #+#              #
-#    Updated: 2024/11/17 12:48:59 by dcaro-ro         ###   ########.fr        #
+#    Updated: 2024/11/17 13:49:43 by dcaro-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# Genral values
+# General values
 NAME		=	cub3d
 
 CC			=	gcc
@@ -131,7 +131,9 @@ clear: clean
 
 fclear: fclean
 
-re: fclean all
+re:
+	@$(MAKE) fclean
+	@$(MAKE) $(filter bonus, $(MAKECMDGOALS))
 
 valgrind: all
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) maps/default.cub
