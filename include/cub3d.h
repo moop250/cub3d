@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/15 21:53:39 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/17 11:09:05 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,11 +202,12 @@ typedef struct s_mlx
 {
 	void	*ptr;
 	void	*win_ptr;
-	void	*img_ptr;
-	char	*addr;
-	int		bpp;
-	int		size_line;
-	int		endian;
+	//void	*img_ptr;
+	//char	*addr;
+	//int		bpp;
+	//int		size_line;
+	//int		endian;
+	t_img	img;
 	void	*tmp_img;
 	char	*tmp_addr;
 }	t_mlx;
@@ -230,6 +231,13 @@ typedef struct s_bresenham
 	int	error;
 	int	e2;
 }	t_bresenham;
+
+typedef struct s_minimap
+{
+	t_img	img;
+	int		width;
+	int		height;
+}	t_minimap;
 
 /**
  * Game structure
@@ -259,9 +267,7 @@ typedef struct s_game
 	t_img		*tex[NUM_TEXTURES];
 	int			*tex_pixels[NUM_TEXTURES];
 	bool		bonus;
-	// t_img		minimap;
-	// int			mini_w;
-	// int			mini_h;
+	t_minimap	minimap;
 }	t_game;
 
 /**
@@ -324,6 +330,7 @@ void	freemlx(t_mlx mlx);
 void	*mlx_cleanup(t_game *game);
 void	*destroy_textures(t_game *game);
 void	*cleanup_game(t_game *game);
+bool	bcleanup_game(t_game *game, char *msg, bool flag);
 
 /* errors */
 void	ft_error(const char *msg);
@@ -336,9 +343,11 @@ int		get_color(int red, int green, int blue);
 /* init */
 bool	game_init(t_game *game);
 void	init_ray(t_game *game, t_ray *ray, int x);
+void	init_bonus(t_game *game);
 
 /* rendering */
-void	put_pixel(t_game *game, int x, int y, int color);
+//void	put_pixel(t_game *game, int x, int y, int color);
+void	put_pixel(t_img *img, int x, int y, int color);
 t_img	*get_current_texture(t_game *game, t_ray *ray);
 void	render_pixel(t_game *game, t_ray *ray, int x, int y);
 // void	render_pixel(t_game *game, t_ray *ray, int x);

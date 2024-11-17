@@ -6,7 +6,7 @@
 #    By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 16:51:54 by hlibine           #+#    #+#              #
-#    Updated: 2024/11/14 22:03:38 by dcaro-ro         ###   ########.fr        #
+#    Updated: 2024/11/17 10:54:47 by dcaro-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ FILES		=	main \
 				game/game_play \
 				init/game_init \
 				init/ray_init \
+				init/init_bonus \
 				render/ray_casting_utils \
 				render/render_pixel \
 				render/ray_casting \
