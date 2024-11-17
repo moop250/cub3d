@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:31:30 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/17 12:45:33 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/17 16:36:57 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	game_play(t_game *game)
 			ray_casting(game);
 			mlx_put_image_to_window(game->mlx.ptr,
 				game->mlx.win_ptr, game->mlx.img.img, 0, 0);
+			if (BONUS_FLAG)
+				render_minimap(game);
 		}
 	}
 	game->last_time = current_time;

@@ -6,7 +6,7 @@
 #    By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 16:51:54 by hlibine           #+#    #+#              #
-#    Updated: 2024/11/17 13:49:43 by dcaro-ro         ###   ########.fr        #
+#    Updated: 2024/11/17 16:37:54 by dcaro-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ FILES		=	main \
 				render/ray_casting_utils \
 				render/render_pixel \
 				render/ray_casting \
+				render/minimap \
 				hooks/cub3d_hooks \
 				utils/cleanup \
 				utils/utils \

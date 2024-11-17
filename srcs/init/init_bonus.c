@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 01:09:24 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/17 11:09:14 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/17 18:26:39 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,20 @@
 
 bool	init_minimap(t_game *game)
 {
-	t_minimap	*minimap;
-
-	minimap = &game->minimap;
-	minimap->width = game->width / 4;
-	minimap->height = game->height / 4;
-	minimap->img.img = mlx_new_image(game->mlx.ptr,
-			minimap->width, minimap->height);
-	minimap->img.addr = mlx_get_data_addr(minimap->img.img, &minimap->img.bpp,
-			&minimap->img.size_line, &minimap->img.endian);
-	if (!minimap->img.img || !minimap->img.addr)
+	game->minimap.width = 200;
+	game->minimap.height = 200;
+	game->minimap.scale = 5.0;
+	game->minimap.player_size = 3;
+	game->minimap.img.img = mlx_new_image(game->mlx.ptr,
+			game->minimap.width, game->minimap.height);
+	game->minimap.img.addr = mlx_get_data_addr(game->minimap.img.img,
+			&game->minimap.img.bpp, &game->minimap.img.size_line,
+			&game->minimap.img.endian);
+	if (!game->minimap.img.img || !game->minimap.img.addr)
+	{
+		ft_putendl_fd("Could not create minimap image", 2);
 		return (false);
+	}
 	return (true);
 }
 
@@ -38,10 +41,6 @@ void	init_bonus(t_game *game)
 	{
 		game->bonus = true;
 		if (!init_minimap(game))
-		{
-			cleanup_game(game);
-			ft_putendl_fd("Could not initialize minimap", 2);
 			exit(EXIT_FAILURE);
-		}
 	}
 }

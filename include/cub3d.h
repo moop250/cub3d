@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/17 12:40:32 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/17 16:46:30 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,14 +210,14 @@ typedef struct s_mlx
 {
 	void	*ptr;
 	void	*win_ptr;
+	t_img	img;
+	void	*tmp_img;
+	char	*tmp_addr;
 	//void	*img_ptr;
 	//char	*addr;
 	//int		bpp;
 	//int		size_line;
 	//int		endian;
-	t_img	img;
-	void	*tmp_img;
-	char	*tmp_addr;
 }	t_mlx;
 
 typedef struct s_move_bools
@@ -257,6 +257,8 @@ typedef struct s_minimap
 	t_img	img;
 	int		width;
 	int		height;
+	double	scale;
+	int		player_size;
 }	t_minimap;
 
 /**
@@ -372,10 +374,9 @@ void	init_bonus(t_game *game);
 void	put_pixel(t_img *img, int x, int y, int color);
 t_img	*get_current_texture(t_game *game, t_ray *ray);
 void	render_pixel(t_game *game, t_ray *ray, int x, int y);
-// void	render_pixel(t_game *game, t_ray *ray, int x);
 void	ray_casting(t_game *game);
 int		game_play(t_game *game);
-//void	draw_minimap(t_game *game);
+void	render_minimap(t_game *game);
 
 /* Movement and key events */
 

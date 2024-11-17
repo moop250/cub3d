@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 11:27:24 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/14 21:24:19 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/17 15:05:01 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ static void	print_mlx(t_mlx *mlx)
 	printf("  MLX:\n");
 	printf("    ptr: %p\n", mlx->ptr);
 	printf("    win_ptr: %p\n", mlx->win_ptr);
-	printf("    img_ptr: %p\n", mlx->img_ptr);
-	printf("    addr: %p\n", mlx->addr);
-	printf("    bpp: %d\n", mlx->bpp);
-	printf("    size_line: %d\n", mlx->size_line);
-	printf("    endian: %d\n", mlx->endian);
+	printf("    img_ptr: %p\n", mlx->img.img);
+	printf("    addr: %p\n", mlx->img.addr);
+	printf("    bpp: %d\n", mlx->img.bpp);
+	printf("    size_line: %d\n", mlx->img.size_line);
+	printf("    endian: %d\n", mlx->img.endian);
 	printf("\n");
 }
 

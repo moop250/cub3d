@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:07:07 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/17 10:49:39 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/17 18:35:42 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 
 int	get_tex_pixel_color(t_game *game, t_tex_id id, int x, int y)
 {
-	if (x >= 0 && x < TEX_WIDTH && y >= 0 && y < TEX_HEIGHT)
+	int	tex_width;
+	int	tex_height;
+
+	tex_width = game->tex[id]->width;
+	tex_height = game->tex[id]->height;
+	if (x >= 0 && x < tex_width && y >= 0 && y < tex_height)
 		return (game->tex_pixels[id][y * TEX_WIDTH + x]);
 	return (0);
 }
@@ -57,7 +62,7 @@ void	render_pixel(t_game *game, t_ray *ray, int x, int y)
 		ray->tex_y = (int)ray->tex_pos & (texture->height - 1);
 		color = get_tex_pixel_color(game, game->tex_id, ray->tex_x, ray->tex_y);
 		if (ray->side == 1)
-			color = adjust_brightness(color, 0.7);
+			color = adjust_brightness(color, 0.8);
 	}
 	if (x >= 0 && x < game->width && y >= 0 && y < game->height)
 		put_pixel(&game->mlx.img, x, y, color);
