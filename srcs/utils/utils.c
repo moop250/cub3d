@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/09 10:40:44 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/13 13:29:26 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/18 11:43:45 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,3 @@ int	get_color(int red, int green, int blue)
 	color = (red << 16) | (green << 8) | blue;
 	return (color);
 }
-
-// int	get_tex_pixel_color(t_game *game, t_tex_id id, int x, int y)
-// {
-// 	if (x >= 0 && x < TEX_WIDTH && y >= 0 && y < TEX_HEIGHT)
-// 		return (game->tex_pixels[id][y * TEX_WIDTH + x]);
-// 	return (0);
-// }
-
