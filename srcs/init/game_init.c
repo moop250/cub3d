@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 11:52:25 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/17 12:43:03 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/18 11:40:10 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ static void	load_texture_to_buffer(t_game *game)
 		}
 		i++;
 	}
-	//destroy_textures(game);
 }
 
 bool	game_init(t_game *game)
