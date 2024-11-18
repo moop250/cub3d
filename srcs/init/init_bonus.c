@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 01:09:24 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/17 18:26:39 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/18 11:36:10 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 bool	init_minimap(t_game *game)
 {
-	game->minimap.width = 200;
-	game->minimap.height = 200;
-	game->minimap.scale = 5.0;
+	game->minimap.scale = 5;
 	game->minimap.player_size = 3;
+	game->minimap.player_color = PLAYER_COLOR;
+	game->minimap.wall_color = WALL_COLOR;
+	game->minimap.empty_color = EMPTY_COLOR;
+	game->minimap.width = game->mapdata->width * game->minimap.scale + 10;
+	game->minimap.height = game->mapdata->height * game->minimap.scale + 10;
 	game->minimap.img.img = mlx_new_image(game->mlx.ptr,
 			game->minimap.width, game->minimap.height);
 	game->minimap.img.addr = mlx_get_data_addr(game->minimap.img.img,
