@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/17 16:46:30 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/18 10:39:27 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,10 @@
 #  endif
 # endif
 
+# define PLAYER_COLOR 0x00FF0000
+# define WALL_COLOR 0x00000000
+# define EMPTY_COLOR 0x00FFFFFF
+
 typedef struct s_indexes
 {
 	int		i;
@@ -154,6 +158,8 @@ typedef struct s_mapdata
 	char		**map;
 	t_player	player;
 	int			colors[2][3];
+	int			width;
+	int			height;
 }	t_mapdata;
 
 /**
@@ -213,11 +219,6 @@ typedef struct s_mlx
 	t_img	img;
 	void	*tmp_img;
 	char	*tmp_addr;
-	//void	*img_ptr;
-	//char	*addr;
-	//int		bpp;
-	//int		size_line;
-	//int		endian;
 }	t_mlx;
 
 typedef struct s_move_bools
@@ -259,6 +260,9 @@ typedef struct s_minimap
 	int		height;
 	double	scale;
 	int		player_size;
+	int		player_color;
+	int		wall_color;
+	int		empty_color;
 }	t_minimap;
 
 /**
