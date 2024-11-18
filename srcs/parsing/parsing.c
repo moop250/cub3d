@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:03:09 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/18 13:04:54 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/18 13:53:36 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,7 @@ void	get_map_dimensions(t_game *game)
 		map_height++;
 	}
 	game->mapdata->width = map_width;
-	if (ft_strlen(game->mapdata->map[map_height - 1]) == 0)
-		game->mapdata->height = map_height - 2;
-	else
-		game->mapdata->height = map_height - 1;
-	printf("Map width: %d\n", game->mapdata->width); // debug
-	printf("Map height: %d\n", game->mapdata->height); // debug
+	game->mapdata->height = map_height - 2;
 }
 
 void	*parsing(t_game *game, char *lvl_path)
