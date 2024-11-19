@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 22:32:06 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/14 16:31:43 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/19 14:20:34 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,19 @@ void	*destroy_textures(t_game *game)
 
 void	*mlx_cleanup(t_game *game)
 {
-	if (game->mlx.img_ptr)
-		mlx_destroy_image(game->mlx.ptr, game->mlx.img_ptr);
+	mlx_do_key_autorepeaton(game->mlx.ptr);
+	if (game->mlx.img.img)
+		mlx_destroy_image(game->mlx.ptr, game->mlx.img.img);
 	if (game->mlx.tmp_img)
 		mlx_destroy_image(game->mlx.ptr, game->mlx.tmp_img);
 	if (game->mlx.win_ptr)
 		mlx_destroy_window(game->mlx.ptr, game->mlx.win_ptr);
+	if (BONUS_FLAG)
+	{
+		if (game->minimap.img.img)
+			mlx_destroy_image(game->mlx.ptr, game->minimap.img.img);
+		game->minimap.img.img = NULL;
+	}
 	if (game->mlx.ptr)
 	{
 		mlx_destroy_display(game->mlx.ptr);
@@ -59,9 +66,6 @@ void	*mlx_cleanup(t_game *game)
 
 void	*cleanup_game(t_game *game)
 {
-	int	i;
-
-	i = 0;
 	if (game)
 	{
 		if (game->mapdata)
@@ -75,12 +79,23 @@ void	*cleanup_game(t_game *game)
 		if (game->textures)
 			destroy_textures(game);
 		mlx_cleanup(game);
-		while (i < NUM_TEXTURES)
-		{
-			if (game->tex_pixels[i])
-				free(game->tex_pixels[i++]);
-		}
+		if (game->tex_pixels[NO])
+			ft_free(game->tex_pixels[NO]);
+		if (game->tex_pixels[SO])
+			ft_free(game->tex_pixels[SO]);
+		if (game->tex_pixels[WE])
+			ft_free(game->tex_pixels[WE]);
+		if (game->tex_pixels[EA])
+			ft_free(game->tex_pixels[EA]);
 		free(game);
 	}
 	return (NULL);
+}
+
+bool	bcleanup_game(t_game *game, char *msg, bool flag)
+{
+	if (msg)
+		ft_putendl_fd(msg, 2);
+	cleanup_game(game);
+	return (flag);
 }

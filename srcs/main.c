@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:38:56 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/15 20:49:21 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/17 12:44:31 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,11 @@ void	freeall(void)
 
 static int	initial_render(t_game *game)
 {
-	ft_bzero(game->mlx.addr, game->width * game->height * (game->mlx.bpp / 8));
+	ft_bzero(game->mlx.img.addr,
+		game->width * game->height * (game->mlx.img.bpp / 8));
 	ray_casting(game);
 	mlx_put_image_to_window(game->mlx.ptr,
-		game->mlx.win_ptr, game->mlx.img_ptr, 0, 0);
+		game->mlx.win_ptr, game->mlx.img.img, 0, 0);
 	return (0);
 }
 
@@ -105,6 +106,7 @@ int	main(int ac, char **av)
 	}
 	mlx_do_key_autorepeatoff(game->mlx.ptr);
 	mlx_expose_hook(game->mlx.win_ptr, &initial_render, game);
+	printf("Bonus flag: %d\n", game->bonus);
 	mlx_hook(game->mlx.win_ptr, 2, 1L << 0, &handle_keypress, game);
 	mlx_hook(game->mlx.win_ptr, 3, 1L << 1, &handle_keyrelease, game);
 	mlx_hook(game->mlx.win_ptr, 17, 0, &exit_game, game);

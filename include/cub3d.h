@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/15 20:55:26 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/18 10:39:27 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <X11/X.h>
+# include <sys/time.h>
 # include <X11/X.h>
 # include <sys/time.h>
 # include "keycodes.h"
@@ -43,6 +45,7 @@
 # define PI 3.14159265358979323846
 # define HALF_PI 1.57079632679489661923
 # define TWO_PI 6.28318530717958647692
+//# define STEP_SIZE 0.1
 
 # define WHITESPACE " \n\t"
 # define MAP_CHARS "01NSEW"
@@ -75,6 +78,18 @@
 # define NUM_TEXTURES 4
 # define TEX_WIDTH 64
 # define TEX_HEIGHT 64
+
+# ifndef BONUS_FLAG
+#  if defined(BONUS)
+#   define BONUS_FLAG true
+#  else
+#   define BONUS_FLAG false
+#  endif
+# endif
+
+# define PLAYER_COLOR 0x00FF0000
+# define WALL_COLOR 0x00000000
+# define EMPTY_COLOR 0x00FFFFFF
 
 typedef struct s_indexes
 {
@@ -143,6 +158,8 @@ typedef struct s_mapdata
 	char		**map;
 	t_player	player;
 	int			colors[2][3];
+	int			width;
+	int			height;
 }	t_mapdata;
 
 /**
@@ -157,7 +174,7 @@ typedef struct s_mapdata
  * @param endian Endianess.
  * @param path Path to the XPM file.
  */
-typedef struct s_xpm
+typedef struct s_img
 {
 	void	*img;
 	int		width;
@@ -166,7 +183,7 @@ typedef struct s_xpm
 	int		bpp;
 	int		size_line;
 	int		endian;
-}	t_xpm;
+}	t_img;
 
 /**
  * Textures structure
@@ -178,10 +195,10 @@ typedef struct s_xpm
  */
 typedef struct s_textures
 {
-	t_xpm	north;
-	t_xpm	south;
-	t_xpm	east;
-	t_xpm	west;
+	t_img	north;
+	t_img	south;
+	t_img	east;
+	t_img	west;
 }	t_textures;
 
 /**
@@ -199,11 +216,7 @@ typedef struct s_mlx
 {
 	void	*ptr;
 	void	*win_ptr;
-	void	*img_ptr;
-	char	*addr;
-	int		bpp;
-	int		size_line;
-	int		endian;
+	t_img	img;
 	void	*tmp_img;
 	char	*tmp_addr;
 }	t_mlx;
@@ -219,6 +232,38 @@ typedef struct s_move_bools
 	bool	rotate_left;
 	bool	is_rotating;
 }	t_move_bools;
+
+/**
+ * Bresenham structure
+ *
+ * @param dx Delta x.
+ * @param dy Delta y.
+ * @param sx Step x.
+ * @param sy Step y.
+ * @param error Error.
+ * @param e2 Error 2.
+ */
+typedef struct s_bresenham
+{
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	error;
+	int	e2;
+}	t_bresenham;
+
+typedef struct s_minimap
+{
+	t_img	img;
+	int		width;
+	int		height;
+	double	scale;
+	int		player_size;
+	int		player_color;
+	int		wall_color;
+	int		empty_color;
+}	t_minimap;
 
 /**
  * Game structure
@@ -245,10 +290,12 @@ typedef struct s_game
 	int				ceiling_color;
 	t_textures		*textures;
 	t_tex_id		tex_id;
-	t_xpm			*tex[NUM_TEXTURES];
+	t_img			*tex[NUM_TEXTURES];
 	int				*tex_pixels[NUM_TEXTURES];
 	t_move_bools	move;
 	double			last_time;
+	bool			bonus;
+	t_minimap		minimap;
 }	t_game;
 
 /**
@@ -311,6 +358,7 @@ void	freemlx(t_mlx mlx);
 void	*mlx_cleanup(t_game *game);
 void	*destroy_textures(t_game *game);
 void	*cleanup_game(t_game *game);
+bool	bcleanup_game(t_game *game, char *msg, bool flag);
 
 /* errors */
 void	ft_error(const char *msg);
@@ -323,14 +371,16 @@ int		get_color(int red, int green, int blue);
 /* init */
 bool	game_init(t_game *game);
 void	init_ray(t_game *game, t_ray *ray, int x);
+void	init_bonus(t_game *game);
 
 /* rendering */
-void	put_pixel(t_game *game, int x, int y, int color);
-t_xpm	*get_current_texture(t_game *game, t_ray *ray);
+//void	put_pixel(t_game *game, int x, int y, int color);
+void	put_pixel(t_img *img, int x, int y, int color);
+t_img	*get_current_texture(t_game *game, t_ray *ray);
 void	render_pixel(t_game *game, t_ray *ray, int x, int y);
-// void	render_pixel(t_game *game, t_ray *ray, int x);
 void	ray_casting(t_game *game);
 int		game_play(t_game *game);
+void	render_minimap(t_game *game);
 
 /* Movement and key events */
 

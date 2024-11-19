@@ -6,34 +6,42 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:07:07 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/13 17:12:13 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/17 18:35:42 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-// void	normalize_x_coord(t_game *game, t_ray *ray)
-// {
-// 	t_vector	pos;
-
-// 	pos = game->mapdata->player.pos;
-// 	if (ray->side == 0)
-// 		ray->wall_x = pos.y + ray->wall_dist * ray->dir.y;
-// 	else
-// 		ray->wall_x = pos.x + ray->wall_dist * ray->dir.x;
-// 	ray->wall_x -= floor(ray->wall_x);
-// }
-
 int	get_tex_pixel_color(t_game *game, t_tex_id id, int x, int y)
 {
-	if (x >= 0 && x < TEX_WIDTH && y >= 0 && y < TEX_HEIGHT)
+	int	tex_width;
+	int	tex_height;
+
+	tex_width = game->tex[id]->width;
+	tex_height = game->tex[id]->height;
+	if (x >= 0 && x < tex_width && y >= 0 && y < tex_height)
 		return (game->tex_pixels[id][y * TEX_WIDTH + x]);
 	return (0);
 }
 
+int	adjust_brightness(int color, double factor)
+{
+	int		red;
+	int		green;
+	int		blue;
+
+	red = (color >> 16) & 0xFF;
+	green = (color >> 8) & 0xFF;
+	blue = color & 0xFF;
+	red = ft_clamp((int)(red * factor), 0, 255);
+	green = ft_clamp((int)(green * factor), 0, 255);
+	blue = ft_clamp((int)(blue * factor), 0, 255);
+	return ((red << 16) | (green << 8) | blue);
+}
+
 void	render_pixel(t_game *game, t_ray *ray, int x, int y)
 {
-	t_xpm	*texture;
+	t_img	*texture;
 	int		color;
 
 	if (y < ray->draw_start)
@@ -54,7 +62,27 @@ void	render_pixel(t_game *game, t_ray *ray, int x, int y)
 		ray->tex_y = (int)ray->tex_pos & (texture->height - 1);
 		color = get_tex_pixel_color(game, game->tex_id, ray->tex_x, ray->tex_y);
 		if (ray->side == 1)
-			color = (color >> 1) & 8355711;
+			color = adjust_brightness(color, 0.8);
 	}
-	put_pixel(game, x, y, color);
+	if (x >= 0 && x < game->width && y >= 0 && y < game->height)
+		put_pixel(&game->mlx.img, x, y, color);
 }
+// maybe: color = (color >> 1) & 8355711;
+
+// Calculate the color with shading based on the wall distance
+// static int	calculate_shaded_color(int color, double wall_dist)
+// {
+// 	double	shading_factor;
+// 	int		red;
+// 	int		green;
+// 	int		blue;
+
+// 	shading_factor = 1.0 / (1.0 + wall_dist * 0.2);
+// 	red = ((color >> 16) & 0xFF) * shading_factor;
+// 	green = ((color >> 8) & 0xFF) * shading_factor;
+// 	blue = (color & 0xFF) * shading_factor;
+// 	red = ft_clamp((int)(((color >> 16) & 0xFF) * shading_factor), 0, 255);
+// 	green = ft_clamp((int)(((color >> 8) & 0xFF) * shading_factor), 0, 255);
+// 	blue = ft_clamp((int)((color & 0xFF) * shading_factor), 0, 255);
+// 	return ((red << 16) | (green << 8) | blue);
+// }

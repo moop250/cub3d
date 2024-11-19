@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 11:52:25 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/15 13:23:16 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/18 11:41:31 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,19 @@ static bool	game_mlx_init(t_game *game)
 	game->mlx.win_ptr = mlx_new_window(game->mlx.ptr,
 			game->width, game->height, "cub3D");
 	if (!game->mlx.win_ptr)
-	{
-		cleanup_game(game);
-		return (ft_free_bool(NULL, "Failed to create window", false));
-	}
-	game->mlx.img_ptr = mlx_new_image(game->mlx.ptr, game->width, game->height);
+		return (bcleanup_game(game, "Failed to create window", false));
+	game->mlx.img.img = mlx_new_image(game->mlx.ptr, game->width, game->height);
 	game->mlx.tmp_img = mlx_new_image(game->mlx.ptr, game->width, game->height);
-	if (!game->mlx.img_ptr || !game->mlx.tmp_img)
-	{
-		cleanup_game(game);
-		return (ft_free_bool(NULL, "Failed to create image", false));
-	}
-	game->mlx.addr = mlx_get_data_addr(game->mlx.img_ptr, &game->mlx.bpp,
-			&game->mlx.size_line, &game->mlx.endian);
-	game->mlx.tmp_addr = mlx_get_data_addr(game->mlx.tmp_img, &game->mlx.bpp,
-			&game->mlx.size_line, &game->mlx.endian);
-	if (!game->mlx.addr || !game->mlx.tmp_addr)
-	{
-		cleanup_game(game);
-		return (ft_free_bool(NULL, "Failed to get image address", false));
-	}
+	if (!game->mlx.img.img || !game->mlx.tmp_img)
+		return (bcleanup_game(game, "Failed to create image", false));
+	game->mlx.img.addr = mlx_get_data_addr(game->mlx.img.img,
+			&game->mlx.img.bpp, &game->mlx.img.size_line,
+			&game->mlx.img.endian);
+	game->mlx.tmp_addr = mlx_get_data_addr(game->mlx.tmp_img,
+			&game->mlx.img.bpp, &game->mlx.img.size_line,
+			&game->mlx.img.endian);
+	if (!game->mlx.img.addr || !game->mlx.tmp_addr)
+		return (bcleanup_game(game, "Failed to get image address", false));
 	return (true);
 }
 
@@ -115,7 +108,6 @@ static void	load_texture_to_buffer(t_game *game)
 		}
 		i++;
 	}
-	//destroy_textures(game);
 }
 
 bool	game_init(t_game *game)
@@ -126,6 +118,7 @@ bool	game_init(t_game *game)
 			game->mapdata->colors[0][1], game->mapdata->colors[0][2]);
 	game->ceiling_color = get_color(game->mapdata->colors[1][0],
 			game->mapdata->colors[1][1], game->mapdata->colors[1][2]);
+	init_bonus(game);
 	if (!game_mlx_init(game)
 		|| !init_texture_data(game) || !allocate_tex_buf(game))
 	{

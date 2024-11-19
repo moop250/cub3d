@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 12:39:24 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/13 12:18:58 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/18 11:38:01 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,6 @@ static void	setup_ray(t_ray *ray)
 	ray->line_height = 0;
 	ray->draw_start = 0;
 	ray->draw_end = 0;
-	// ray->tex_x = 0;
-	// ray->tex_y = 0;
-	// ray->tex_pos = 0.0;
-	// ray->tex_step = 0.0;
 }
 
 static void	init_ray_data(t_game *game, t_ray *ray, int x)

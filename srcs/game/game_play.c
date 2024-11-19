@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_play.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:31:30 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/15 20:58:40 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/17 16:36:57 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,13 @@ int	game_play(t_game *game)
 		if (game->move.is_moving || game->move.is_rotating)
 		{
 			move_dir(game);
-			ft_bzero(game->mlx.addr,
-				game->width * game->height * (game->mlx.bpp / 8));
+			ft_bzero(game->mlx.img.addr,
+				game->width * game->height * (game->mlx.img.bpp / 8));
 			ray_casting(game);
 			mlx_put_image_to_window(game->mlx.ptr,
-				game->mlx.win_ptr, game->mlx.img_ptr, 0, 0);
+				game->mlx.win_ptr, game->mlx.img.img, 0, 0);
+			if (BONUS_FLAG)
+				render_minimap(game);
 		}
 	}
 	game->last_time = current_time;

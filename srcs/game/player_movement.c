@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/11/18 14:49:18 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/19 14:48:32 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,16 @@ static void	collision(t_game *game, double new_x, double new_y, t_player *play)
 	map_y = (int)(new_y);
 	if (game->mapdata->map[map_y][map_x] != '1'
 		&& game->mapdata->map[map_y][map_x] != ' ')
+	if (game->mapdata->map[map_y][map_x] != '1'
+		&& game->mapdata->map[map_y][map_x] != ' ')
 		play->pos = (t_vector){new_x, new_y};
 	else if (game->mapdata->map[(int)play->pos.y][map_x] != '1'
 		&& game->mapdata->map[(int)play->pos.y][map_x] != ' ')
+	else if (game->mapdata->map[(int)play->pos.y][map_x] != '1'
+		&& game->mapdata->map[(int)play->pos.y][map_x] != ' ')
 		play->pos = (t_vector){new_x, play->pos.y};
+	else if (game->mapdata->map[map_y][(int)play->pos.x] != '1'
+		&& game->mapdata->map[map_y][(int)play->pos.x] != ' ')
 	else if (game->mapdata->map[map_y][(int)play->pos.x] != '1'
 		&& game->mapdata->map[map_y][(int)play->pos.x] != ' ')
 		play->pos = (t_vector){play->pos.x, new_y};
