@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/18 10:39:27 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/19 16:13:03 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,14 @@
 # define RAY_LIGHT_COLOR 0x007F0000
 # define RAY_DARK_COLOR 0x00FF0000
 
-# define MOVE_SPEED 0.05
+# define MOVE_SPEED 0.07
 # define ROTATE_SPEED 0.05
 # define ROTATION_DEGREE 5.0
 
 /* 0.016 == 60 fps (1 / 60) */
 # define FRAME_TIME 0.016
 
-# define MIN_DISTANCE 0.001
+# define COLLISION_RADIUS 0.2
 
 # define TEX_SIZE 64
 # define NUM_TEXTURES 4
