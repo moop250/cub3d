@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:35:38 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/15 20:33:24 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/19 16:29:55 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,13 @@ static int	skip_whitespace(char **map, int *i, int *j)
 	return (*j);
 }
 
+// ind.k == spawn_count
 int	check_walls(char **map, t_player *player)
 {
 	t_indexes	ind;
-	int			spawn_count;
 
 	ind.i = -1;
-	spawn_count = 0;
+	ind.k = 0;
 	while (map[++ind.i])
 	{
 		ind.j = -1;
@@ -91,12 +91,13 @@ int	check_walls(char **map, t_player *player)
 				return (-1);
 			if (ft_strchr(SPAWN_CHARS, map[ind.i][ind.j]))
 			{
-				if (spawn_count > 0)
-					return (spawn_count);
+				if (ind.k > 0)
+					return (ind.k);
 				handle_spawn(map[ind.i][ind.j], player, ind.j, ind.i);
-				++spawn_count;
+				map[ind.i][ind.j] = '0';
+				++ind.k;
 			}
 		}
 	}
-	return (spawn_count);
+	return (ind.k);
 }

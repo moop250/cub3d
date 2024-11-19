@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/19 15:46:25 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/19 16:13:03 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@
 /* 0.016 == 60 fps (1 / 60) */
 # define FRAME_TIME 0.016
 
-# define MIN_DIST 5
+# define COLLISION_RADIUS 0.2
 
 # define TEX_SIZE 64
 # define NUM_TEXTURES 4
