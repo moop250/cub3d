@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 14:39:06 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/17 16:48:10 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/19 16:31:00 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,25 +74,25 @@ void	draw_minimap_player(t_game *game)
 
 void	draw_minimap(t_game *game)
 {
-	int			x;
-	int			y;
-	t_coord		tile;
-	char		**map;
-	int			color;
+	int		x;
+	int		y;
+	int		color;
+	t_coord	tile;
 
-	map = game->mapdata->map;
 	y = 0;
-	while (map[y])
+	while (game->mapdata->map[y])
 	{
 		x = 0;
-		while (map[y][x])
+		while (game->mapdata->map[y][x])
 		{
 			tile.x = x * game->minimap.scale;
 			tile.y = y * game->minimap.scale;
-			if (map[y][x] == '1')
-				color = 0x000000;
+			if (game->mapdata->map[y][x] == '1')
+				color = game->minimap.wall_color;
+			else if (game->mapdata->map[y][x] == '0')
+				color = game->minimap.empty_color;
 			else
-				color = 0xFFFFFF;
+				color = 0x000000;
 			paint_tile(game, tile, color);
 			x++;
 		}
