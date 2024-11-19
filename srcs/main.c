@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:38:56 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/17 12:44:31 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/19 14:55:13 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ static int	initial_render(t_game *game)
 	ray_casting(game);
 	mlx_put_image_to_window(game->mlx.ptr,
 		game->mlx.win_ptr, game->mlx.img.img, 0, 0);
+	if (game->bonus)
+		render_minimap(game);
 	return (0);
 }
 
