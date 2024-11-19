@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 22:32:06 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/17 12:49:49 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/19 14:20:34 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	*destroy_textures(t_game *game)
 
 void	*mlx_cleanup(t_game *game)
 {
+	mlx_do_key_autorepeaton(game->mlx.ptr);
 	if (game->mlx.img.img)
 		mlx_destroy_image(game->mlx.ptr, game->mlx.img.img);
 	if (game->mlx.tmp_img)
