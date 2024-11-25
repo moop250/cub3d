@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:06:00 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/14 10:30:08 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/21 15:54:38 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,29 +59,26 @@ bool	check_map_line(char *line)
 
 static bool	file_check(char **file)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
 	i = 0;
 	while (file[i])
 	{
 		if (!file[i][0] || file[i][0] == '\n')
 			return (false);
-		else if (file[i][0] == 'N' && file[i][1] == 'O' && file[i][2] == ' ')
-			++i;
-		else if (file[i][0] == 'S' && file[i][1] == 'O' && file[i][2] == ' ')
-			++i;
-		else if (file[i][0] == 'W' && file[i][1] == 'E' && file[i][2] == ' ')
-			++i;
-		else if (file[i][0] == 'E' && file[i][1] == 'A' && file[i][2] == ' ')
-			++i;
-		else if (file[i][0] == 'F' && file[i][1] == ' ')
-			++i;
-		else if (file[i][0] == 'C' && file[i][1] == ' ')
-			++i;
-		else if (check_map_line(file[i]))
+		tmp = ft_strtrim(file[i], " ");
+		if ((tmp[0] == 'N' && tmp[1] == 'O' && tmp[2] == ' ')
+			|| (tmp[0] == 'S' && tmp[1] == 'O' && tmp[2] == ' ')
+			|| (tmp[0] == 'W' && tmp[1] == 'E' && tmp[2] == ' ')
+			|| (tmp[0] == 'E' && tmp[1] == 'A' && tmp[2] == ' ')
+			|| (tmp[0] == 'F' && tmp[1] == ' ')
+			|| (tmp[0] == 'C' && tmp[1] == ' ')
+			|| (check_map_line(file[i])))
 			++i;
 		else
-			return (false);
+			return (ft_free(tmp), false);
+		ft_free(tmp);
 	}
 	return (true);
 }

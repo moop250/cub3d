@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/19 16:13:03 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/21 15:48:28 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 # define WHITESPACE " \n\t"
 # define MAP_CHARS "01NSEW"
 # define SPAWN_CHARS "NSEW"
-# define COLOR_CHARS "0123456789,"
+# define COLOR_CHARS "0123456789, "
 
 # ifndef FILE_SUFFIX
 #  define FILE_SUFFIX ".cub"
@@ -81,9 +81,9 @@
 
 # ifndef BONUS_FLAG
 #  if defined(BONUS)
-#   define BONUS_FLAG true
+#   define BONUS_FLAG 1
 #  else
-#   define BONUS_FLAG false
+#   define BONUS_FLAG 0
 #  endif
 # endif
 
@@ -294,7 +294,7 @@ typedef struct s_game
 	int				*tex_pixels[NUM_TEXTURES];
 	t_move_bools	move;
 	double			last_time;
-	bool			bonus;
+	int				bonus;
 	t_minimap		minimap;
 }	t_game;
 

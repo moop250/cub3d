@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:52:14 by hlibine           #+#    #+#             */
-/*   Updated: 2024/10/24 09:59:24 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/21 15:37:32 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ static void	check_textures(char **textures)
 static char	**import_textures(char **file)
 {
 	char	**out;
+	char	*tmp;
 	int		i;
 
 	i = -1;
@@ -83,14 +84,16 @@ static char	**import_textures(char **file)
 	out[4] = NULL;
 	while (file[++i])
 	{
-		if (file[i][0] == 'N' && file[i][1] == 'O' && out[0] == NULL)
-			out[0] = ft_strdup(file[i]);
-		else if (file[i][0] == 'S' && file[i][1] == 'O' && out[1] == NULL)
-			out[1] = ft_strdup(file[i]);
-		else if (file[i][0] == 'W' && file[i][1] == 'E' && out[2] == NULL)
-			out[2] = ft_strdup(file[i]);
-		else if (file[i][0] == 'E' && file[i][1] == 'A' && out[3] == NULL)
-			out[3] = ft_strdup(file[i]);
+		tmp = ft_strtrim(file[i], " ");
+		if (tmp[0] == 'N' && tmp[1] == 'O' && out[0] == NULL)
+			out[0] = ft_strdup(tmp);
+		else if (tmp[0] == 'S' && tmp[1] == 'O' && out[1] == NULL)
+			out[1] = ft_strdup(tmp);
+		else if (tmp[0] == 'W' && tmp[1] == 'E' && out[2] == NULL)
+			out[2] = ft_strdup(tmp);
+		else if (tmp[0] == 'E' && tmp[1] == 'A' && out[3] == NULL)
+			out[3] = ft_strdup(tmp);
+		ft_free(tmp);
 	}
 	return (out);
 }

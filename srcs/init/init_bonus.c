@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 01:09:24 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/18 11:36:10 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/21 15:03:00 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,12 @@ bool	init_minimap(t_game *game)
 
 void	init_bonus(t_game *game)
 {
-	game->bonus = false;
+	game->bonus = BONUS_FLAG;
 	game->minimap.img.img = NULL;
 	game->minimap.width = 0;
 	game->minimap.height = 0;
-	if (BONUS_FLAG)
+	if (game->bonus == 1)
 	{
-		game->bonus = true;
 		if (!init_minimap(game))
 			exit(EXIT_FAILURE);
 	}

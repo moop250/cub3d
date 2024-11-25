@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 11:07:07 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/17 18:35:42 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/21 14:57:12 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,25 +64,5 @@ void	render_pixel(t_game *game, t_ray *ray, int x, int y)
 		if (ray->side == 1)
 			color = adjust_brightness(color, 0.8);
 	}
-	if (x >= 0 && x < game->width && y >= 0 && y < game->height)
-		put_pixel(&game->mlx.img, x, y, color);
+	put_pixel(&game->mlx.img, x, y, color);
 }
-// maybe: color = (color >> 1) & 8355711;
-
-// Calculate the color with shading based on the wall distance
-// static int	calculate_shaded_color(int color, double wall_dist)
-// {
-// 	double	shading_factor;
-// 	int		red;
-// 	int		green;
-// 	int		blue;
-
-// 	shading_factor = 1.0 / (1.0 + wall_dist * 0.2);
-// 	red = ((color >> 16) & 0xFF) * shading_factor;
-// 	green = ((color >> 8) & 0xFF) * shading_factor;
-// 	blue = (color & 0xFF) * shading_factor;
-// 	red = ft_clamp((int)(((color >> 16) & 0xFF) * shading_factor), 0, 255);
-// 	green = ft_clamp((int)(((color >> 8) & 0xFF) * shading_factor), 0, 255);
-// 	blue = ft_clamp((int)((color & 0xFF) * shading_factor), 0, 255);
-// 	return ((red << 16) | (green << 8) | blue);
-// }
