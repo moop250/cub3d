@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/25 15:47:04 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:13:54 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@
 # define RAY_LIGHT_COLOR 0x007F0000
 # define RAY_DARK_COLOR 0x00FF0000
 
-# define MOVE_SPEED 0.07
+# define MOVE_SPEED 0.08
 # define ROTATE_SPEED 0.05
 # define ROTATION_DEGREE 5.0
 
@@ -206,11 +206,7 @@ typedef struct s_textures
  *
  * @param ptr MLX pointer.
  * @param win_ptr MLX window pointer.
- * @param img_ptr MLX image pointer.
- * @param addr Image address.
- * @param bpp Bits per pixel.
- * @param size_line Size of a line in bytes.
- * @param endian Endianess.
+ * @param img Image data.
  */
 typedef struct s_mlx
 {
@@ -230,26 +226,6 @@ typedef struct s_move_bools
 	bool	rotate_left;
 	bool	is_rotating;
 }	t_move_bools;
-
-/**
- * Bresenham structure
- *
- * @param dx Delta x.
- * @param dy Delta y.
- * @param sx Step x.
- * @param sy Step y.
- * @param error Error.
- * @param e2 Error 2.
- */
-typedef struct s_bresenham
-{
-	int	dx;
-	int	dy;
-	int	sx;
-	int	sy;
-	int	error;
-	int	e2;
-}	t_bresenham;
 
 typedef struct s_minimap
 {
