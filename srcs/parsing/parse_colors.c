@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:09:16 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/25 17:02:42 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/25 17:09:33 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ static bool	treat_split(t_game *game, char **split, const char mode)
 		ints.j = -1;
 		tmp = ft_strtrim(split[ints.i], " ");
 		if (!tmp)
-			return (printf("malloc failed\n"), false);
+			return (printf("Error: malloc failed\n"), false);
 		ft_free(split[ints.i]);
 		split[ints.i] = tmp;
 		while (split[ints.i][++ints.j])
 			if (!ft_strchr("0123456789", split[ints.i][ints.j]))
-				return (printf("Obstruction in numbers\n"), false);
+				return (printf("Error: Obstruction in numbers\n"), false);
 	}
 	if (ints.i != 3)
 		return (printf("Invalid floor or ceiling color format\n"), false);
@@ -75,13 +75,14 @@ static bool	set_color(t_game *game, char *line, const char mode, int	*c)
 	if (!tmp)
 		return (ft_free_bool(tmp, "trim failed", false));
 	split = ft_split(tmp, ',');
+	ft_free(tmp);
 	if (!split)
 		return (ft_free_bool(tmp, "split failed", false));
 	if (!treat_split(game, split, mode))
 		return (ft_free_split(split), false);
 	ft_free_split(split);
 	++*c;
-	return (ft_free(tmp), true);
+	return (true);
 }
 
 static char	*prepare_colors(const char *line)
