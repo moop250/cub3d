@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:09:16 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/14 17:24:22 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/25 16:19:33 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,55 +51,67 @@ static void	treat_split(t_game *game, char **split, char mode)
 }
 
 // Set the color of the floor and ceiling
-static bool	set_color(t_game *game, char *line, char mode)
+static bool	set_color(t_game *game, char *line, const char mode, int	*c)
 {
 	int		i;
 	char	*tmp;
 	char	**split;
 
-	i = -1;
-	tmp = ft_strtrim(line, "FC ");
-	if (!tmp)
-		ft_error("malloc failed");
-	printf("Color set loaded: %s\n", tmp);
-	while (tmp[++i])
+	i = 0;
+	printf("Color set loaded: %s\n", line);
+	while (line[++i])
 	{
-		if (!ft_strchr(COLOR_CHARS, tmp[i]))
-			return (ft_free_bool(tmp, COLOR_ERR_CHAR, false));
+		if (!ft_strchr(COLOR_CHARS, line[i]))
+			return (ft_free(line), false);
 	}
+	tmp = ft_strtrim(line, "FC ");
+	ft_free(line);
+	if (!tmp)
+		return (ft_free_bool(tmp, "trim failed", false));
 	split = ft_split(tmp, ',');
 	if (!split)
 		return (ft_free_bool(tmp, "split failed", false));
 	treat_split(game, split, mode);
 	ft_free_split(split);
-	return (ft_free_bool(tmp, NULL, true));
+	++*c;
+	return (ft_free(tmp), true);
+}
+
+static char	*prepare_colors(const char *line)
+{
+	char	*tmp;
+
+	tmp = ft_strtrim(line, " ");
+	if (!tmp)
+		ft_error("malloc failed");
+	return (tmp);
 }
 
 bool	parse_colors(t_game *game, char **file_content)
 {
-	int		i;
-	int		counts[2];
+	int		ints[3];
+	char	*tmp;
 
-	i = -1;
-	counts[0] = 0;
-	counts[1] = 0;
-	while (file_content[++i])
+	ints[0] = -1;
+	ints[1] = 0;
+	ints[2] = 0;
+	while (file_content[++ints[0]])
 	{
-		if (file_content[i][0] == 'F' && file_content[i][1] == ' ')
+		tmp = prepare_colors(file_content[ints[0]]);
+		if (tmp[0] == 'F' && tmp[1] == ' ')
 		{
-			if (!set_color(game, file_content[i], 'F'))
+			if (!set_color(game, tmp, 'F', &ints[1]))
 				return (false);
-			++counts[0];
 		}
-		else if (file_content[i][0] == 'C' && file_content[i][1] == ' ')
+		else if (tmp[0] == 'C' && tmp[1] == ' ')
 		{
-			if (!set_color(game, file_content[i], 'C'))
+			if (!set_color(game, tmp, 'C', &ints[2]))
 				return (false);
-			++counts[1];
 		}
+		else
+			ft_free(tmp);
 	}
-	if (counts[0] != 1 || counts[1] != 1)
+	if (ints[1] != 1 || ints[2] != 1)
 		return (false);
-	check_colors(game);
-	return (true);
+	return (check_colors(game), true);
 }
