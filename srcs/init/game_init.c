@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 11:52:25 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/18 11:41:31 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:44:17 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,12 @@ static bool	game_mlx_init(t_game *game)
 	if (!game->mlx.win_ptr)
 		return (bcleanup_game(game, "Failed to create window", false));
 	game->mlx.img.img = mlx_new_image(game->mlx.ptr, game->width, game->height);
-	game->mlx.tmp_img = mlx_new_image(game->mlx.ptr, game->width, game->height);
-	if (!game->mlx.img.img || !game->mlx.tmp_img)
+	if (!game->mlx.img.img)
 		return (bcleanup_game(game, "Failed to create image", false));
 	game->mlx.img.addr = mlx_get_data_addr(game->mlx.img.img,
 			&game->mlx.img.bpp, &game->mlx.img.size_line,
 			&game->mlx.img.endian);
-	game->mlx.tmp_addr = mlx_get_data_addr(game->mlx.tmp_img,
-			&game->mlx.img.bpp, &game->mlx.img.size_line,
-			&game->mlx.img.endian);
-	if (!game->mlx.img.addr || !game->mlx.tmp_addr)
+	if (!game->mlx.img.addr)
 		return (bcleanup_game(game, "Failed to get image address", false));
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/21 15:48:28 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:47:04 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,8 +217,6 @@ typedef struct s_mlx
 	void	*ptr;
 	void	*win_ptr;
 	t_img	img;
-	void	*tmp_img;
-	char	*tmp_addr;
 }	t_mlx;
 
 typedef struct s_move_bools
@@ -278,7 +276,10 @@ typedef struct s_minimap
  * @param tex_id Current texture.
  * @param tex Array of textures.
  * @param tex_pixels Array of texture pixels.
- *
+ * @param move Movement flags.
+ * @param last_time Last time the frame was rendered.
+ * @param bonus Bonus flag.
+ * @param minimap Minimap data.
 */
 typedef struct s_game
 {
@@ -311,7 +312,6 @@ typedef struct s_game
  * @param wall_dist Distance to the wall.
  * @param wall_x X coordinate of the wall hit.
  * @param hit Flag indicating if the ray hit a wall.
- * @param pitch Pitch of the ray.
  * @param line_height Height of the wall slice to draw.
  * @param draw_start Start of the wall slice to draw.
  * @param draw_end End of the wall slice to draw.
@@ -354,7 +354,6 @@ void	*parsing(t_game *game, char *lvl_path);
 /* Cleanup */
 void	freeall(void);
 void	freemlx(t_mlx mlx);
-//void	*free_pixels(int **pixels, unsigned int rows);
 void	*mlx_cleanup(t_game *game);
 void	*destroy_textures(t_game *game);
 void	*cleanup_game(t_game *game);
@@ -374,7 +373,6 @@ void	init_ray(t_game *game, t_ray *ray, int x);
 void	init_bonus(t_game *game);
 
 /* rendering */
-//void	put_pixel(t_game *game, int x, int y, int color);
 void	put_pixel(t_img *img, int x, int y, int color);
 t_img	*get_current_texture(t_game *game, t_ray *ray);
 void	render_pixel(t_game *game, t_ray *ray, int x, int y);
@@ -389,7 +387,6 @@ void	rotate_player(t_game *game, t_move dir);
 int		exit_game(t_game *game);
 int		handle_keypress(int keycode, t_game *game);
 int		handle_keyrelease(int keycode, t_game *game);
-int		key_hook_up(int keycode, t_game *game);
 
 /* Time */
 double	get_current_time(void);
