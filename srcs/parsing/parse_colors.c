@@ -6,11 +6,12 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:09:16 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/25 16:19:33 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/25 17:02:42 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+#include <stdio.h>
 
 static void	check_colors(t_game *game)
 {
@@ -26,28 +27,33 @@ static void	check_colors(t_game *game)
 	printf("\nColors validated\n");
 }
 
-static void	treat_split(t_game *game, char **split, char mode)
+static bool	treat_split(t_game *game, char **split, const char mode)
 {
-	int		i;
+	t_indexes	ints;
+	char		*tmp;
 
-	i = 0;
-	while (split[i])
-		++i;
-	if (i != 3)
+	ints.i = -1;
+	while (split[++ints.i])
 	{
-		ft_free_split(split);
-		if (mode == 'F')
-			ft_error("Invalid floor color format");
-		else
-			ft_error("Invalid ceiling color format");
+		ints.j = -1;
+		tmp = ft_strtrim(split[ints.i], " ");
+		if (!tmp)
+			return (printf("malloc failed\n"), false);
+		ft_free(split[ints.i]);
+		split[ints.i] = tmp;
+		while (split[ints.i][++ints.j])
+			if (!ft_strchr("0123456789", split[ints.i][ints.j]))
+				return (printf("Obstruction in numbers\n"), false);
 	}
-	i = -1;
+	if (ints.i != 3)
+		return (printf("Invalid floor or ceiling color format\n"), false);
 	if (mode == 'F')
-		while (++i <= 2)
-			game->mapdata->colors[0][i] = ft_atoi(split[i]);
+		while (--ints.i >= 0)
+			game->mapdata->colors[0][ints.i] = ft_atoi(split[ints.i]);
 	else
-		while (++i <= 2)
-			game->mapdata->colors[1][i] = ft_atoi(split[i]);
+		while (--ints.i >= 0)
+			game->mapdata->colors[1][ints.i] = ft_atoi(split[ints.i]);
+	return (true);
 }
 
 // Set the color of the floor and ceiling
@@ -71,7 +77,8 @@ static bool	set_color(t_game *game, char *line, const char mode, int	*c)
 	split = ft_split(tmp, ',');
 	if (!split)
 		return (ft_free_bool(tmp, "split failed", false));
-	treat_split(game, split, mode);
+	if (!treat_split(game, split, mode))
+		return (ft_free_split(split), false);
 	ft_free_split(split);
 	++*c;
 	return (ft_free(tmp), true);
