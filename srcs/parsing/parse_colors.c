@@ -6,7 +6,7 @@
 /*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 15:09:16 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/25 16:56:33 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/11/25 17:02:42 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	check_colors(t_game *game)
 	printf("\nColors validated\n");
 }
 
-static bool	treat_split(t_game *game, char **split, char mode)
+static bool	treat_split(t_game *game, char **split, const char mode)
 {
 	t_indexes	ints;
 	char		*tmp;
@@ -36,11 +36,11 @@ static bool	treat_split(t_game *game, char **split, char mode)
 	while (split[++ints.i])
 	{
 		ints.j = -1;
-		tmp = split[ints.i];
-		split[ints.i] = ft_strtrim(tmp, " ");
-		ft_free(tmp);
-		if (!split[ints.i])
+		tmp = ft_strtrim(split[ints.i], " ");
+		if (!tmp)
 			return (printf("malloc failed\n"), false);
+		ft_free(split[ints.i]);
+		split[ints.i] = tmp;
 		while (split[ints.i][++ints.j])
 			if (!ft_strchr("0123456789", split[ints.i][ints.j]))
 				return (printf("Obstruction in numbers\n"), false);
