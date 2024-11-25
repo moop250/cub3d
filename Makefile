@@ -6,12 +6,12 @@
 #    By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/03 16:51:54 by hlibine           #+#    #+#              #
-#    Updated: 2024/11/17 16:37:54 by dcaro-ro         ###   ########.fr        #
+#    Updated: 2024/11/25 14:36:48 by dcaro-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # General values
-NAME		=	cub3d
+NAME		=	cub3D
 
 CC			=	gcc
 FLAGS		=	-Wall -Wextra -Werror -g $(BONUS_FLAG)
