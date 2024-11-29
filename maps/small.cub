@@ -1,0 +1,13 @@
+NO ./textures/wolftex/wood.xpm
+SO ./textures/wolftex/barrel.xpm
+WE ./textures/wolftex/barrel.xpm
+EA .//textures/wolftex/wood.xpm
+
+F 220,111,119
+C 225,111,200
+
+111111
+100101
+101001
+1100N1
+111111
