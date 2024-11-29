@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:52:14 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/21 15:37:32 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/29 17:16:34 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,13 @@ void	parse_textures(t_game *game)
 	i = -1;
 	textures = import_textures(game->mapdata->tmp);
 	while (++i < 4)
+	{
 		if (!textures[i])
+		{
+			ft_free_split(textures);
 			ft_error("Missing texture");
+		}
+	}
 	check_textures(textures);
 	i = 0;
 	while (textures[i])
