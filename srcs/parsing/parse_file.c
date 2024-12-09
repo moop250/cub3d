@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:06:00 by hlibine           #+#    #+#             */
-/*   Updated: 2024/12/02 14:17:19 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/12/09 14:49:04 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ char	**file_parser(char *file_path)
 	file = file_parser_loop(fd, line, file, i);
 	close(fd);
 	if (!file)
-		ft_error("Invalid file content");
+		ft_error("File is empty");
 	if (!file_check(file))
 	{
 		ft_free_split(file);
