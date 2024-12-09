@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_walls.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:35:38 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/11/19 16:29:55 by hlibine          ###   ########.fr       */
+/*   Updated: 2024/12/09 16:37:48 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	handle_spawn(char c, t_player *player, int x, int y)
 
 static int	skip_whitespace(char **map, int *i, int *j)
 {
-	while (ft_strchr(WHITESPACE, map[*i][*j]))
+	while (map[*i][*j] == ' ' || map[*i][*j] == '\t')
 		++(*j);
 	return (*j);
 }
@@ -81,11 +81,11 @@ int	check_walls(char **map, t_player *player)
 	ind.k = 0;
 	while (map[++ind.i])
 	{
-		ind.j = -1;
-		while (map[ind.i][++ind.j])
+		ind.j = 0;
+		while (map[ind.i][ind.j++])
 		{
 			ind.j = skip_whitespace(map, &ind.i, &ind.j);
-			if (map[ind.i][ind.j] == '1')
+			if (map[ind.i][ind.j] == '\0')
 				continue ;
 			if (is_valid_cell(map[ind.i][ind.j], map, ind.i, ind.j) == -1)
 				return (-1);
