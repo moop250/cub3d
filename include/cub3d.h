@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:09:07 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/25 16:13:54 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/12/09 15:45:43 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@
 # define PI 3.14159265358979323846
 # define HALF_PI 1.57079632679489661923
 # define TWO_PI 6.28318530717958647692
-//# define STEP_SIZE 0.1
 
 # define WHITESPACE " \n\t"
 # define MAP_CHARS "01NSEW"
@@ -65,7 +64,7 @@
 # define RAY_LIGHT_COLOR 0x007F0000
 # define RAY_DARK_COLOR 0x00FF0000
 
-# define MOVE_SPEED 0.08
+# define MOVE_SPEED 0.09
 # define ROTATE_SPEED 0.05
 # define ROTATION_DEGREE 5.0
 

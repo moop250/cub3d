@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 19:51:12 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/19 16:34:39 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/12/09 15:46:40 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,33 +69,36 @@ static void	collision(t_game *game, double new_x, double new_y)
 	move(game, BACKWARD) to move backward.
 	move(game, RIGHT) to strafe right.
 	move(game, LEFT) to strafe left.
+	steps[0] == move_step
+	steps[1] == strafe_step
 */
 void	move_player(t_game *game, t_move dir)
 {
 	t_player	*player;
-	double		move_step;
-	double		strafe_step;
-	double		new_x;
-	double		new_y;
+	double		steps[2];
+	t_vector	new_pos;
 
-	move_step = 0;
-	strafe_step = 0;
+	steps[0] = 0;
+	steps[1] = 0;
 	player = &game->mapdata->player;
-	if (dir == FORWARD)
-		move_step = MOVE_SPEED;
-	else if (dir == BACKWARD)
-		move_step = -MOVE_SPEED;
-	else if (dir == LEFT)
-		strafe_step = MOVE_SPEED;
-	else if (dir == RIGHT)
-		strafe_step = -MOVE_SPEED;
-	else
-		return ;
-	new_x = player->pos.x + (player->dir.x * move_step)
-		- (player->dir.y * strafe_step);
-	new_y = player->pos.y + (player->dir.y * move_step)
-		+ (player->dir.x * strafe_step);
-	collision(game, new_x, new_y);
+	if (MOVE_SPEED >= 0.0 && MOVE_SPEED <= 1.0)
+	{
+		if (dir == FORWARD)
+			steps[0] = MOVE_SPEED;
+		else if (dir == BACKWARD)
+			steps[0] = -MOVE_SPEED;
+		else if (dir == LEFT)
+			steps[1] = MOVE_SPEED;
+		else if (dir == RIGHT)
+			steps[1] = -MOVE_SPEED;
+		else
+			return ;
+	}
+	new_pos.x = player->pos.x + (player->dir.x * steps[0])
+		- (player->dir.y * steps[1]);
+	new_pos.y = player->pos.y + (player->dir.y * steps[0])
+		+ (player->dir.x * steps[1]);
+	collision(game, new_pos.x, new_pos.y);
 }
 
 /*

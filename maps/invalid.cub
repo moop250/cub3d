@@ -1,7 +1,7 @@
 NO ./textures/wolftex/bluestone.xpm
 SO ./textures/wolftex/eagle.xpm
 WE ./textures/wolftex/mossy.xpm
-EA .//textures/wolftex/purplestone.xpm
+EA ./textures/wolftex/purplestone.xpm
 
 
 F 220,111,119

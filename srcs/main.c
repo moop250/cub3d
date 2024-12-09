@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:38:56 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/25 15:47:55 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/11/29 16:11:50 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		ft_putendl_fd("Usage: ./cub3d <map.cub>", 2);
+		ft_putendl_fd("Usage: ./cub3D <map.cub>", 2);
 		return (1);
 	}
 	game = get_game();
