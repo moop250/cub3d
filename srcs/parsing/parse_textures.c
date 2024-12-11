@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:52:14 by hlibine           #+#    #+#             */
-/*   Updated: 2024/12/11 14:02:52 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/12/11 14:17:51 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ static char	**import_textures(char **file)
 
 	i = -1;
 	out = malloc(sizeof(char *) * 5);
-	out[0] = NULL;
-	out[1] = NULL;
-	out[2] = NULL;
-	out[3] = NULL;
-	out[4] = NULL;
+	if (!out)
+		ft_error("malloc");
+	while (++i <= 4)
+		out[i] = NULL;
+	i = -1;
 	while (file[++i])
 	{
 		tmp = ft_strtrim(file[i], " ");
