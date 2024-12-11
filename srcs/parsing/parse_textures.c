@@ -6,7 +6,7 @@
 /*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:52:14 by hlibine           #+#    #+#             */
-/*   Updated: 2024/11/29 15:59:32 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/12/11 14:02:52 by dcaro-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,16 +109,18 @@ void	parse_textures(t_game *game)
 	{
 		if (!textures[i])
 		{
-			ft_free_split(textures);
+			i = -1;
+			while (++i < 4)
+				if (textures[i])
+					ft_free(textures[i]);
+			ft_free(textures);
 			ft_error("Missing texture");
 		}
 	}
 	check_textures(textures);
 	i = 0;
 	while (textures[i])
-	{
 		printf("Texture \"%s\" found\n", textures[i++]);
-	}
 	set_textures(game, textures);
 	printf("\nTextures validated\n\n");
 	ft_free_split(textures);
