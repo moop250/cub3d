@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_walls.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcaro-ro <dcaro-ro@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: hlibine <hlibine@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 17:35:38 by dcaro-ro          #+#    #+#             */
-/*   Updated: 2024/12/09 16:37:48 by dcaro-ro         ###   ########.fr       */
+/*   Updated: 2024/12/12 01:49:35 by hlibine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,22 @@ static void	handle_spawn(char c, t_player *player, int x, int y)
 {
 	player->pos.x = x + 0.5;
 	player->pos.y = y + 0.5;
-	if (c == 'N')
+	if (c == 'S')
 	{
 		player->angle = HALF_PI;
 		player->plane = (t_vector){0.66, 0};
 	}
-	else if (c == 'S')
+	else if (c == 'N')
 	{
 		player->angle = 3 * HALF_PI;
 		player->plane = (t_vector){-0.66, 0};
 	}
-	else if (c == 'E')
+	else if (c == 'W')
 	{
 		player->angle = 2 * PI;
 		player->plane = (t_vector){0, -0.66};
 	}
-	else if (c == 'W')
+	else if (c == 'E')
 	{
 		player->angle = PI;
 		player->plane = (t_vector){0, 0.66};
@@ -91,7 +91,7 @@ int	check_walls(char **map, t_player *player)
 				return (-1);
 			if (ft_strchr(SPAWN_CHARS, map[ind.i][ind.j]))
 			{
-				if (ind.k > 0)
+				if (ind.k > 1)
 					return (ind.k);
 				handle_spawn(map[ind.i][ind.j], player, ind.j, ind.i);
 				map[ind.i][ind.j] = '0';
