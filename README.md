@@ -1,5 +1,5 @@
 # cub3d
-![](https://img.shields.io/badge/in_progress-orange)
+![](https://img.shields.io/badge/110%2F100-brightgreen)
 
 ## Description
 
@@ -16,14 +16,13 @@ cub3d is a project inspired by the legendary Wolfenstein 3D, aiming to introduce
 
 The bonus part of cub3d enhances the basic functionality with the following features:
 
-- **Floor and Ceiling Texturing:** Adds more realism by texturing the floor and ceiling.
-- **Sprite Rendering:** Integrates visible sprites, allowing for objects within the world.
+- **Wall Collisions:** Gives the walls collisions stopping the player from traversing them. 
 - **Minimap:** Implements a minimap for easier navigation.
-- **Lighting Effects:** Introduces basic lighting and shading for a more immersive experience.
 
 ## Compatibility & Size
 
 ![](https://img.shields.io/badge/Linux-0a97f5?style=for-the-badge&logo=linux&logoColor=white)
+![](	https://img.shields.io/badge/mac%20os%20(in%20theory)-000000?style=for-the-badge&logo=apple&logoColor=white)
 
 ![](https://img.shields.io/github/languages/code-size/moop250/cub3d?color=5BCFFF)
 
@@ -45,4 +44,4 @@ Example usage of cub3d:
 ```
 ./cub3d maps/map.cub
 ```
-Use arrow keys or `W`, `A`, `S`, `D` to navigate the 3D environment. Explore the map and enjoy the raycasting demo!
+Use arrow keys or `W`, `A`, `S`, `D`, `←`, `→` to navigate the 3D environment. Explore the map and enjoy the raycasting demo!
